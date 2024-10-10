@@ -1,7 +1,0 @@
-import javax.swing.*;
-
-public class ClashRoyal {
-    public static void main(String[] args) {
-        UI.CreateUI();
-    }
-}
