@@ -1,18 +1,28 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Troop{
     Card card;
-    double[] cords;
-    JLabel label;
     Troop target;
-    ArrayList<Troop> targetedBy = new ArrayList<>();
     Spieler affiliation;
 
+    double[] cords;
+    int attackState = 0, height, width;
+    double health;
+
+    ArrayList<Troop> targetedBy = new ArrayList<>();
+
+    JLabel label;
+    JProgressBar healthBar = new JProgressBar(0, 100);
+
     Troop(Card card, double x, double y, Spieler affiliation){
+        healthBar.setForeground(new Color(0xFF59F8C3, true));
         this.card = card;
+        health = card.health;
+        height = 100;
+        width = 100;
         cords = new double[]{x - 50, y - 50};
         this.affiliation = affiliation;
         PlaceTroop();
@@ -20,24 +30,39 @@ public class Troop{
 
     void PlaceTroop(){
         label = new JLabel(card.icon);
-        label.setBounds((int) cords[0], (int) cords[1], 100, 100);
+        label.setBounds((int) cords[0], (int) cords[1], width, height);
+        UI.canvasButton.add(healthBar);
         UI.canvasButton.add(label);
     }
 
+    /**
+     * Bewegt Truppen abhängig von der Entfernung zum Tower.
+     * Berechnet Relation zwischen x und y Kord und passt die Kords passend zur Relation an.
+     * Max speed ist speed / 10 · 1.25;
+     */
     void Move(){
-        if (target != null) {
-            //range iwi immer 0
-            if (TargetInRange()) {
-                return;
-            }
-            double[] distance = DistanceInDirection(target.cords);
-            double relation = Math.abs(distance[0] / distance[1]);
-            cords[0] += (double) card.speed / 20 * relation * (distance[0] / Math.abs(distance[0]));
-            cords[1] += (double) card.speed / 20 / relation * (distance[1] / Math.abs(distance[1]));
-        }else {
-        cords[1] -= (double) card.speed / 10;
+        if (target == null) {
+            return;
         }
-        label.setBounds((int) cords[0], (int) cords[1], 100, 100);
+        //range iwi immer 0
+        if (TargetInRange()) {
+            return;
+        }
+        double[] distance = DistanceInDirection(target.cords);
+        double relation = Math.abs(distance[0] / distance[1]);
+        //Änderung in x und y Richtung; Als Variable, weil wird sonst zu schnell
+        double xChange = (double) card.speed / 20 * relation * (distance[0] / Math.abs(distance[0]));
+        double yChange = (double) card.speed / 20 / relation * (distance[1] / Math.abs(distance[1]));
+        double normedSpeed = (double) card.speed / 10;
+
+        if (xChange > normedSpeed || xChange < -normedSpeed)
+            xChange = (double) card.speed / 10 * (distance[0] / Math.abs(distance[0]) * 1.25);
+        if (yChange > normedSpeed || yChange < -normedSpeed)
+            yChange = (double) card.speed / 10 * (distance[1] / Math.abs(distance[1]) * 1.25);
+
+        cords[0] += xChange;
+        cords[1] += yChange;
+        label.setBounds((int) cords[0], (int) cords[1], width, height);
     }
 
     double CheckCords(int cord /*0 = x, 1 = y*/){
@@ -50,7 +75,7 @@ public class Troop{
      */
     void GetTarget(ArrayList<Troop> fieldsTroops, ArrayList<Troop> towers){
         // Vermeidet null pointer Exceptions
-        if (target == null || Objects.equals(target.card.name, "tower")) {
+        if (target == null || Objects.equals(target.card.name, "Tower")) {
             target = new Troop(towers.getFirst().card, 100000, 1000000,towers.getFirst().affiliation);
             target.cords = new double[]{10000, 10000};
         }else{return;}
@@ -73,8 +98,6 @@ public class Troop{
                 fieldsTroop.targetedBy.add(this);
             }
         }
-
-
     }
 
            /*         try {
@@ -118,15 +141,24 @@ public class Troop{
     }
 
     void TakeDamage(double damage){
-        card.health -= damage;
+        health -= damage;
     }
 
     void MakeDamage(){
+        attackState++;
+        if (attackState == card.attackSpeed) {
         target.TakeDamage(card.damage);
+        attackState = 0;
+        }
     }
 
     boolean Alive(){
-        return card.health > 0;
+        return health > 0;
+    }
+
+    void HealthBar(){
+        healthBar.setValue((int) (100 / card.health * health));
+        healthBar.setBounds((int) (cords[0] + 0.25 * width), (int) (cords[1] - 0.05 * height), 50, 15);
     }
 
 }

@@ -1,8 +1,6 @@
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class Spielfeld {
     ArrayList<Troop> troops = new ArrayList<>();
@@ -25,35 +23,49 @@ public class Spielfeld {
         timer.schedule(task, cooldown, cooldown);
     }
 
+    /**
+     * Timer der das Game laufen lässt.
+     * Normalerweise 60fps.
+     * Lässt Truppen bewegen, targets suchen, damage machen, krepieren, beseitigen.
+     */
     void TimeShooter(){
         ArrayList<Troop> bucketKicker = new ArrayList<>();
-        for (int i = 0; i < troops.size(); i++) {
-//            if (troops.get(i).card.health < -2) {
-//                System.out.println("Frechheit");
-//            }
-            Troop troop = troops.get(i);
+        for (Troop troop : troops) {
             troop.Move();
-            if (troop.CheckCords(1) < 0) {
-                troop.cords[1] = 500;
-            }
             troop.GetTarget(troops, tower);
             if (troop.TargetInRange()) {
                 troop.MakeDamage();
+                //hier schlechter
             }
             //funktioniert hier iwi besser
                 if (!troop.Alive()) {
                     bucketKicker.add(troop);
+                }else{
+                    troop.HealthBar();
                 }
         }
-//        if (!troops.isEmpty()) {
-//        if (troops.getFirst().card.health < -2 || troops.getLast().card.health < -2) {
-//            System.out.println("Frechheit");
-//        }
-//        }
             for (Troop troop : bucketKicker){
                 KickTheBucket(troop);
         }
-//        UI.canvasButton.repaint();
+            TowerActualizer();
+    }
+
+    void TowerActualizer(){
+        ArrayList<Troop> bucketKicker = new ArrayList<>();
+        for (Troop currentTower : tower) {
+            if (!currentTower.Alive()) bucketKicker.add(currentTower);
+            if (currentTower.health < 0){
+                System.out.println("lol");
+            }
+            currentTower.GetTarget(troops, tower);
+            if (currentTower.TargetInRange()){
+            currentTower.MakeDamage();
+            }
+            currentTower.HealthBar();
+        }
+        for (Troop troop : bucketKicker){
+            KickTheBucket(troop);
+        }
     }
 
     /**
@@ -71,12 +83,18 @@ public class Spielfeld {
     }
 
     void KickTheBucket(Troop victim){
+        if(Objects.equals(victim.card.name, "Tower")) RemoveTower(victim);
         System.out.println(victim.card.name + " kicked the bucket at " + victim.cords[0] + " " + victim.cords[1]);;
         for (Troop troop : victim.targetedBy) {
             troop.target = null;
         }
         RemoveTroop(victim);
-        victim.card.health = 100;
+    }
+
+    void RemoveTower(Troop victimTower){
+        tower.remove(victimTower);
+        victimTower.label.setVisible(false);
+        victimTower.healthBar.setVisible(false);
     }
 
     int switcher;
@@ -91,7 +109,8 @@ public class Spielfeld {
             if (switcher == 0) {
                 switcher = 1;
             } else {
-                switcher = 0;
+//              normalerweise = 0
+                switcher = 1;
             }
             NewTroop(selectedTroop, x, y, player[switcher]);
         }catch (Exception e){
@@ -103,6 +122,7 @@ public class Spielfeld {
     void RemoveTroop(Troop troop){
         troops.remove(troop);
         troop.label.setVisible(false);
+        troop.healthBar.setVisible(false);
         UI.canvasButton.remove(troop.label);
     }
 
@@ -112,13 +132,13 @@ public class Spielfeld {
 
     void CreateTowers(){
         Spieler playerAffil = player[0];
-        double[][] towerCords = new double[][]{{75, 130}, {325, 80}, {575, 130}, {75, 930}, {325, 980}, {575, 930}};
+        double[][] towerCords = new double[][]{{125, 130}, {375, 80}, {625, 130}, {125, 930}, {375, 980}, {625, 930}};
         for (int i = 0; i < towerCords.length; i++) {
             double[] towerCord = towerCords[i];
             if (towerCords.length / 2 <= i)playerAffil = player[1];
-            Troop tower = new Troop(new Card("Tower", new ImageIcon("images/tower.png"), 0, 400, 3500, 30), towerCord[0], towerCord[1], playerAffil);
+            Troop tower = new Troop(new Card("Tower", new ImageIcon("images/tower.png"), 0, 400, 3500, 10, 30), towerCord[0], towerCord[1], playerAffil);
             this.tower.add(tower);
-            tower.label.setBounds((int) towerCord[0], (int) towerCord[1], 50, 50);
+//            tower.label.setBounds((int) towerCord[0], (int) towerCord[1], 100, 100);
         }
     }
 }
