@@ -4,7 +4,8 @@ import java.util.Timer;
 
 public class Spielfeld {
     ArrayList<Troop> troops = new ArrayList<>();
-    ArrayList<Troop> tower = new ArrayList<>();
+    ArrayList<Tower> towers = new ArrayList<>();
+    ArrayList<Entity> units = new ArrayList<>();
     Card selectedTroop;
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
@@ -29,45 +30,11 @@ public class Spielfeld {
      * Lässt Truppen bewegen, targets suchen, damage machen, krepieren, beseitigen.
      */
     void TimeShooter(){
-        ArrayList<Troop> bucketKicker = new ArrayList<>();
-        for (Troop troop : troops) {
-            troop.Move();
-//            troop.GetTarget(troops, tower);
-            troop.Targeting(troops, tower);
-            if (troop.TargetInRange()) {
-                troop.MakeDamage();
-                //hier schlechter
-            }
-            //funktioniert hier iwi besser
-                if (!troop.Alive()) {
-                    bucketKicker.add(troop);
-                }else{
-                    troop.HealthBar();
-                }
+        for (Entity entity : units){
+            entity.Actualize(troops, towers);
         }
-            for (Troop troop : bucketKicker){
-                KickTheBucket(troop);
-        }
-            TowerActualizer();
     }
 
-    void TowerActualizer(){
-        ArrayList<Troop> bucketKicker = new ArrayList<>();
-        for (Troop currentTower : tower) {
-            if (!currentTower.Alive()) bucketKicker.add(currentTower);
-            if (currentTower.health < 0){
-                System.out.println("lol");
-            }
-            currentTower.Targeting(troops, tower);
-            if (currentTower.TargetInRange()){
-            currentTower.MakeDamage();
-            }
-            currentTower.HealthBar();
-        }
-        for (Troop troop : bucketKicker){
-            KickTheBucket(troop);
-        }
-    }
 
     /**
      * Wandelt Karten in Truppen um und placed Truppen
@@ -83,17 +50,17 @@ public class Spielfeld {
         selectedTroop = null;
     }
 
-    void KickTheBucket(Troop victim){
-        if(Objects.equals(victim.card.name, "Tower")) RemoveTower(victim);
-        System.out.println(victim.card.name + " kicked the bucket at " + victim.cords[0] + " " + victim.cords[1]);;
-        for (Troop troop : victim.targetedBy) {
-            troop.target = null;
-        }
-        RemoveTroop(victim);
-    }
+//    void KickTheBucket(Entity victim){
+//        if(Objects.equals(victim.card.name, "Tower")) RemoveTower(victim);
+//        System.out.println(victim.card.name + " kicked the bucket at " + victim.cords[0] + " " + victim.cords[1]);;
+//        for (Entity troop : victim.targetedBy) {
+//            troop.target = null;
+//        }
+//        RemoveTroop(victim);
+//    }
 
-    void RemoveTower(Troop victimTower){
-        tower.remove(victimTower);
+    void RemoveTower(Tower victimTower){
+        towers.remove(victimTower);
         victimTower.label.setVisible(false);
         victimTower.healthBar.setVisible(false);
     }
@@ -137,8 +104,8 @@ public class Spielfeld {
         for (int i = 0; i < towerCords.length; i++) {
             double[] towerCord = towerCords[i];
             if (towerCords.length / 2 <= i)playerAffil = player[1];
-            Troop tower = new Troop(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 9500, 20, 20, 400), towerCord[0], towerCord[1], playerAffil);
-            this.tower.add(tower);
+            Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 9500, 20, 20, 400, 100, 100), towerCord[0], towerCord[1], playerAffil);
+            this.towers.add(tower);
 //            System.out.println(Arrays.toString(tower.DistanceInDirection(new double[]{560, 450})));
             System.out.println(tower.DistanceTo(new double[]{560, 450}));
 //            tower.label.setBounds((int) towerCord[0], (int) towerCord[1], 100, 100);
