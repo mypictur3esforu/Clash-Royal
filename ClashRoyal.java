@@ -5,8 +5,8 @@ public class ClashRoyal {
     Card[] cardCollection;
 
     public static void main(String[] args) {
-        ImageIcon silvarro = Stuff.ImageResizer(new ImageIcon("images/SilvarroPixilart.png"), 100, 100);
-        new ClashRoyal(new Card[]{new Card("Silvarro", silvarro, 5, 200, 800, 500, 50, 300), new Card("Turm", new ImageIcon("images/tower.png"), 10, 100, 75, 15, 100, 300)});
+        new ClashRoyal(new Card[]{new Card("Silvarro", new ImageIcon("images/SilvarroPixilart.png"), 5, 200, 800, 500, 50, 300, 100, 100),
+                new Card("Turm", new ImageIcon("images/tower.png"), 10, 100, 75, 15, 100, 300, 100, 100)});
     }
 
     ClashRoyal(Card[] cardCollection){
