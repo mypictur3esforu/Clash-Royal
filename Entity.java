@@ -1,10 +1,12 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Entity {
     Card card;
     double[] cords;
-    int health, width, height, attackState = 0;
+    int width, height, attackState = 0;
+    double health;
     Entity target;
     JLabel label;
     Spieler affiliation;
@@ -16,26 +18,27 @@ public class Entity {
         this.card = card;
         cords = new double[]{x, y};
         this.affiliation = affiliation;
-        card.health = health;
+        health = card.health;
         PlaceEntity();
     }
 
     void PlaceEntity() {
         label = new JLabel(card.icon);
+        healthBar.setForeground(new Color(0xFF59F8C3, true));
+        GameUI.overlayButton.add(healthBar);
+        GameUI.overlayButton.add(label);
         label.setBounds((int) cords[0], (int) cords[1], width, height);
-//        GameUI.overlayButton.add(healthBar);
-//        GameUI.overlayButton.add(label);
-        GameUI.gamePanel.add(label);
     }
 
     void Actualize(ArrayList<Troop> troops, ArrayList<Tower> towers){
         Targeting(troops, towers);
         if (TargetInRange()) MakeDamage();
         HealthBar();
+        if (!Alive()) KickTheBucket();
     }
 
     void DummyTarget(){
-        target =  new Entity(new Card("0", null, 0, 0, 0, 0, 0, 0, 100, 100), 10000, 100000, new Spieler("Dummy"));
+        target =  new Entity(new Card("0", new ImageIcon("images/stift"), 0, 0, 0, 0, 0, 0, 100, 100), 10000, 100000, new Spieler("Dummy"));
     }
 
     void Targeting(ArrayList<Troop> troops, ArrayList<Tower> towers) {
@@ -115,6 +118,7 @@ public class Entity {
     }
 
     void TakeDamage(double damage) {
+        System.out.println(card.name + " took Damage: " + health);
         health -= damage;
     }
 
@@ -133,6 +137,16 @@ public class Entity {
     void HealthBar() {
         healthBar.setValue((int) (100 / card.health * health));
         healthBar.setBounds((int) (cords[0] + 0.25 * width), (int) (cords[1] - 0.05 * height), 50, 15);
+    }
+
+    void KickTheBucket(){
+        System.out.println("Health " + health);
+        System.out.println(card.name + " kicked the bucket at " + cords[0] + " " + cords[1]);
+        GameUI.overlayButton.remove(label);
+        GameUI.overlayButton.remove(healthBar);
+        for (Entity hunter : targetedBy){
+            hunter.target = null;
+        }
     }
 
 }

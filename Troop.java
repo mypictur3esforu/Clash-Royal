@@ -36,8 +36,4 @@ public class Troop extends Entity{
         super.Actualize(troops, towers);
         Move();
     }
-
-    void KickTheBucket(){
-
-    }
 }

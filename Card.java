@@ -9,7 +9,8 @@ public class Card {
 
     Card(String name, ImageIcon icon, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height){
         this.name = name;
-        this.icon = ImageResizer(icon, width, height);
+//        this.icon = ImageResizer(icon, width, height);
+        this.icon = icon;
         this.speed = speed;
         this.range = range;
         this.health = health;
