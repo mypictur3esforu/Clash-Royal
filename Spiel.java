@@ -2,7 +2,7 @@ public class Spiel {
     String gamemode;
     Spielfeld feld;
     TroopSelection gamesTroops;
-    Spieler[] player = new Spieler[]{new Spieler("Lukas"), new Spieler("Bot")};
+    Spieler[] player = new Spieler[]{new Spieler("Game"), new Spieler("Lukas"), new Spieler("Bot")};
 
     Spiel(String gamemode, Card[] troopsForGame){
         this.gamemode = gamemode;

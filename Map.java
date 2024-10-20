@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Map extends JPanel{
-    ImageIcon mapPicture = Stuff.ImageResizer(new ImageIcon("images/crtestmap.png"), 700, 1060);
+    ImageIcon mapPicture = Card.ImageResizer(new ImageIcon("images/crtestmap.png"), 700, 1060);
     JLabel map = new JLabel(mapPicture);
     JPanel panel = new JPanel();
 
