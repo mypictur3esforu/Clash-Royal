@@ -8,6 +8,7 @@ public class Spielfeld {
     ArrayList<Entity> units = new ArrayList<>();
     ArrayList<Entity> bridges = new ArrayList<>();
     Card selectedTroop;
+    int selectedButton;
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         @Override
@@ -16,14 +17,30 @@ public class Spielfeld {
             TimeShooter();
         }
     };
-    Spieler[] player;
+    Spieler[] players;
+    Game game;
 
-    Spielfeld(long cooldown, Spieler[] player){
-        this.player = player;
-        GameUI.overlayButton.addActionListener(ev->{ButtonClick();});
+    Spielfeld(long cooldown, Spieler[] players){
+        this.players = players;
+        game = new Game(700, 1080, players[1].cardSelection);
+        MainUI.game = game;
+        UIConnections();
         CreateBridges();
         CreateTowers();
         timer.schedule(task, cooldown, cooldown);
+    }
+
+    void UIConnections(){
+        game.overlayButton.addActionListener(ev->{ButtonClick();});
+        for (int i = 0; i < game.buttons.length; i++) {
+            int finalI = i;
+            game.buttons[i].addActionListener(e -> {
+                SelectTroop(game.buttons[finalI].inheritedCard);
+//                players[1].ActualizeSelection(finalI);
+//                game.buttons[finalI].NewCard(players[1].cardSelection.get(finalI));
+                selectedButton = finalI;
+            });
+        }
     }
 
     /**
@@ -67,34 +84,24 @@ public class Spielfeld {
         Troop temp = new Troop(newTroop, x, y, playerAffiliation);
         troops.add(temp);
         units.add(temp);
-        //Truppe wird deklariert und eigentlich auch gespeichert, aber wenn der Timer die Truppen durchgeht ists auf einmal null //WTF?
-        System.out.println(Arrays.toString(troops.getLast().cords));
+//        Klappt net → mies, weil sorgt für ungewollte Beziehung von MainUI und Game
+//        game.map.add(units.getLast().label);
+//        game.map.add(units.getLast().healthBar);
         selectedTroop = null;
+        players[1].ActualizeSelection(selectedButton);
+        game.buttons[selectedButton].NewCard(players[1].cardSelection.get(selectedButton));
+        selectedButton = -1;
     }
-
-//    void KickTheBucket(Entity victim){
-//        if(Objects.equals(victim.card.name, "Tower")) RemoveTower(victim);
-//        System.out.println(victim.card.name + " kicked the bucket at " + victim.cords[0] + " " + victim.cords[1]);
-//        for (Entity troop : victim.targetedBy) {
-//            troop.target = null;
-//        }
-//        RemoveTroop(victim);
-//    }
-
-//    void RemoveTower(Tower victimTower){
-//        towers.remove(victimTower);
-//        victimTower.label.setVisible(false);
-//        victimTower.healthBar.setVisible(false);
-//    }
 
     int switcher;
     void ButtonClick(){
-        System.out.println(GameUI.overlayButton.getMousePosition());
+//        System.out.println(GameUI.overlayButton.getMousePosition());
 
         /*Parsed Koordinaten und erzeugt eine neue Truppe an diesen*/
+//            System.out.println("Point: " + game.overlayButton.getMousePosition());
         try{
-            int x = Integer.parseInt((GameUI.overlayButton.getMousePosition()+"").split("x=")[1].split(",")[0]);
-            int y = Integer.parseInt((GameUI.overlayButton.getMousePosition()+"").split("y=")[1].split("]")[0]);
+            int x = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("x=")[1].split(",")[0]);
+            int y = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("y=")[1].split("]")[0]);
 //            ClashRoyal.spiel.feld.NewTroop(new Troop(/*100, 100,*/ (int)(Math.floor(Math.random()*10)), x, y, new ImageIcon("images/SilvarroPixilart.png"),));
             if (switcher == 2) {
                 switcher = 1;
@@ -102,18 +109,11 @@ public class Spielfeld {
 //              normalerweise = 2
                 switcher = 1;
             }
-            NewTroop(selectedTroop, x, y, player[switcher]);
+            NewTroop(selectedTroop, x, y, players[switcher]);
         }catch (Exception e){
             System.out.println("Error parsing coordinates");
         }
 
-    }
-
-    void RemoveTroop(Troop troop){
-        troops.remove(troop);
-        troop.label.setVisible(false);
-        troop.healthBar.setVisible(false);
-        GameUI.overlayButton.remove(troop.label);
     }
 
     void SelectTroop(Card chosenTroop){
@@ -126,17 +126,17 @@ public class Spielfeld {
         double[][] bridgeCords = new double[][]{{(double) GameUI.gameWidth / 3 - 2 * width, (double) GameUI.gameHeight / 2 - (double) height / 2}, { (double)  2 * GameUI.gameWidth / 3 + width, (double) GameUI.gameHeight / 2 - (double) height / 2}};
 
         for (double[] bridgeCord : bridgeCords) {
-        Entity bridge = new Entity(new Card("Bridge", null,0, 0, 0, 0, 0, 0, width, height), bridgeCord[0], bridgeCord[1], player[0]);
+        Entity bridge = new Entity(new Card("Bridge", null,0, 0, 0, 0, 0, 0, width, height), bridgeCord[0], bridgeCord[1], players[0]);
         bridges.add(bridge);
         }
     }
 
     void CreateTowers(){
-        Spieler playerAffil = player[2];
+        Spieler playerAffil = players[2];
         double[][] towerCords = new double[][]{{75, 130}, {325, 80}, {575, 130}, {75, 930}, {325, 980}, {575, 930}};
         for (int i = 0; i < towerCords.length; i++) {
             double[] towerCord = towerCords[i];
-            if (towerCords.length / 2 <= i)playerAffil = player[1];
+            if (towerCords.length / 2 <= i)playerAffil = players[1];
             Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 500, 20, 20, 400,
                     50, 50), towerCord[0], towerCord[1], playerAffil);
             towers.add(tower);

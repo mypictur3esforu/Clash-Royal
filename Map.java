@@ -2,12 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Map extends JPanel{
-    ImageIcon mapPicture = Card.ImageResizer(new ImageIcon("images/crtestmap.png"), 700, 1060);
-    JLabel map = new JLabel(mapPicture);
+    ImageIcon mapPicture;
+    JLabel map;
     JPanel panel = new JPanel();
 
-    Map(){
-        setSize(700,1080);
+    Map(int width, int height, ImageIcon mapPicture){
+        this.mapPicture = Card.ImageResizer(mapPicture, width, height);
+        map = new JLabel(this.mapPicture);
+
+        setSize(width,height);
 
         map.setAlignmentX(0);
         map.setAlignmentY(0);

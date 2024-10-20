@@ -6,17 +6,19 @@ public class MainUI {
     static JFrame frame = new JFrame();
     static JPanel cardPanel = new JPanel(new CardLayout());
     static JPanel menu = new JPanel(), collection = new JPanel(), shop = new JPanel();
+    static Game game;
 
     static void CreateMainUI() {
+//        game = new Game(700, 1080);
         FrameDefinition();
         Menu();
-        GameUI.CreateUI();
+//        GameUI.CreateUI();
 //        collection.setBackground(Color.black);
         shop.setBackground(Color.cyan);
         cardPanel.add(shop, "Shop");
         cardPanel.add(collection, "Collection");
         cardPanel.add(menu, "Menu");
-        cardPanel.add(GameUI.gamePanel, "GameUI");
+//        cardPanel.add(GameUI.gamePanel, "GameUI");
         SwapPanel("Menu");
 
         frame.add(cardPanel);
@@ -36,13 +38,12 @@ public class MainUI {
         menu.setLayout(null);
         JButton startGame = new JButton("Start Game");
         startGame.addActionListener(ev -> {
+            ClashRoyal.NewGame();
+            cardPanel.add(game,  "GameUI");
             SwapPanel("GameUI");
         });
         startGame.setBounds(GameUI.screenWidth / 2 - 350, 0, 700, 1080);
         menu.add(startGame);
-//        menu.setBackground(Color.magenta);
-//        frame.add(menu);
-//        frame.setVisible(true);
     }
 
     static void SwapButtons() {

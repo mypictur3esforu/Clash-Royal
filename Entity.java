@@ -42,8 +42,10 @@ public class Entity {
         if (card.health <= 0) healthBar.setVisible(false);
 
         label.setVisible(true);
-        GameUI.overlayButton.add(label);
-        GameUI.overlayButton.add(healthBar);
+//        GameUI.overlayButton.add(label);
+//        GameUI.overlayButton.add(healthBar);
+        MainUI.game.overlayButton.add(label);
+        MainUI.game.overlayButton.add(healthBar);
     }
 
     void Actualize(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
@@ -54,7 +56,7 @@ public class Entity {
     }
 
     void DummyTarget(){
-        target =  new Entity(new Card("0", new ImageIcon("images/stift"), 0, 0, 0, 0, 0, 0, 100, 100), 10000, 100000, new Spieler("Dummy"));
+        target =  new Entity(new Card("0", new ImageIcon("images/stift"), 0, 0, 0, 0, 0, 0, 100, 100), 10000, 100000, new Spieler("Dummy", null));
     }
 
     void Targeting(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {

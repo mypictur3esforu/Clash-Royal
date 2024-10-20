@@ -23,7 +23,7 @@ public class GameUI {
     static void CreateUI(){
         OverlayButton();
 
-        playarea = new Map();
+//        playarea = new Map();
         playarea.setLocation(screenWidth/2 - 350, 0);
 
         gamePanel.add(overlayButton);
@@ -69,5 +69,9 @@ public class GameUI {
 //        panel.add(troopSelectionPanel);
 //        UI.frame.setComponentZOrder(UI.troopSelectionPanel, 4);
         GameUI.gamePanel.setVisible(true);
+    }
+
+    void NewButtonValue(int buttonNumber){
+
     }
 }
