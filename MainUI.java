@@ -18,6 +18,7 @@ public class MainUI {
         cardPanel.add(shop, "Shop");
         cardPanel.add(collection, "Collection");
         cardPanel.add(menu, "Menu");
+        cardPanel.add(new CardCreator(), "CardCreator");
 //        cardPanel.add(GameUI.gamePanel, "GameUI");
         SwapPanel("Menu");
 
