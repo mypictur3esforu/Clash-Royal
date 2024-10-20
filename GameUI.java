@@ -10,6 +10,7 @@ public class GameUI {
     static JButton overlayButton;
     static JButton[] cardButtons = new JButton[4];
     static JPanel troopSelectionPanel, gamePanel;
+    static int gameWidth = 700, gameHeight = 1080;
 
     static {
         gamePanel = new JPanel();
@@ -37,7 +38,7 @@ public class GameUI {
      * Unsichtbarer Button, der Klicks auf dem Feld wahrnimmt und Koordinaten durchgibt
      */
     static void OverlayButton(){
-        overlayButton.setSize(700, 1080);
+        overlayButton.setSize(gameWidth, gameHeight);
         overlayButton.setLayout(null);
         overlayButton.setLocation(screenWidth/2 - 350, 0);
         overlayButton.setBorderPainted(false);
