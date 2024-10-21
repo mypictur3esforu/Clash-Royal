@@ -1,0 +1,3 @@
+Cards:
+1. Name: Bavarian King; Speed: 3; Range: 30; Health: 4000; Damage: 200; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Icon: images/stift.jpg;
+2. Name: Silvarro; Speed: 5; Range: 200; Health: 1800; Damage: 400; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Icon: images/silvarropixilart.png;

@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class Filed {
+public class FileHandler {
 
     static PrintWriter writer;
 

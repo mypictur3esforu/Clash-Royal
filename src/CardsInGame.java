@@ -1,7 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,7 +8,7 @@ public class CardsInGame extends JPanel {
 
     CardsInGame(){
         setLayout(new GridLayout(1, 1));
-        cards = Filed.ReadFile();
+        cards = FileHandler.ReadFile();
         CreateTable();
         Add();
     }

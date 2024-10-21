@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class CardCreator extends JPanel {
@@ -13,7 +11,7 @@ public class CardCreator extends JPanel {
     int numberOfTroops;
 
     CardCreator(){
-        numberOfTroops = Filed.ReadFile().size() - 1;
+        numberOfTroops = FileHandler.ReadFile().size() - 1;
         setBackground(new Color(0xFF777777, true));
 //        GridBagLayout vermutlich besser
     setLayout(new GridLayout(4, 1));
@@ -77,8 +75,8 @@ public class CardCreator extends JPanel {
 
     void Save(){
         String string = CreateMainString();
-        Filed.WriteToFile(string);
-        Filed.ReadFile();
+        FileHandler.WriteToFile(string);
+        FileHandler.ReadFile();
     }
 
     String CreateMainString(){

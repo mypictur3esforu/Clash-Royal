@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class ClashRoyal {
@@ -15,7 +14,7 @@ public class ClashRoyal {
     }
 
     ClashRoyal(){
-        cardCollection = Filed.GetCards();
+        cardCollection = FileHandler.GetCards();
         new Collection(cardCollection);
         System.out.println("Spiel: " + ClashRoyal.spiel);
         MainUI.CreateMainUI();

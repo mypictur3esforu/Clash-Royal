@@ -107,7 +107,7 @@ public class Spielfeld {
                 switcher = 1;
             } else {
 //              normalerweise = 2
-                switcher = 1;
+                switcher = 2;
             }
             NewTroop(selectedTroop, x, y, players[switcher]);
         }catch (Exception e){
