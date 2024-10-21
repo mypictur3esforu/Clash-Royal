@@ -7,9 +7,10 @@ public class MainUI {
     static JPanel cardPanel = new JPanel(new CardLayout());
     static JPanel menu = new JPanel(), collection = new JPanel(), shop = new JPanel();
     static Game game;
+    static CardsInGame devCollection;
 
     static void CreateMainUI() {
-//        game = new Game(700, 1080);
+        devCollection = new CardsInGame();
         FrameDefinition();
         Menu();
 //        GameUI.CreateUI();
@@ -19,6 +20,7 @@ public class MainUI {
         cardPanel.add(collection, "Collection");
         cardPanel.add(menu, "Menu");
         cardPanel.add(new CardCreator(), "CardCreator");
+        cardPanel.add(devCollection, "DevCollection");
 //        cardPanel.add(GameUI.gamePanel, "GameUI");
         SwapPanel("Menu");
 
@@ -39,7 +41,7 @@ public class MainUI {
         menu.setLayout(null);
         JButton startGame = new JButton("Start Game");
         startGame.addActionListener(ev -> {
-            ClashRoyal.NewGame();
+            ClashRoyal.clashRoyal.NewGame();
             cardPanel.add(game,  "GameUI");
             SwapPanel("GameUI");
         });

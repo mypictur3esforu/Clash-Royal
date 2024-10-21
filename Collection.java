@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Collection {
-    Card[] cards;
+    ArrayList<Card> cards;
 
-    Collection(Card[] cards){
+    Collection(ArrayList<Card> cards){
         this.cards = cards;
 //        MainUI.collection.setLayout(new GridLayout((int) (cards.length / 7), 7));
         MainUI.collection.setLayout(new GridLayout(10, 7));

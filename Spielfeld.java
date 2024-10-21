@@ -88,6 +88,7 @@ public class Spielfeld {
 //        game.map.add(units.getLast().label);
 //        game.map.add(units.getLast().healthBar);
         selectedTroop = null;
+        game.restrictHalf.setVisible(false);
         players[1].ActualizeSelection(selectedButton);
         game.buttons[selectedButton].NewCard(players[1].cardSelection.get(selectedButton));
         selectedButton = -1;
@@ -107,7 +108,7 @@ public class Spielfeld {
                 switcher = 1;
             } else {
 //              normalerweise = 2
-                switcher = 1;
+                switcher = 2;
             }
             NewTroop(selectedTroop, x, y, players[switcher]);
         }catch (Exception e){
@@ -118,6 +119,7 @@ public class Spielfeld {
 
     void SelectTroop(Card chosenTroop){
         selectedTroop = chosenTroop;
+        game.restrictHalf.setVisible(true);
     }
 
     void CreateBridges(){
@@ -137,7 +139,7 @@ public class Spielfeld {
         for (int i = 0; i < towerCords.length; i++) {
             double[] towerCord = towerCords[i];
             if (towerCords.length / 2 <= i)playerAffil = players[1];
-            Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 500, 20, 20, 400,
+            Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 4000, 300, 20, 400,
                     50, 50), towerCord[0], towerCord[1], playerAffil);
             towers.add(tower);
             units.add(tower);

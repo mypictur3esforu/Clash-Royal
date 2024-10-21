@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Game extends JPanel {
-    JPanel selectButtons, game, map;
+    JPanel selectButtons, game, map, restrictHalf;
     JButton overlayButton;
     CardSelector[] buttons = new CardSelector[4];
     ImageIcon icon = new ImageIcon("images/crtestmap.png");
@@ -25,10 +25,12 @@ public class Game extends JPanel {
         CreateMap();
         CreateOverlayButton();
         CreateSelectButtons(cards);
+        CreateRestrict();
         Add();
     }
 
     void Add(){
+        game.add(restrictHalf);
         game.add(overlayButton);
         game.add(selectButtons);
         game.add(map);
@@ -50,7 +52,7 @@ public class Game extends JPanel {
 //        overlayButton.setBounds(screenWidth / 2 - width / 2, 0, width, height);
         overlayButton.setSize(width, height);
         overlayButton.setLayout(null);
-        overlayButton.setLocation(screenWidth/2 - 350, 0);
+        overlayButton.setLocation(screenWidth / 2 - width / 2, 0);
         overlayButton.setBorderPainted(false);
         overlayButton.setFocusPainted(false);
         overlayButton.setContentAreaFilled(false);
@@ -64,6 +66,16 @@ public class Game extends JPanel {
             selectButtons.add(button);
         }
         selectButtons.setBounds(0, 0, screenWidth / 2 - width / 2, screenHeight);
+    }
+
+    void CreateRestrict(){
+        restrictHalf = new JPanel(new GridLayout(1, 1));
+        JLabel label = new JLabel();
+        label.setOpaque(true);
+        label.setBackground(new Color(0x62DD033B, true));
+        restrictHalf.add(label);
+        restrictHalf.setBounds(screenWidth / 2 - width / 2, 0, width, height / 2);
+        restrictHalf.setVisible(false);
     }
 
     void ActualizeButton(int buttonNumber, Card newCard){

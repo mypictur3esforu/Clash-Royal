@@ -13,7 +13,7 @@ public class Card {
         this.speed = speed;
         this.range = range;
         this.health = health;
-        this.damage = damage /* * 60 / 1000*/;
+        this.damage = damage  * ((double) attackSpeed / 60);
         this.attackSpeed = attackSpeed;
         this.sightDistance = sightDistance;
         this.width = width;
