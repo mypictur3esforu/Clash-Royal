@@ -88,6 +88,7 @@ public class Spielfeld {
 //        game.map.add(units.getLast().label);
 //        game.map.add(units.getLast().healthBar);
         selectedTroop = null;
+        game.restrictHalf.setVisible(false);
         players[1].ActualizeSelection(selectedButton);
         game.buttons[selectedButton].NewCard(players[1].cardSelection.get(selectedButton));
         selectedButton = -1;
@@ -118,6 +119,7 @@ public class Spielfeld {
 
     void SelectTroop(Card chosenTroop){
         selectedTroop = chosenTroop;
+        game.restrictHalf.setVisible(true);
     }
 
     void CreateBridges(){

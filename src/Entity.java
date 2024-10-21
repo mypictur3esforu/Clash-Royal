@@ -37,7 +37,8 @@ public class Entity {
         label = new JLabel(card.icon);
         label.setBounds((int) cords[0], (int) cords[1], card.width, card.height);
 
-        healthBar.setForeground(new Color(0xFF59F8C3, true));
+//        healthBar.setForeground(new Color(0xFF59F8C3, true));
+        healthBar.setForeground(affiliation.color);
         healthBar.setBounds((int) (cords[0] + 0.25 * card.width), (int) (cords[1] - 0.05 * card.height), 50, 15);
         if (card.health <= 0) healthBar.setVisible(false);
 
@@ -56,7 +57,7 @@ public class Entity {
     }
 
     void DummyTarget(){
-        target =  new Entity(new Card("0", new ImageIcon("images/stift"), 0, 0, 0, 0, 0, 0, 100, 100), 10000, 100000, new Spieler("Dummy", null));
+        target =  new Entity(new Card("0", new ImageIcon("images/stift"), 0, 0, 0, 0, 0, 0, 100, 100), 10000, 100000, new Spieler("Dummy", null, null));
     }
 
     void Targeting(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {
