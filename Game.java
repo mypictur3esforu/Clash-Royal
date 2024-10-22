@@ -74,7 +74,7 @@ public class Game extends JPanel {
         label.setOpaque(true);
         label.setBackground(new Color(0x62DD033B, true));
         restrictHalf.add(label);
-        restrictHalf.setBounds(screenWidth / 2 - width / 2, 0, width, height / 2);
+        restrictHalf.setBounds(screenWidth / 2 - width / 2, 0, width, height / 2 + height / 10);
         restrictHalf.setVisible(false);
     }
 

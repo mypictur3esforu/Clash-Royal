@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Troop extends Entity{
@@ -38,8 +36,8 @@ public class Troop extends Entity{
         label.setBounds((int) cords[0], (int) cords[1], card.width, card.height);
     }
 
-    void Actualize(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {
-        super.Actualize(troops, towers, bridges);
+    void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {
+        super.Update(troops, towers, bridges);
         Move();
     }
 
