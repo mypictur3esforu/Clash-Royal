@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a17988a-2f05-46f8-b109-72d3e4a192cb" name="Changes" comment="Funktioniert">
+      <change afterPath="$PROJECT_DIR$/src/Projectile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clash Royal Cards.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Clash Royal Cards.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CardCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CardCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClashRoyal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClashRoyal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Spiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Spieler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spieler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Spielfeld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spielfeld.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Troop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Troop.java" afterDir="false" />
     </list>
@@ -117,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729525637986</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Funktioniert">
+      <option name="closed" value="true" />
+      <created>1729538399518</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729538399518</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -138,6 +150,7 @@
   <component name="XDebuggerManager">
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="java.util.ConcurrentModificationException" memberName="stackTrace" />
         <PinnedItemInfo parentTag="Spielfeld" memberName="troops" />
         <PinnedItemInfo parentTag="Troop" memberName="affiliation" />
         <PinnedItemInfo parentTag="java.lang.String" memberName="coder" />

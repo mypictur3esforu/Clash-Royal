@@ -15,6 +15,7 @@ public class ClashRoyal {
 
     ClashRoyal(){
         cardCollection = FileHandler.GetCards();
+        ClashRoyal.staticCardCollection = cardCollection;
         new Collection(cardCollection);
         System.out.println("Spiel: " + ClashRoyal.spiel);
         MainUI.CreateMainUI();

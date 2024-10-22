@@ -30,7 +30,7 @@ public class FileHandler {
             String line;
             while ((line = reader.readLine()) != null) {
                 string.add(line);
-                System.out.println(line);
+//                System.out.println(line);
             }
                 reader.close();
         }catch (IOException i){
@@ -48,30 +48,9 @@ public class FileHandler {
     static ArrayList<Card> GetCards(){
         ArrayList<Card> cards = new ArrayList<>();
         ArrayList<String> datas = ReadFile();
-
         for (String data : datas){
-//        int[] stats = new int[0];
             if (data.equals("Cards:")) continue;
-        ArrayList<Integer> stats = new ArrayList<>();
-        String name = "", imageRef = "";
-        try {
-            for (int i = 0; i < 10; i++) {
-                String stat = data.split(": ")[1].split(";")[0];
-                if (i != 9)data = data.split(data.split(";")[0] + "; ")[1];
-                if (i == 0) name = stat;
-                else {
-                    try {
-                        int newStat = Integer.parseInt(stat);
-                        stats.add(newStat);
-                    }catch (Exception e){
-                        imageRef = stat;
-                    }
-                }
-            }
-        }catch (Exception e) {
-            System.out.println("Das schlecht");
-        }
-        cards.add(new Card(name, new ImageIcon(imageRef), stats.getFirst(), stats.get(1), stats.get(2), stats.get(3), stats.get(4), stats.get(5), stats.get(6), stats.getLast()));
+            cards.add(StringToCard(data, false));
         }
         return cards;
     }
@@ -79,6 +58,60 @@ public class FileHandler {
 //    static void SaveCard(Card card){
 //        ArrayList<String>
 //    }
+
+    /**
+     * Sucht die passende Karte zum Namen raus und gibt diese zurück
+     * @param name Name des Projektils
+     * @return Gibt die Karte zurück
+     */
+    static Card GetCard(String name, boolean projectile){
+        ArrayList<String> datas = ReadFile();
+        for (String data : datas){
+            if (data.equals("Cards:")) continue;
+            String stat = data.split(": ")[1].split(";")[0];
+            if (stat.equals(name)){
+                return StringToCard(data, projectile);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Geht den String Stück für Stück durch und speichert alle Informationen
+     * @param data String mit den Informationen
+     * @param projectile Ist die Karte ein Projektil? Ja, ist sie / Nein, nicht unbedingt, aber könnte
+     * @return Neue Karte entsprechend der gespeicherten Informationen
+     */
+    static Card StringToCard(String data, boolean projectile){
+        if (data.equals("Cards:")) return null;
+        ArrayList<Integer> stats = new ArrayList<>();
+        String name = "", imageRef = "", projName = "", type = "";
+        try {
+            int x = 12;
+            for (int i = 0; i < x; i++) {
+                String stat = data.split(": ")[1].split(";")[0];
+                if (i != x -1)data = data.split(data.split(";")[0] + "; ")[1];
+                else imageRef = stat;
+                if (i == 0) name = stat;
+                if (i == 9 ) projName = stat;
+                if (i == 10) {
+                    if (!projectile) type = stat;
+                    else type = "projectile";
+                }
+                else {
+                    try {
+                        int newStat = Integer.parseInt(stat);
+                        stats.add(newStat);
+                    }catch (Exception e){
+//                        System.out.println("Schlöecht");
+                    }
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("Das schlecht");
+        }
+        return new Card(name, new ImageIcon(imageRef), stats.getFirst(), stats.get(1), stats.get(2), stats.get(3), stats.get(4), stats.get(5), stats.get(6), stats.getLast(), projName, type);
+    }
 
 
 }

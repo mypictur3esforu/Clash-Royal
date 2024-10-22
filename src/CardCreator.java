@@ -6,7 +6,7 @@ public class CardCreator extends JPanel {
     JPanel image, statInput, save;
     JLabel headline;
     ArrayList<JTextField> values = new ArrayList<>();
-    String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:"};
+    String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: "};
     JTextField imageRef;
     int numberOfTroops;
 
@@ -35,6 +35,9 @@ public class CardCreator extends JPanel {
         headline.setOpaque(true);
     }
 
+    /**
+     * Erzeugt Eingabe Felder für die Stats
+     */
     void CreateStats(){
         statInput = new JPanel(new GridLayout(3, 4, 2, 2));
         for (String stat : stats){
@@ -51,6 +54,9 @@ public class CardCreator extends JPanel {
         }
     }
 
+    /**
+     * Erzeugt Eingabe Feld fürs Bild
+     */
     void CreateImage(){
         image = new JPanel(new GridLayout(3, 1));
         JLabel label = new JLabel("Add Image", SwingConstants.CENTER);
@@ -65,6 +71,9 @@ public class CardCreator extends JPanel {
         image.add(showButton);
     }
 
+    /**
+     * Erzeugt den SaveButton
+     */
     void CreateSave(){
         save = new JPanel(new GridLayout(1, 1));
         JButton saveButton = new JButton("SAVE");

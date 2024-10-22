@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Entity {
     Card card;
     double[] cords, necCords;
-    int attackState = 0;
+    int attackState = 1;
     double health;
     Entity target;
     JLabel label;
@@ -49,15 +49,16 @@ public class Entity {
         MainUI.game.overlayButton.add(healthBar);
     }
 
-    void Actualize(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
+    void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
         Targeting(troops, towers, bridges);
-        if (TargetInRange()) MakeDamage();
+//        if (TargetInRange()) MakeDamage();
+        PrepareAttack();
         HealthBar();
 //        if (!Alive()) KickTheBucket();
     }
 
     void DummyTarget(){
-        target =  new Entity(new Card("0", new ImageIcon("images/stift"), 0, 0, 0, 0, 0, 0, 100, 100), 10000, 100000, new Spieler("Dummy", null, null));
+        target =  new Entity(new Card("0", new ImageIcon("images/stift.jpg"), 0, 0, 0, 0, 0, 0, 1, 1, null, "dummy"), 10000, 100000, new Spieler("Dummy", null, null));
     }
 
     void Targeting(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {
@@ -206,7 +207,7 @@ public class Entity {
     }
 
     /**
-     * Gibt an ob das Target bereits in Reichweite ist
+     * Gibt an, ob das Target bereits in Reichweite ist
      *
      * @return true, Target in Reichweite; false, Target nicht in Reichweite
      */
@@ -233,16 +234,40 @@ public class Entity {
     }
 
     void TakeDamage(double damage) {
-        System.out.println(card.name + " took Damage: " + health);
+//        System.out.println(card.name + " took Damage: " + health);
         health -= damage;
     }
 
-    void MakeDamage() {
+//    /**
+//     * Fügt dem Target Damage zu
+//     */
+//    void MakeDamage() {
+//            target.TakeDamage(card.damage);
+//            attackState = 0;
+//    }
+
+    /**
+     * Führt den Angriff aus, bzw erzeugt ein Projektil
+     * @return Neues Projektil
+     */
+    Projectile Shoot(){
+        return new Projectile(card.projectile, cords[0], cords[1], affiliation, target, this);
+    }
+
+    /**
+     * Erhöht den Agriffsstatus
+     */
+    void PrepareAttack(){
         attackState++;
-        if (attackState == card.attackSpeed) {
-            target.TakeDamage(card.damage);
-            attackState = 0;
-        }
+        if (attackState == card.attackSpeed) attackState = 0;
+    }
+
+    /**
+     * Gibt an ob this gerade geschossen hat
+     * @return Gerade Geschossen?
+     */
+    boolean HasShot(){
+        return attackState == 0;
     }
 
     boolean Alive() {
@@ -263,6 +288,7 @@ public class Entity {
         GameUI.overlayButton.remove(healthBar);
         for (Entity hunter : targetedBy){
             hunter.target = null;
+            hunter.attackState = 1;
         }
     }
 

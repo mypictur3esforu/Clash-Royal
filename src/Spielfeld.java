@@ -50,18 +50,26 @@ public class Spielfeld {
      */
     void TimeShooter(){
         ArrayList<Entity> victims = new ArrayList<>();
-            try {
-        for (Entity entity : units){
-                entity.Actualize(troops, towers, bridges);
-                if (!entity.Alive()) victims.add(entity);
+        ArrayList<Entity> ready = new ArrayList<>();
+//            try {
+        for (Entity unit : units){
+//        System.out.println("Length: " + units.size());
+                unit.Update(troops, towers, bridges);
+//            System.out.println("Hier: " + unit.card.name + "; " + unit.attackState);
+                if (unit.HasShot() && unit.TargetLocked() &&! (unit instanceof Projectile)) ready.add(unit);
+                if (!unit.Alive()) victims.add(unit);
         }
+        for (Entity shooter : ready){
+            units.add(shooter.Shoot());
+        }
+
         for (Entity victim : victims){
             RemoveVictim(victim);
             victim.KickTheBucket();
         }
-            }catch (Exception e){
-                System.out.println("Weird Bug");
-            }
+//            }catch (Exception e){
+//                System.out.println("Weird Bug");
+//            }
     }
 
     void RemoveVictim(Entity victim){
@@ -81,7 +89,7 @@ public class Spielfeld {
      */
     void NewTroop(Card newTroop, int x, int y, Spieler playerAffiliation){
         if (newTroop == null) return;
-        Troop temp = new Troop(newTroop, x, y, playerAffiliation);
+        Troop temp = new Troop(newTroop, x - (double) newTroop.width /2, y - (double) newTroop.height / 2, playerAffiliation);
         troops.add(temp);
         units.add(temp);
 //        Klappt net → mies, weil sorgt für ungewollte Beziehung von MainUI und Game
@@ -99,7 +107,7 @@ public class Spielfeld {
 //        System.out.println(GameUI.overlayButton.getMousePosition());
 
         /*Parsed Koordinaten und erzeugt eine neue Truppe an diesen*/
-//            System.out.println("Point: " + game.overlayButton.getMousePosition());
+            System.out.println("Point: " + game.overlayButton.getMousePosition());
         try{
             int x = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("x=")[1].split(",")[0]);
             int y = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("y=")[1].split("]")[0]);
@@ -128,7 +136,7 @@ public class Spielfeld {
         double[][] bridgeCords = new double[][]{{(double) GameUI.gameWidth / 3 - 2 * width, (double) GameUI.gameHeight / 2 - (double) height / 2}, { (double)  2 * GameUI.gameWidth / 3 + width, (double) GameUI.gameHeight / 2 - (double) height / 2}};
 
         for (double[] bridgeCord : bridgeCords) {
-        Entity bridge = new Entity(new Card("Bridge", null,0, 0, 0, 0, 0, 0, width, height), bridgeCord[0], bridgeCord[1], players[0]);
+        Entity bridge = new Entity(new Card("Bridge", null,0, 0, 0, 0, 0, 0, width, height, null, "bridge"), bridgeCord[0], bridgeCord[1], players[0]);
         bridges.add(bridge);
         }
     }
@@ -139,12 +147,12 @@ public class Spielfeld {
         for (int i = 0; i < towerCords.length; i++) {
             double[] towerCord = towerCords[i];
             if (towerCords.length / 2 <= i)playerAffil = players[1];
-            Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 4000, 300, 20, 400,
-                    50, 50), towerCord[0], towerCord[1], playerAffil);
+            Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 4000, 3, 2000, 400,
+                    50, 50, "Beer", "tower"), towerCord[0], towerCord[1], playerAffil);
             towers.add(tower);
             units.add(tower);
 //            System.out.println(Arrays.toString(tower.DistanceInDirection(new double[]{560, 450})));
-            System.out.println(tower.DistanceTo(new double[]{560, 450}));
+//            System.out.println(tower.DistanceTo(new double[]{560, 450}));
 //            tower.label.setBounds((int) towerCord[0], (int) towerCord[1], 100, 100);
         }
     }
