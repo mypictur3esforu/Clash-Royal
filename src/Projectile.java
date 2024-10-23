@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Projectile extends Entity {
@@ -36,8 +38,13 @@ public class Projectile extends Entity {
     void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
         middleOfTarget = new double[]{target.cords[0] + (double) target.card.width / 2, target.cords[1] + (double) target.card.height / 2};
         Move();
+        Rotate();
         label.setBounds((int) cords[0] - card.width / 2, (int) cords[1] - card.width / 2, card.width, card.height);
         TargetHit();
+    }
+
+    void Rotate(){
+        Graphics2D proj;
     }
 
     void MakeDamage() {

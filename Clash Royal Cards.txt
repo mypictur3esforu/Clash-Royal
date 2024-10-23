@@ -1,4 +1,5 @@
 Cards:
 1. Name: Bavarian King; Speed: 3; Range: 50; Health: 4000; Damage: 200; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Projectile: Beer; Type: troop; Icon: images/BavarianKing.png;
-2. Name: Silvarro; Speed: 5; Range: 200; Health: 1800; Damage: 400; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Projectile: Beer; Type: troop; Icon: images/silvarropixilart.png;
-3. Name: Beer; Speed: 20; Range: 10; Health: 1; Damage: 0; Attack Speed: 0; Sight Distance: 1000; Width: 25; Height: 25; Projectile: Beer; Type: projectile; Icon: images/beer.png;
+2. Name: Silvarro; Speed: 5; Range: 200; Health: 1800; Damage: 400; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Projectile: Leaf Arrow; Type: troop; Icon: images/silvarropixilart.png;
+3. Name: Beer; Speed: 20; Range: 10; Health: 1; Damage: 0; Attack Speed: 0; Sight Distance: 1000; Width: 25; Height: 25; Projectile: Beer; Type: projectile; Icon: images/projectiles/beer.png;
+4. Name: Leaf Arrow; Speed: 20; Range: 3; Health: 1; Damage: 0; Attack Speed: 1; Sight Distance: 0; Width: 50; Height: 50; Projectile:  ; Type:  projectile; Icon: images/projectiles/leafarrow.png; 

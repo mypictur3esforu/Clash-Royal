@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class FileHandler {
-
+    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
     static PrintWriter writer;
 
     //    Source: StackOverflow, Coding with John
@@ -87,7 +87,8 @@ public class FileHandler {
         ArrayList<Integer> stats = new ArrayList<>();
         String name = "", imageRef = "", projName = "", type = "";
         try {
-            int x = 12;
+//            int x = 12;
+            int x = FileHandler.stats.length + 1;
             for (int i = 0; i < x; i++) {
                 String stat = data.split(": ")[1].split(";")[0];
                 if (i != x -1)data = data.split(data.split(";")[0] + "; ")[1];
@@ -110,6 +111,8 @@ public class FileHandler {
         }catch (Exception e) {
             System.out.println("Das schlecht");
         }
+//        String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
+//        Card(String name, ImageIcon icon, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType){
         return new Card(name, new ImageIcon(imageRef), stats.getFirst(), stats.get(1), stats.get(2), stats.get(3), stats.get(4), stats.get(5), stats.get(6), stats.getLast(), projName, type);
     }
 

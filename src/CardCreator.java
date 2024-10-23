@@ -6,11 +6,12 @@ public class CardCreator extends JPanel {
     JPanel image, statInput, save;
     JLabel headline;
     ArrayList<JTextField> values = new ArrayList<>();
-    String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: "};
+    String[] stats;
     JTextField imageRef;
     int numberOfTroops;
 
     CardCreator(){
+        stats = FileHandler.stats;
         numberOfTroops = FileHandler.ReadFile().size() - 1;
         setBackground(new Color(0xFF777777, true));
 //        GridBagLayout vermutlich besser

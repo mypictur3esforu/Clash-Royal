@@ -22,17 +22,6 @@ public class Entity {
         PlaceEntity();
     }
 
-    void PlaceEntitys() {
-        label = new JLabel(card.icon);
-//        label = new JLabel("Hallo");
-        label.setBounds((int) cords[0], (int) cords[1], card.width, card.height);
-        GameUI.overlayButton.add(label);
-        JPanel lab = new JPanel();
-        lab.setBackground(Color.magenta);
-        lab.add(label);
-        MainUI.cardPanel.add(lab);
-    }
-
     void PlaceEntity(){
         label = new JLabel(card.icon);
         label.setBounds((int) cords[0], (int) cords[1], card.width, card.height);
@@ -284,8 +273,6 @@ public class Entity {
     void KickTheBucket(){
         label.setVisible(false);
         healthBar.setVisible(false);
-        GameUI.overlayButton.remove(label);
-        GameUI.overlayButton.remove(healthBar);
         for (Entity hunter : targetedBy){
             hunter.target = null;
             hunter.attackState = 1;
