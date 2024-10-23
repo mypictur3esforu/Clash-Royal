@@ -15,11 +15,11 @@ public class Game extends JPanel {
     Game(int width, int height, ArrayList<Card> cards){
         this.width = width;
         this.height = height;
-        this.height = 800;
+//        this.height = 800;
         game = new JPanel();
         game.setLayout(null);
 //        game.setBounds(0, 0, screenWidth, screenHeight);
-        game.setBounds(0, 0, screenWidth, 864);
+        game.setBounds(0, 0, screenWidth, screenHeight);
 
         setLayout(null);
         setBackground(Color.black);

@@ -7,13 +7,13 @@ public class MainUI {
     static JPanel cardPanel = new JPanel(new CardLayout());
     static JPanel menu = new JPanel(), collection = new JPanel(), shop = new JPanel();
     static Game game;
-    static CardsInGame devCollection;
+    static CardEditor devCollection;
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 
     static void CreateMainUI() {
-        devCollection = new CardsInGame();
+        devCollection = new CardEditor();
         FrameDefinition();
         Menu();
 //        GameUI.CreateUI();

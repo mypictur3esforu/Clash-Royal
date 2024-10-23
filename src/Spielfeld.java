@@ -79,6 +79,8 @@ public class Spielfeld {
         } else if (victim instanceof Tower) {
             towers.remove(victim);
         }
+        game.overlayButton.remove(victim.label);
+        game.overlayButton.remove(victim.healthBar);
     }
 
     /**
@@ -133,7 +135,7 @@ public class Spielfeld {
     void CreateBridges(){
         int width = 80, height = 180;
 
-        double[][] bridgeCords = new double[][]{{(double) GameUI.gameWidth / 3 - 2 * width, (double) GameUI.gameHeight / 2 - (double) height / 2}, { (double)  2 * GameUI.gameWidth / 3 + width, (double) GameUI.gameHeight / 2 - (double) height / 2}};
+        double[][] bridgeCords = new double[][]{{(double) MainUI.gameWidth / 3 - 2 * width, (double) MainUI.gameHeight / 2 - (double) height / 2}, { (double)  2 * MainUI.gameWidth / 3 + width, (double) MainUI.gameHeight / 2 - (double) height / 2}};
 
         for (double[] bridgeCord : bridgeCords) {
         Entity bridge = new Entity(new Card("Bridge", null,0, 0, 0, 0, 0, 0, width, height, null, "bridge"), bridgeCord[0], bridgeCord[1], players[0]);
@@ -147,13 +149,13 @@ public class Spielfeld {
         for (int i = 0; i < towerCords.length; i++) {
             double[] towerCord = towerCords[i];
             if (towerCords.length / 2 <= i)playerAffil = players[1];
+//            while (towerCord[1] > 700){
+//                towerCord[1] -= 20;
+//            }
             Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 4000, 3, 2000, 400,
                     50, 50, "Beer", "tower"), towerCord[0], towerCord[1], playerAffil);
             towers.add(tower);
             units.add(tower);
-//            System.out.println(Arrays.toString(tower.DistanceInDirection(new double[]{560, 450})));
-//            System.out.println(tower.DistanceTo(new double[]{560, 450}));
-//            tower.label.setBounds((int) towerCord[0], (int) towerCord[1], 100, 100);
         }
     }
 }

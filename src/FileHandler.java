@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class FileHandler {
-    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
+    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:"};
     static PrintWriter writer;
 
     //    Source: StackOverflow, Coding with John
