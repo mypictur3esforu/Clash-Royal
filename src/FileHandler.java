@@ -8,21 +8,18 @@ import java.util.*;
 
 public class FileHandler {
     static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:"};
-    static PrintWriter writer;
 
     //    Source: StackOverflow, Coding with John
     static void WriteToFile(String message) {
-        try {
-//            List<String> lines = Arrays.asList("The first line", "The second line");
-            ArrayList<String> lines = ReadFile();
-            lines.add(message);
-            Path file = Paths.get("Clash Royal Cards.txt");
-            Files.write(file, lines, StandardCharsets.UTF_8);
-        } catch (IOException i) {
-            System.out.println("Weird");
-        }
+        ArrayList<String> lines = ReadFile();
+        lines.add(message);
+        WriteFile(lines);
     }
 
+    /**
+     * Liest die Datei aus und gibt alle Zeilen als ein String in einer ArrayList zurück
+     * @return ArrayList mit jeder Zeile als einzelner String
+     */
     static ArrayList<String> ReadFile(){
         ArrayList<String> string = new ArrayList<>();
         try{
@@ -55,10 +52,6 @@ public class FileHandler {
         return cards;
     }
 
-//    static void SaveCard(Card card){
-//        ArrayList<String>
-//    }
-
     /**
      * Sucht die passende Karte zum Namen raus und gibt diese zurück
      * @param name Name des Projektils
@@ -77,7 +70,8 @@ public class FileHandler {
     }
 
     /**
-     * Geht den String Stück für Stück durch und speichert alle Informationen
+     * Wandelt einen String mit Informationen in eine Karte um.
+     * Geht den String Stück für Stück durch und speichert alle Informationen.
      * @param data String mit den Informationen
      * @param projectile Ist die Karte ein Projektil? Ja, ist sie / Nein, nicht unbedingt, aber könnte
      * @return Neue Karte entsprechend der gespeicherten Informationen
@@ -114,6 +108,22 @@ public class FileHandler {
 //        String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
 //        Card(String name, ImageIcon icon, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType){
         return new Card(name, new ImageIcon(imageRef), stats.getFirst(), stats.get(1), stats.get(2), stats.get(3), stats.get(4), stats.get(5), stats.get(6), stats.getLast(), projName, type);
+    }
+
+    static void EditFile(int row, String newLine){
+        ArrayList<String> lines = ReadFile();
+        lines.set(row, newLine);
+        WriteFile(lines);
+    }
+
+    static private void WriteFile(ArrayList<String> lines){
+        try {
+//            List<String> lines = Arrays.asList("The first line", "The second line");
+            Path file = Paths.get("Clash Royal Cards.txt");
+            Files.write(file, lines, StandardCharsets.UTF_8);
+        } catch (IOException i) {
+            System.out.println("Weird");
+        }
     }
 
 

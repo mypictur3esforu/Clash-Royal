@@ -25,7 +25,10 @@ public class CardEditor extends JPanel {
      */
     void CreateOverview(){
         //Ich mag JTable nicht :)
-        String[] categories = FileHandler.stats;
+        String[] stats = FileHandler.stats;
+        ArrayList<String> categories = new ArrayList<>();
+        Collections.addAll(categories, stats);
+        categories.add("Icon:");
         ArrayList<Card> cardsInGame = ClashRoyal.staticCardCollection;
         overview = new JPanel(new GridLayout(cardsInGame.size() + 5, 1, 0, 5));
         HeadlineRow(categories);
@@ -34,12 +37,10 @@ public class CardEditor extends JPanel {
 
     /**
      * Fügt die erste Reihe mit den Überschriften zur Overview hinzu
-     * @param stats Stats / Kategorien
+     * @param categories Stats / Kategorien
      */
-    void HeadlineRow(String[] stats){
-        ArrayList<String> categories = new ArrayList<>();
-        Collections.addAll(categories, stats);
-        categories.add("Save");
+    void HeadlineRow(ArrayList<String> categories){
+        categories.add("Save:");
         JPanel headlineRow = new JPanel(new GridLayout(1, categories.size()));
         for (String category : categories){
             JLabel headline = new JLabel(category, SwingConstants.CENTER);
@@ -57,12 +58,12 @@ public class CardEditor extends JPanel {
      * @param categories Stats
      * @param cardsInGame Karten
      */
-    void CardOverview(String[] categories, ArrayList<Card> cardsInGame){
+    void CardOverview(ArrayList<String> categories, ArrayList<Card> cardsInGame){
         int i = 0;
 //        Ich mag das enhanced for mehr als for i
         for (Card card : cardsInGame) {
             ArrayList<JTextField> textFieldsOfRow = new ArrayList<>();
-            JPanel row = new JPanel(new GridLayout(1, categories.length + 1, 2,0));
+            JPanel row = new JPanel(new GridLayout(1, categories.size() + 1, 2,0));
             for (String category : categories){
                 JLabel value = new JLabel(card.GetStat(category), SwingConstants.CENTER);
                 value.setOpaque(true);
