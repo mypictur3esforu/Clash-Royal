@@ -10,7 +10,7 @@ public class Game extends JPanel {
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    int width, height, screenWidth = screenSize.width, screenHeight = screenSize.height; ;
+    int width, height, screenWidth = screenSize.width, screenHeight = screenSize.height;
 
     Game(int width, int height, ArrayList<Card> cards){
         this.width = width;

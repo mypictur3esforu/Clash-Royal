@@ -110,6 +110,11 @@ public class FileHandler {
         return new Card(name, new ImageIcon(imageRef), stats.getFirst(), stats.get(1), stats.get(2), stats.get(3), stats.get(4), stats.get(5), stats.get(6), stats.getLast(), projName, type);
     }
 
+    /**
+     * Speichert eine bestimmte Zeile neu
+     * @param row Nummer der Zeile
+     * @param newLine Neue Zeile, die gespeichert werden soll
+     */
     static void EditFile(int row, String newLine){
         ArrayList<String> lines = ReadFile();
         lines.set(row, newLine);
@@ -118,12 +123,41 @@ public class FileHandler {
 
     static private void WriteFile(ArrayList<String> lines){
         try {
-//            List<String> lines = Arrays.asList("The first line", "The second line");
+//            List<String> lines = Arrays.asList("The first line", "The second line"); //Eine Methode wie man FileWriten kann
+            if (!lines.getFirst().equals("Cards:")) lines.addFirst("Cards:");
             Path file = Paths.get("Clash Royal Cards.txt");
             Files.write(file, lines, StandardCharsets.UTF_8);
         } catch (IOException i) {
             System.out.println("Weird");
         }
+    }
+
+    /**
+     * Speichert alle Informationen/String in der Datei
+     * @param lines Zeilen mit den Karten
+     */
+    static void SaveCards(ArrayList<String> lines){
+            WriteFile(lines);
+    }
+
+
+    /**
+     * Erzeugt einen String zum Karten erstellen, bzw. eine Zeile die gespeichert werden kann.
+     * @param number Nummer der Zahl (Die Zahl am Anfang)
+     * @param inputs JTexFields, in der die Informationen stehen. Müssen die gleiche Reihenfolge haben wie FilHandler.stats und das letzte TextField muss der ImagePath sein
+     * @return Ein String den das Programm speichern kann
+     */
+    static String CreateMainString(int number, ArrayList<JTextField> inputs){
+        StringBuilder string;
+        string = new StringBuilder(number + ". ");
+        String[] stats = FileHandler.stats;
+        for (int i = 0; i < stats.length; i++) {
+//            string += stats[i] + " " + values.get(i) + "; ";
+            string.append(stats[i]).append(" ").append(inputs.get(i).getText()).append("; ");
+        }
+        string.append("Icon: ").append(inputs.getLast().getText()).append("; ");
+        System.out.println(string);
+        return string + "";
     }
 
 

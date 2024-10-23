@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -43,6 +42,9 @@ public class Projectile extends Entity {
         TargetHit();
     }
 
+    /**
+     * Soll das Projektil so drehen, dass es in die Richtung zeigt, in die es fliegt
+     */
     void Rotate(){
         Graphics2D proj;
     }

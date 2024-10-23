@@ -29,6 +29,7 @@ public class CardEditor extends JPanel {
         ArrayList<String> categories = new ArrayList<>();
         Collections.addAll(categories, stats);
         categories.add("Icon:");
+        categories.add("Save:");
         ArrayList<Card> cardsInGame = ClashRoyal.staticCardCollection;
         overview = new JPanel(new GridLayout(cardsInGame.size() + 5, 1, 0, 5));
         HeadlineRow(categories);
@@ -40,7 +41,6 @@ public class CardEditor extends JPanel {
      * @param categories Stats / Kategorien
      */
     void HeadlineRow(ArrayList<String> categories){
-        categories.add("Save:");
         JPanel headlineRow = new JPanel(new GridLayout(1, categories.size()));
         for (String category : categories){
             JLabel headline = new JLabel(category, SwingConstants.CENTER);
@@ -59,12 +59,16 @@ public class CardEditor extends JPanel {
      * @param cardsInGame Karten
      */
     void CardOverview(ArrayList<String> categories, ArrayList<Card> cardsInGame){
+        categories.removeLast();
         int i = 0;
 //        Ich mag das enhanced for mehr als for i
         for (Card card : cardsInGame) {
             ArrayList<JTextField> textFieldsOfRow = new ArrayList<>();
             JPanel row = new JPanel(new GridLayout(1, categories.size() + 1, 2,0));
             for (String category : categories){
+                if (category.equals("Icon:")){
+                    System.out.println("Hallo");
+                }
                 JLabel value = new JLabel(card.GetStat(category), SwingConstants.CENTER);
                 value.setOpaque(true);
                 value.setBackground(new Color(0xFFADD0D6, true));
@@ -87,6 +91,8 @@ public class CardEditor extends JPanel {
     }
 
     void SaveChanges(int row){
-
+        ArrayList<JTextField> rowInput = inputs.get(row);
+        String line = FileHandler.CreateMainString(row + 1, rowInput);
+        FileHandler.EditFile(row, line);
     }
 }

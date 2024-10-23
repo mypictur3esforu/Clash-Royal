@@ -78,17 +78,22 @@ public class CardCreator extends JPanel {
     void CreateSave(){
         save = new JPanel(new GridLayout(1, 1));
         JButton saveButton = new JButton("SAVE");
-        saveButton.addActionListener(e -> {Save();});
+        saveButton.addActionListener(e -> {
+            SaveNewCard();});
         saveButton.setFont(new Font("Arial", Font.BOLD, 30));
         save.add(saveButton);
     }
 
-    void Save(){
+    /**
+     * Erzeugt und speichert die neue Karte
+     */
+    void SaveNewCard(){
         String string = CreateMainString();
         FileHandler.WriteToFile(string);
         FileHandler.ReadFile();
     }
 
+    //Wäre besser, wenn man die Methode aus FileHandler nimmt damit keine Dopplung entsteht
     String CreateMainString(){
         StringBuilder string;
         numberOfTroops++;
@@ -101,5 +106,7 @@ public class CardCreator extends JPanel {
         System.out.println(string);
         return string + "";
     }
+
+
 
 }
