@@ -7,6 +7,7 @@ public class Card {
     Card projectile;
     int speed, range, attackSpeed, sightDistance, width, height;
     double health, damage;
+    String[] values;
 
     Card(String name, ImageIcon icon, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType){
         this.name = name;
@@ -22,6 +23,13 @@ public class Card {
         this.cardType = cardType;
         if (!cardType.equals("projectile")) this.projectile = GetProjectile(projectileName);
 //        this.projName = projectileName;
+        SaveValuesAsString();
+    }
+
+    void SaveValuesAsString(){
+//        {"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
+        values = new String[]{name, speed+"", range+"", health+"", damage+"", attackSpeed+"", sightDistance+"", width+"", height+"", projectile+"", cardType};
+
     }
 
     static ImageIcon ImageResizer(ImageIcon paraImage, int width, int height){
@@ -46,4 +54,25 @@ public class Card {
 //        }
 //        return null;
 //    }
+
+    /**
+     * Findet den Wert der gegebenen Kategorie
+     * @param category Name des Stats
+     * @return Wert des stats als String
+     */
+     String GetStat(String category){
+            if (category.equals("Projectile:") && projectile != null) return projectile.name;
+        String[] stats = FileHandler.stats;
+        for (int i = 0; i < stats.length; i++) {
+            if (stats[i].equals(category)) {
+                try {
+                    double number = Double.parseDouble(values[i]);
+                    return Math.round(number) + "";
+                }catch (Exception e){
+                return values[i];
+                }
+            }
+        }
+        return "Error";
+    }
 }
