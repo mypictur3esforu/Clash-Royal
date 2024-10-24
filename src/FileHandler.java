@@ -76,6 +76,7 @@ public class FileHandler {
         return null;
     }
 
+
     /**
      * Wandelt einen String mit Informationen in eine Karte um.
      * Geht den String Stück für Stück durch und speichert alle Informationen.
