@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 public class Collection extends JPanel {
     ArrayList<Card> cards;
-    JPanel cardView, team;
+    JPanel cardView;
 
     Collection(ArrayList<Card> cards) {
         this.cards = cards;
         setLayout(new GridLayout(2, 1));
-        CreateTeam(new Card[0]);
         PaintCards();
 
         BackgroundColors();
@@ -17,7 +16,6 @@ public class Collection extends JPanel {
     }
 
     void Add(){
-        add(team);
         add(cardView);
     }
 
@@ -34,7 +32,8 @@ public class Collection extends JPanel {
             cardView.add(CreateCardInfoPanel(card, shownCategories));
         }
     }
-    JPanel CreateCardInfoPanel(Card card, String[] categories) {
+
+    static JPanel CreateCardInfoPanel(Card card, String[] categories) {
         JPanel infoPanel = new JPanel(new GridLayout(2, 1));
         infoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         JPanel stats = new JPanel(new GridLayout(categories.length, 1));
@@ -48,13 +47,4 @@ public class Collection extends JPanel {
         return infoPanel;
     }
 
-    void CreateTeam(Card[] teamCards){
-        team = new JPanel(new GridLayout());
-        JPanel cardsOfTeam = new JPanel(new GridLayout(2, 4));
-        for (Card card : teamCards){
-            if (card == null ) continue;
-            cardsOfTeam.add(CreateCardInfoPanel(card, new String[]{""}));
-        }
-        team.add(cardsOfTeam);
-    }
 }
