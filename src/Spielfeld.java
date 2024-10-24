@@ -152,7 +152,7 @@ public class Spielfeld {
 //            while (towerCord[1] > 700){
 //                towerCord[1] -= 20;
 //            }
-            Tower tower = new Tower(new Card("Tower", new ImageIcon("images/tower.png"), 0, 350, 4000, 3, 2000, 400,
+            Tower tower = new Tower(new Card("Tower", "images/tower.png", 0, 350, 4000, 3, 2000, 400,
                     50, 50, "Beer", "tower"), towerCord[0], towerCord[1], playerAffil);
             towers.add(tower);
             units.add(tower);
