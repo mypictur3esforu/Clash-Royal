@@ -6,7 +6,7 @@ import java.util.Objects;
 public class MainUI {
     static JFrame frame = new JFrame();
     static JPanel cardPanel = new JPanel(new CardLayout());
-    static JPanel menu = new JPanel(), collection = new JPanel(), shop = new JPanel();
+    static JPanel menu = new JPanel(), shop = new JPanel();
     static Game game;
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     static boolean devToolsEnabled = true;
@@ -28,7 +28,7 @@ public class MainUI {
 
     static void AddPanels(){
         cardPanel.add(shop, "Shop");
-        cardPanel.add(collection, "Collection");
+        cardPanel.add(new Collection(ClashRoyal.staticCardCollection), "Collection");
         cardPanel.add(menu, "Menu");
 //        cardPanel.add(new DevTools(), "DevCollection");
         if (devToolsEnabled){

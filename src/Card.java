@@ -74,7 +74,7 @@ public class Card {
      * @param searchedStats Namen der gewünschten Stats
      * @return Werte als String[]
      */
-    ArrayList<String> GetCardValues(String[] searchedStats){
+    ArrayList<String> GetMultipleStats(String[] searchedStats){
         ArrayList<String> gathered = new ArrayList<>();
         for (String searchedStat : searchedStats) {
             gathered.add(GetStat(searchedStat));
