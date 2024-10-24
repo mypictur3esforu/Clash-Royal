@@ -8,6 +8,7 @@ public class Spielfeld {
     ArrayList<Entity> bridges = new ArrayList<>();
     Card selectedTroop;
     int selectedButton;
+    double elixir = 0.5 / (double) (100/6);
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         @Override
@@ -58,8 +59,13 @@ public class Spielfeld {
                 if (unit.HasShot() && unit.TargetLocked() &&! (unit instanceof Projectile)) ready.add(unit);
                 if (!unit.Alive()) victims.add(unit);
         }
+
         for (Entity shooter : ready){
             units.add(shooter.Shoot());
+        }
+
+        for (int i = 1; i < players.length; i++) {
+            players[i].AddElixir(elixir);
         }
 
         for (Entity victim : victims){
@@ -89,7 +95,8 @@ public class Spielfeld {
      * @param y Y Koordinate
      */
     void NewTroop(Card newTroop, int x, int y, Spieler playerAffiliation){
-        if (newTroop == null) return;
+        if (newTroop == null || playerAffiliation.elixir < newTroop.elixir) return;
+        playerAffiliation.SpendElixir(newTroop.elixir);
         Troop temp = new Troop(newTroop, x - (double) newTroop.width /2, y - (double) newTroop.height / 2, playerAffiliation);
         troops.add(temp);
         units.add(temp);

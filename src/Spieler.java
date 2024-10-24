@@ -1,11 +1,11 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Spieler {
     String name;
     ArrayList<Card> cardSelection = new ArrayList<>();
     Color color;
+    double elixir = 0;
 
     Spieler(String name, ArrayList<Card> cardSelection, Color color){
         this.name = name;
@@ -22,6 +22,13 @@ public class Spieler {
         cardSelection.set(place, cardSelection.get(4));
         cardSelection.remove(4);
         cardSelection.add(temp);
+    }
 
+    void AddElixir(double amount){
+        elixir += amount;
+    }
+
+    void SpendElixir(double amount){
+        elixir -= amount;
     }
 }
