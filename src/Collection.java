@@ -17,32 +17,6 @@ public class Collection extends JPanel {
         add(cardView);
     }
 
-    void DrawCards() {
-        for (Card card : cards) {
-            if (card.cardType.equals("projectile")) continue;
-            JPanel panel = new JPanel(new GridLayout(1, 2));
-            JPanel stats = new JPanel(new GridLayout(6, 1));
-            JLabel icon = new JLabel(card.icon);
-
-            JLabel name = new JLabel("Name: " + card.name);
-            JLabel speed = new JLabel("Speed: " + card.speed);
-            JLabel range = new JLabel("Range: " + card.range);
-            JLabel health = new JLabel("Health Points: " + card.health);
-            JLabel damage = new JLabel("Damage: " + card.damage);
-            stats.add(name);
-            stats.add(speed);
-            stats.add(range);
-            stats.add(health);
-            stats.add(damage);
-
-            panel.add(icon);
-            panel.add(stats);
-            panel.setBackground(MainUI.vibe);
-
-//            MainUI.collection.add(panel);
-        }
-    }
-
     void PaintCards() {
         cardView = new JPanel(new GridLayout(10, 7));
         for (Card card : cards) {
