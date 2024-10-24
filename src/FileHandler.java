@@ -90,7 +90,7 @@ public class FileHandler {
         String name = "", imageRef = "", projName = "", type = "";
         try {
 //            int x = 12;
-            int x = FileHandler.stats.length + 1;
+            int x = FileHandler.stats.length;
             for (int i = 0; i < x; i++) {
                 String stat = data.split(": ")[1].split(";")[0];
 //                Das letzte ist immer der ImagePath
