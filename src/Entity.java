@@ -46,7 +46,7 @@ public class Entity {
     }
 
     void DummyTarget(){
-        target =  new Entity(new Card("0", "images/stift.jpg", 0, 0, 0, 0, 0, 0, 1, 1, null, "dummy"), 10000, 100000, new Spieler("Dummy", null, null));
+        target =  new Entity(ClashRoyal.GetCardByName("DummyTarget"), 10000, 100000, new Spieler("Dummy", null, null));
     }
 
     void Targeting(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {
