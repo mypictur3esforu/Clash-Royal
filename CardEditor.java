@@ -66,17 +66,14 @@ public class CardEditor extends JPanel {
             ArrayList<JTextField> textFieldsOfRow = new ArrayList<>();
             JPanel row = new JPanel(new GridLayout(1, categories.size() + 1, 2,0));
             for (String category : categories){
-                if (category.equals("Icon:")){
-                    System.out.println("Hallo");
-                }
-                JLabel value = new JLabel(card.GetStat(category), SwingConstants.CENTER);
+                JLabel value = new JLabel("Initial Value: " + card.GetStat(category), SwingConstants.CENTER);
                 value.setOpaque(true);
                 value.setBackground(new Color(0xFFADD0D6, true));
-                JTextField input = new JTextField();
+                JTextField input = new JTextField(card.GetStat(category));
                 textFieldsOfRow.add(input);
                 inputs.add(textFieldsOfRow);
                 JPanel stat = new JPanel(new GridLayout(2, 1));
-                stat.setBorder(BorderFactory.createLineBorder(Color.black, 2, true));
+                stat.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
                 stat.add(value);
                 stat.add(input);
                 row.add(stat);
@@ -85,6 +82,7 @@ public class CardEditor extends JPanel {
             int finalI = i;
             save.addActionListener(ev->{SaveChanges(finalI);});
             row.add(save);
+            row.setBorder(BorderFactory.createLineBorder(new Color(0x9C448E), 3));
             overview.add(row);
             i++;
         }
@@ -93,6 +91,6 @@ public class CardEditor extends JPanel {
     void SaveChanges(int row){
         ArrayList<JTextField> rowInput = inputs.get(row);
         String line = FileHandler.CreateMainString(row + 1, rowInput);
-        FileHandler.EditFile(row, line);
+        FileHandler.EditFile(row + 1, line);
     }
 }
