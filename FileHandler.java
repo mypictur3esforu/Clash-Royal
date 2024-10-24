@@ -6,8 +6,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+//Neue Kategorie Anleitung:
+//1. stats erweitern
+//2. Card Parameter und Attribute erweitern (wenn nötig Attribut = Parameter nicht vergessen)
+//3. Card SaveAsString erweitern
+//4. Alte Karten Updaten
+
 public class FileHandler {
-    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:"};
+    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:"};
 
     //    Source: StackOverflow, Coding with John
     static void WriteToFile(String message) {
@@ -98,16 +104,18 @@ public class FileHandler {
                         int newStat = Integer.parseInt(stat);
                         stats.add(newStat);
                     }catch (Exception e){
-//                        System.out.println("Schlöecht");
+//                        System.out.println("String zu Int geht nicht, aber ist egal");
                     }
                 }
             }
         }catch (Exception e) {
             System.out.println("Das schlecht");
         }
-//        String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
+//        String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:};
 //        Card(String name, ImageIcon icon, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType){
-        return new Card(name, imageRef, stats.getFirst(), stats.get(1), stats.get(2), stats.get(3), stats.get(4), stats.get(5), stats.get(6), stats.getLast(), projName, type);
+
+//        Erstellt die neue Karte; stats ist der Integer mit den Zahlwerten; stats hat die gleiche Reihenfolge wie FileHandler.stats
+        return new Card(name, imageRef, stats.getFirst(), stats.get(1), stats.get(2), stats.get(3), stats.get(4), stats.get(5), stats.get(6), stats.get(7), projName, type, stats.getLast());
     }
 
     /**

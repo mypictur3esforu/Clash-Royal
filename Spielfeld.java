@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.*;
 import java.util.Timer;
 
@@ -9,6 +8,7 @@ public class Spielfeld {
     ArrayList<Entity> bridges = new ArrayList<>();
     Card selectedTroop;
     int selectedButton;
+    double elixir = 0.5 / (double) (100/6);
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         @Override
@@ -34,7 +34,7 @@ public class Spielfeld {
         game.overlayButton.addActionListener(ev->{ButtonClick();});
         for (int i = 0; i < game.buttons.length; i++) {
             int finalI = i;
-            game.buttons[i].addActionListener(e -> {
+            game.buttons[i].addActionListener(ev -> {
                 SelectTroop(game.buttons[finalI].inheritedCard);
 //                players[1].ActualizeSelection(finalI);
 //                game.buttons[finalI].NewCard(players[1].cardSelection.get(finalI));
@@ -59,8 +59,13 @@ public class Spielfeld {
                 if (unit.HasShot() && unit.TargetLocked() &&! (unit instanceof Projectile)) ready.add(unit);
                 if (!unit.Alive()) victims.add(unit);
         }
+
         for (Entity shooter : ready){
             units.add(shooter.Shoot());
+        }
+
+        for (int i = 1; i < players.length; i++) {
+            players[i].AddElixir(elixir);
         }
 
         for (Entity victim : victims){
@@ -90,7 +95,8 @@ public class Spielfeld {
      * @param y Y Koordinate
      */
     void NewTroop(Card newTroop, int x, int y, Spieler playerAffiliation){
-        if (newTroop == null) return;
+        if (newTroop == null || playerAffiliation.elixir < newTroop.elixir) return;
+        playerAffiliation.SpendElixir(newTroop.elixir);
         Troop temp = new Troop(newTroop, x - (double) newTroop.width /2, y - (double) newTroop.height / 2, playerAffiliation);
         troops.add(temp);
         units.add(temp);
@@ -138,7 +144,7 @@ public class Spielfeld {
         double[][] bridgeCords = new double[][]{{(double) MainUI.gameWidth / 3 - 2 * width, (double) MainUI.gameHeight / 2 - (double) height / 2}, { (double)  2 * MainUI.gameWidth / 3 + width, (double) MainUI.gameHeight / 2 - (double) height / 2}};
 
         for (double[] bridgeCord : bridgeCords) {
-        Entity bridge = new Entity(new Card("Bridge", null,0, 0, 0, 0, 0, 0, width, height, null, "bridge"), bridgeCord[0], bridgeCord[1], players[0]);
+        Entity bridge = new Entity(ClashRoyal.GetCardByName("Bridge"), bridgeCord[0], bridgeCord[1], players[0]);
         bridges.add(bridge);
         }
     }
@@ -152,8 +158,7 @@ public class Spielfeld {
 //            while (towerCord[1] > 700){
 //                towerCord[1] -= 20;
 //            }
-            Tower tower = new Tower(new Card("Tower", "images/tower.png", 0, 350, 4000, 3, 2000, 400,
-                    50, 50, "Beer", "tower"), towerCord[0], towerCord[1], playerAffil);
+            Tower tower = new Tower(ClashRoyal.GetCardByName("Tower"), towerCord[0], towerCord[1], playerAffil);
             towers.add(tower);
             units.add(tower);
         }

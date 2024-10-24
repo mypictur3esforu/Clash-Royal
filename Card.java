@@ -5,11 +5,11 @@ public class Card {
     String name, cardType, imagePath;
     ImageIcon icon;
     Card projectile;
-    int speed, range, attackSpeed, sightDistance, width, height;
+    int speed, range, attackSpeed, sightDistance, width, height, elixir;
     double health, damage;
     String[] values;
 
-    Card(String name, String imagePath, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType){
+    Card(String name, String imagePath, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType, int elixir){
         this.name = name;
         if (imagePath != null) icon = ImageResizer(new ImageIcon(imagePath), width, height);
         this.speed = speed;
@@ -22,24 +22,25 @@ public class Card {
         this.height = height;
         this.cardType = cardType;
         this.imagePath = imagePath;
+        this.elixir = elixir;
         if (!cardType.equals("projectile")) this.projectile = GetProjectile(projectileName);
         SaveValuesAsString();
     }
 
     void SaveValuesAsString(){
 //        {"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
-        values = new String[]{name, speed+"", range+"", health+"", damage+"", attackSpeed+"", sightDistance+"", width+"", height+"", projectile+"", cardType};
+        values = new String[]{name, speed+"", range+"", health+"", damage+"", attackSpeed+"", sightDistance+"", width+"", height+"", projectile+"", cardType, elixir+""};
 
     }
 
     static ImageIcon ImageResizer(ImageIcon paraImage, int width, int height){
-//        try {
+        try {
             paraImage.setImage(paraImage.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
             return paraImage;
-//        }catch (Exception e) {
-//            System.out.println("Height and Width cannot be 0"); //maybe bs
-//            return null;
-//        }
+        }catch (Exception e) {
+            System.out.println("Height and Width cannot be 0");
+            return null;
+        }
     }
 
     private Card GetProjectile(String name){

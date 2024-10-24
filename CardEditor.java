@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -8,16 +7,27 @@ public class CardEditor extends JPanel {
     ArrayList<String> cards;
     JPanel overview;
     ArrayList<ArrayList<JTextField>> inputs = new ArrayList<>();
+    JScrollPane overviewScroll;
 
     CardEditor(){
         setLayout(new GridLayout(1, 1));
         cards = FileHandler.ReadFile();
         CreateOverview();
+        OverviewScrollPane();
         Add();
     }
 
     void Add(){
+//        add(overviewScroll);
         add(overview);
+    }
+
+    void OverviewScrollPane(){
+        JScrollBar sB = new JScrollBar(Adjustable.HORIZONTAL);
+        sB.setBackground(Color.lightGray);
+        overviewScroll = new JScrollPane(overview);
+        overviewScroll.setHorizontalScrollBar(sB);
+        overviewScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 50));
     }
 
     /**
@@ -60,8 +70,8 @@ public class CardEditor extends JPanel {
      */
     void CardOverview(ArrayList<String> categories, ArrayList<Card> cardsInGame){
         categories.removeLast();
-        int i = 0;
-//        Ich mag das enhanced for mehr als for i
+//        Ich mag das enhanced for mehr als for i :)
+        int i = 1;
         for (Card card : cardsInGame) {
             ArrayList<JTextField> textFieldsOfRow = new ArrayList<>();
             JPanel row = new JPanel(new GridLayout(1, categories.size() + 1, 2,0));
@@ -69,18 +79,23 @@ public class CardEditor extends JPanel {
                 JLabel value = new JLabel("Initial Value: " + card.GetStat(category), SwingConstants.CENTER);
                 value.setOpaque(true);
                 value.setBackground(new Color(0xFFADD0D6, true));
+
                 JTextField input = new JTextField(card.GetStat(category));
                 textFieldsOfRow.add(input);
-                inputs.add(textFieldsOfRow);
+
                 JPanel stat = new JPanel(new GridLayout(2, 1));
                 stat.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+
                 stat.add(value);
                 stat.add(input);
                 row.add(stat);
             }
+            inputs.add(textFieldsOfRow);
+
             JButton save = new JButton("Save Changes");
             int finalI = i;
             save.addActionListener(ev->{SaveChanges(finalI);});
+
             row.add(save);
             row.setBorder(BorderFactory.createLineBorder(new Color(0x9C448E), 3));
             overview.add(row);
@@ -88,9 +103,11 @@ public class CardEditor extends JPanel {
         }
     }
 
+//    es werden die ganze Zeit die gleichen TextFields geaddet
     void SaveChanges(int row){
-        ArrayList<JTextField> rowInput = inputs.get(row);
-        String line = FileHandler.CreateMainString(row + 1, rowInput);
-        FileHandler.EditFile(row + 1, line);
+        ArrayList<JTextField> rowInput = inputs.get(row - 1);
+        System.out.println(rowInput.getFirst().getText());
+        String line = FileHandler.CreateMainString(row, rowInput);
+        FileHandler.EditFile(row, line);
     }
 }

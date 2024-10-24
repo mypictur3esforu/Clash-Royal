@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.tree.DefaultTreeCellEditor;
 import java.awt.*;
 import java.util.Objects;
 
@@ -7,29 +8,30 @@ public class MainUI {
     static JPanel cardPanel = new JPanel(new CardLayout());
     static JPanel menu = new JPanel(), collection = new JPanel(), shop = new JPanel();
     static Game game;
-    static CardEditor devCollection;
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    static boolean devToolsEnabled = true;
 
     static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 
     static void CreateMainUI() {
-        devCollection = new CardEditor();
         FrameDefinition();
         Menu();
-//        GameUI.CreateUI();
-//        collection.setBackground(Color.black);
-        shop.setBackground(Color.cyan);
-        cardPanel.add(shop, "Shop");
-        cardPanel.add(collection, "Collection");
-        cardPanel.add(menu, "Menu");
-        cardPanel.add(new CardCreator(), "CardCreator");
-        cardPanel.add(devCollection, "DevCollection");
-//        cardPanel.add(GameUI.gamePanel, "GameUI");
+        AddPanels();
         SwapPanel("Menu");
-
         frame.add(cardPanel);
         SwapButtons();
         frame.setVisible(true);
+    }
+
+    static void AddPanels(){
+        cardPanel.add(shop, "Shop");
+        cardPanel.add(collection, "Collection");
+        cardPanel.add(menu, "Menu");
+//        cardPanel.add(new DevTools(), "DevCollection");
+        if (devToolsEnabled){
+        cardPanel.add(new CardCreator());
+        cardPanel.add(new CardEditor());
+        }
     }
 
     static void FrameDefinition() {
