@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a17988a-2f05-46f8-b109-72d3e4a192cb" name="Changes" comment="Funktioniert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Card.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +256,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729797262619</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Funktioniert">
+      <option name="closed" value="true" />
+      <created>1729799697293</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1729799697293</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Funktioniert">
+      <option name="closed" value="true" />
+      <created>1729799722736</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1729799722736</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
