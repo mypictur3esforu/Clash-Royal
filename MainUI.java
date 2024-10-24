@@ -7,10 +7,13 @@ public class MainUI {
     static JPanel cardPanel = new JPanel(new CardLayout());
     static JPanel menu = new JPanel(), collection = new JPanel(), shop = new JPanel();
     static Game game;
-    static CardsInGame devCollection;
+    static CardEditor devCollection;
+    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+    static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 
     static void CreateMainUI() {
-        devCollection = new CardsInGame();
+        devCollection = new CardEditor();
         FrameDefinition();
         Menu();
 //        GameUI.CreateUI();
@@ -34,7 +37,7 @@ public class MainUI {
 //        frame.setLayout(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setMinimumSize(new Dimension(1900, 300));
+        frame.setMinimumSize(new Dimension(screenWidth, 300));
     }
 
     static void Menu() {
@@ -45,7 +48,7 @@ public class MainUI {
             cardPanel.add(game,  "GameUI");
             SwapPanel("GameUI");
         });
-        startGame.setBounds(GameUI.screenWidth / 2 - 350, 0, 700, 1080);
+        startGame.setBounds(screenWidth / 2 - 350, 0, 700, screenHeight);
         menu.add(startGame);
     }
 

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Entity {
@@ -20,17 +19,6 @@ public class Entity {
         this.affiliation = affiliation;
         health = card.health;
         PlaceEntity();
-    }
-
-    void PlaceEntitys() {
-        label = new JLabel(card.icon);
-//        label = new JLabel("Hallo");
-        label.setBounds((int) cords[0], (int) cords[1], card.width, card.height);
-        GameUI.overlayButton.add(label);
-        JPanel lab = new JPanel();
-        lab.setBackground(Color.magenta);
-        lab.add(label);
-        MainUI.cardPanel.add(lab);
     }
 
     void PlaceEntity(){
@@ -276,7 +264,7 @@ public class Entity {
 
     void HealthBar() {
         healthBar.setValue((int) (100 / card.health * health));
-        int width = (int)(card.health / 10);
+//        int width = (int)(card.health / 10);
 //        healthBar.setBounds((int) (cords[0] + card.width / 2 - width / 2), (int) (cords[1] + 5) - 30, width , 15);
         healthBar.setBounds((int) (cords[0] + card.width / 2 - 25), (int) (cords[1] + 5) - 30, 50 , 15);
     }
@@ -284,8 +272,6 @@ public class Entity {
     void KickTheBucket(){
         label.setVisible(false);
         healthBar.setVisible(false);
-        GameUI.overlayButton.remove(label);
-        GameUI.overlayButton.remove(healthBar);
         for (Entity hunter : targetedBy){
             hunter.target = null;
             hunter.attackState = 1;
