@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.*;
 import java.util.Timer;
 
@@ -34,7 +33,7 @@ public class Spielfeld {
         game.overlayButton.addActionListener(ev->{ButtonClick();});
         for (int i = 0; i < game.buttons.length; i++) {
             int finalI = i;
-            game.buttons[i].addActionListener(e -> {
+            game.buttons[i].addActionListener(ev -> {
                 SelectTroop(game.buttons[finalI].inheritedCard);
 //                players[1].ActualizeSelection(finalI);
 //                game.buttons[finalI].NewCard(players[1].cardSelection.get(finalI));

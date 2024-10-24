@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -8,16 +7,26 @@ public class CardEditor extends JPanel {
     ArrayList<String> cards;
     JPanel overview;
     ArrayList<ArrayList<JTextField>> inputs = new ArrayList<>();
+    JScrollPane overviewScroll;
 
     CardEditor(){
         setLayout(new GridLayout(1, 1));
         cards = FileHandler.ReadFile();
         CreateOverview();
+        OverviewScrollPane();
         Add();
     }
 
     void Add(){
-        add(overview);
+        add(overviewScroll);
+    }
+
+    void OverviewScrollPane(){
+        JScrollBar sB = new JScrollBar(Adjustable.HORIZONTAL);
+        sB.setBackground(Color.lightGray);
+        overviewScroll = new JScrollPane(overview);
+        overviewScroll.setHorizontalScrollBar(sB);
+        overviewScroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 50));
     }
 
     /**
