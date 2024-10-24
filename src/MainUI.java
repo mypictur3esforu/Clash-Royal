@@ -10,10 +10,13 @@ public class MainUI {
     static Game game;
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     static boolean devToolsEnabled = true;
+    static Color vibe = new Color(0x2C3742);
 
     static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 
     static void CreateMainUI() {
+        shop.setBackground(vibe);
+        menu.setBackground(MainUI.vibe);
         FrameDefinition();
         Menu();
         AddPanels();

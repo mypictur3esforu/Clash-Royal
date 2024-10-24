@@ -20,6 +20,7 @@ public class Game extends JPanel {
         game.setLayout(null);
 //        game.setBounds(0, 0, screenWidth, screenHeight);
         game.setBounds(0, 0, screenWidth, screenHeight);
+        game.setBackground(MainUI.vibe);
 
         setLayout(null);
         setBackground(Color.black);

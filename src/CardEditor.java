@@ -38,12 +38,12 @@ public class CardEditor extends JPanel {
         String[] stats = FileHandler.stats;
         ArrayList<String> categories = new ArrayList<>();
         Collections.addAll(categories, stats);
-        categories.add("Icon:");
         categories.add("Save:");
         ArrayList<Card> cardsInGame = ClashRoyal.staticCardCollection;
-        overview = new JPanel(new GridLayout(cardsInGame.size() + 5, 1, 0, 5));
+        overview = new JPanel(new GridLayout(cardsInGame.size() + 1, 1, 0, 5));
         HeadlineRow(categories);
         CardOverview(categories, cardsInGame);
+        overview.setBackground(MainUI.vibe);
     }
 
     /**
@@ -107,7 +107,7 @@ public class CardEditor extends JPanel {
     void SaveChanges(int row){
         ArrayList<JTextField> rowInput = inputs.get(row - 1);
         System.out.println(rowInput.getFirst().getText());
-        String line = FileHandler.CreateMainString(row, rowInput);
+        String line = FileHandler.CreateMainStringOfJTextField(row, rowInput);
         FileHandler.EditFile(row, line);
     }
 }

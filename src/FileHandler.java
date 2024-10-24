@@ -14,7 +14,7 @@ import java.util.*;
 
 
 public class FileHandler {
-    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:"};
+    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:", "Icon:"};
 
     //    Source: StackOverflow, Coding with John
     static void WriteToFile(String message) {
@@ -93,6 +93,7 @@ public class FileHandler {
             int x = FileHandler.stats.length + 1;
             for (int i = 0; i < x; i++) {
                 String stat = data.split(": ")[1].split(";")[0];
+//                Das letzte ist immer der ImagePath
                 if (i != x -1)data = data.split(data.split(";")[0] + "; ")[1];
                 else imageRef = stat;
                 if (i == 0) name = stat;
@@ -111,7 +112,7 @@ public class FileHandler {
                 }
             }
         }catch (Exception e) {
-            System.out.println("Das schlecht");
+//            System.out.println("Das schlecht");
         }
 //        String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:};
 //        Card(String name, ImageIcon icon, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType){
@@ -123,7 +124,7 @@ public class FileHandler {
     /**
      * Speichert eine bestimmte Zeile neu
      * @param row Nummer der Zeile
-     * @param newLine Neue Zeile, die gespeichert werden soll
+     * @param newLine Neuer Zeileninhalt
      */
     static void EditFile(int row, String newLine){
         ArrayList<String> lines = ReadFile();
@@ -157,15 +158,23 @@ public class FileHandler {
      * @param inputs JTexFields, in der die Informationen stehen. Müssen die gleiche Reihenfolge haben wie FilHandler.stats und das letzte TextField muss der ImagePath sein
      * @return Ein String den das Programm speichern kann
      */
-    static String CreateMainString(int number, ArrayList<JTextField> inputs){
+    static String CreateMainStringOfJTextField(int number, ArrayList<JTextField> inputs){
+        ArrayList<String> values = new ArrayList<>();
+        for (JTextField input : inputs) {
+            values.add(input.getText());
+        }
+        return CreateMainString(number, values);
+    }
+
+    static String CreateMainString(int number, ArrayList<String> values){
         StringBuilder string;
         string = new StringBuilder(number + ". ");
         String[] stats = FileHandler.stats;
         for (int i = 0; i < stats.length; i++) {
 //            string += stats[i] + " " + values.get(i) + "; ";
-            string.append(stats[i]).append(" ").append(inputs.get(i).getText()).append("; ");
+            string.append(stats[i]).append(" ").append(values.get(i)).append("; ");
         }
-        string.append("Icon: ").append(inputs.getLast().getText()).append("; ");
+        string.append("Icon: ").append(values.getLast()).append("; ");
         System.out.println(string);
         return string + "";
     }

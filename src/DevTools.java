@@ -11,6 +11,7 @@ public class DevTools extends JPanel {
 //    Ganz komisches Layout, deswegen geht das irgendwie nicht
     DevTools(){
         DevUI();
+        viewPanel.setBackground(MainUI.vibe);;
         cardEditor = new CardEditor();
         cardCreator = new CardCreator();
         Add();

@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Collection {
+public class Collection extends JPanel {
     ArrayList<Card> cards;
 
     Collection(ArrayList<Card> cards){
@@ -13,6 +13,7 @@ public class Collection {
     }
     void DrawCards(){
         for (Card card : cards) {
+            if (card.cardType.equals("projectile")) continue;
             JPanel panel = new JPanel(new GridLayout(1, 2));
             JPanel stats = new JPanel(new GridLayout(6, 1));
             JLabel icon = new JLabel(card.icon);
@@ -30,8 +31,16 @@ public class Collection {
 
             panel.add(icon);
             panel.add(stats);
+            panel.setBackground(MainUI.vibe);
 
             MainUI.collection.add(panel);
         }
+    }
+
+    void PaintCards(){
+//        String[] shownCategories = new String[]{};
+//        for (Card card : cards){
+//            for (String)
+//        }
     }
 }
