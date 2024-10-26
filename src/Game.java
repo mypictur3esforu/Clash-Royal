@@ -95,7 +95,7 @@ public class Game extends JPanel {
         troopCost.setOpaque(false);
         troopCost.setBorderPainted(false);
 
-        elixirBar.add(troopCost);
+        elixirPBar.add(troopCost);
         elixirBar.add(elixirPBar);
         elixirBar.setBounds(screenWidth / 2 + width / 2, 0, 200, height);
         troopCost.setBounds(2, 0, elixirBar.getWidth() - 4, elixirBar.getHeight());
