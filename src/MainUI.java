@@ -10,7 +10,7 @@ public class MainUI {
     static Game game;
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     static boolean devToolsEnabled = true;
-    static Color vibe = new Color(0x2C3742);
+    static Color vibe = new Color(0x878787);
 
     static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 
@@ -87,4 +87,6 @@ public class MainUI {
             cLayout.show(cardPanel, name);
         }
     }
+
+    
 }

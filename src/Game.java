@@ -33,7 +33,7 @@ public class Game extends JPanel {
     }
 
     void Add(){
-        game.add(restrictHalf);
+//        game.add(restrictHalf);
         game.add(overlayButton);
         game.add(selectButtons);
         game.add(map);
