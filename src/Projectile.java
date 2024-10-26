@@ -15,7 +15,7 @@ public class Projectile extends Entity {
         this.target = target;
         damage = caster.card.damage;
         healthBar.setVisible(false);
-        label.setIcon(new ImageIcon( Rotate(MakeBufferedImage(card.icon), GetAngle())));
+        label.setIcon(new ImageIcon( Rotate(MakeBufferedImage(card.icon), Math.toDegrees(GetAngle()))));
     }
 
     void TargetHit(){
@@ -36,6 +36,7 @@ public class Projectile extends Entity {
         double yChange = Math.sin(a) * card.speed / 10;
         cords[0] += xChange;
         cords[1] += yChange;
+        if (DistanceTo(target.cords) <= (double) card.speed / 10) cords = middleOfTarget;
     }
 
     void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
