@@ -47,7 +47,8 @@ public class Projectile extends Entity {
 
     double GetAngle(){
         double[] distances = DistanceInDirection(target.cords);
-        double ergebnis = 270 + Math.toDegrees(Math.atan(distances[1] / distances[0]));
+        double ergebnis = Math.atan(distances[1] / distances[0]) + 1.5 * Math.PI;
+//        ergebnis = Math.PI;
         return ergebnis;
     }
 
