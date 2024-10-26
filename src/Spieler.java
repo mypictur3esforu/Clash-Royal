@@ -25,10 +25,15 @@ public class Spieler {
     }
 
     void AddElixir(double amount){
+        if (ElixirFull()) return;
         elixir += amount;
     }
 
     void SpendElixir(double amount){
         elixir -= amount;
+    }
+
+    boolean ElixirFull(){
+        return elixir >= 10;
     }
 }

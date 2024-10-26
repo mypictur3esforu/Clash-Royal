@@ -1,12 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Team extends JPanel {
-    ArrayList<Card> team = new ArrayList<>();
+    ArrayList<Card> team;
+    static ArrayList<Card> staticTeam;
     JPanel teamPanel;
 
-    Team(){
+    Team(ArrayList<Card> cards){
+        team = cards;
+        staticTeam = cards;
+        setLayout(new GridLayout(1, 1));
         teamPanel = new JPanel(new GridLayout(1, 1));
         CreateTeam();
         add(teamPanel);
@@ -14,16 +19,17 @@ public class Team extends JPanel {
 
     void CreateTeam(){
         teamPanel = new JPanel(new GridLayout());
+        setBackground(MainUI.vibe);
         JPanel cardsOfTeam = new JPanel(new GridLayout(2, 4));
         for (Card card : team){
             if (card == null ) continue;
-            cardsOfTeam.add(Collection.CreateCardInfoPanel(card, new String[]{""}));
+            cardsOfTeam.add(Collection.CreateCardInfoPanel(card, Collection.shownCategories));
         }
         teamPanel.add(cardsOfTeam);
     }
 
-    ArrayList<Card> CreateRandomTeam(ArrayList<Card> potCards){
-        while (potCards.size() < 8){
+    static ArrayList<Card> CreateRandomTeam(ArrayList<Card> potCards){
+        while (potCards.size() <= 8){
             potCards.addAll(potCards);
         }
         ArrayList<Card> randomTeam = new ArrayList<>();
@@ -39,5 +45,13 @@ public class Team extends JPanel {
             randomTeam.add(potCards.get(randomNumber));
         }
         return randomTeam;
+    }
+
+    static ArrayList<Card> SortPlayableCards(ArrayList<Card> cards){
+        ArrayList<Card> sorted = new ArrayList<>();
+        for (Card card : cards){
+            if (Objects.equals(card.cardType, "troop") || Objects.equals(card.cardType, "tower")) sorted.add(card);
+        }
+        return sorted;
     }
 }

@@ -51,7 +51,7 @@ public class Spielfeld {
     void TimeShooter(){
         ArrayList<Entity> victims = new ArrayList<>();
         ArrayList<Entity> ready = new ArrayList<>();
-//            try {
+            try {
         for (Entity unit : units){
 //        System.out.println("Length: " + units.size());
                 unit.Update(troops, towers, bridges);
@@ -67,14 +67,17 @@ public class Spielfeld {
         for (int i = 1; i < players.length; i++) {
             players[i].AddElixir(elixir);
         }
+        if (selectedTroop == null) game.UpdateElixirBar(players[1].elixir,0);
+        else game.UpdateElixirBar(players[1].elixir, selectedTroop.elixir);
+
 
         for (Entity victim : victims){
             RemoveVictim(victim);
             victim.KickTheBucket();
         }
-//            }catch (Exception e){
-//                System.out.println("Weird Bug");
-//            }
+            }catch (Exception e){
+                System.out.println("ConcurrentModificationException");
+            }
     }
 
     void RemoveVictim(Entity victim){

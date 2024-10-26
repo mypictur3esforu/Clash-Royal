@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Collection extends JPanel {
     ArrayList<Card> cards;
     JPanel cardView;
+    static String[] shownCategories = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Type:", "Elixir:"};
 
     Collection(ArrayList<Card> cards) {
         this.cards = cards;
@@ -16,6 +17,7 @@ public class Collection extends JPanel {
     }
 
     void Add(){
+        add(new Team(Team.CreateRandomTeam(Team.SortPlayableCards(ClashRoyal.staticCardCollection))));
         add(cardView);
     }
 
@@ -28,7 +30,6 @@ public class Collection extends JPanel {
         cardView = new JPanel(new GridLayout(3, 7));
         for (Card card : cards) {
             if (!card.cardType.equals("troop") && !card.cardType.equals("tower")) continue;
-            String[] shownCategories = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Type:", "Elixir:"};
             cardView.add(CreateCardInfoPanel(card, shownCategories));
         }
     }
