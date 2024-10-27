@@ -37,9 +37,10 @@ public class Projectile extends Entity {
         double yChange = Math.sin(a) * card.speed / 10;
         cords[0] += xChange;
         cords[1] += yChange;
-        if (DistanceTo(middleOfTarget) <= (double) card.speed / 10){
-            cords[0] = middleOfTarget[0];
-            cords[1] = middleOfTarget[1];
+//        if (DistanceTo(middleOfTarget) <= (double) (card.speed / 10) + card.range){
+        if (target.TroopOnEntity(this)){
+            cords[0] = middleOfTarget[0] - 0.1;
+            cords[1] = middleOfTarget[1] - 0.1;
         }
     }
 
