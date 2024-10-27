@@ -6,9 +6,10 @@ public class Spielfeld {
     ArrayList<Tower> towers = new ArrayList<>();
     ArrayList<Entity> units = new ArrayList<>();
     ArrayList<Entity> bridges = new ArrayList<>();
+    ArrayList<Entity> orders = new ArrayList<>();
     Card selectedTroop;
     int selectedButton;
-    double elixir = 1 / (double) (100/6);
+    double elixir = 0.1 / (double) (100/6);
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         @Override
@@ -51,11 +52,9 @@ public class Spielfeld {
     void TimeShooter(){
         ArrayList<Entity> victims = new ArrayList<>();
         ArrayList<Entity> ready = new ArrayList<>();
-            try {
+//            try {
         for (Entity unit : units){
-//        System.out.println("Length: " + units.size());
                 unit.Update(troops, towers, bridges);
-//            System.out.println("Hier: " + unit.card.name + "; " + unit.attackState);
                 if (unit.HasShot() && unit.TargetLocked() &&! (unit instanceof Projectile)) ready.add(unit);
                 if (!unit.Alive()) victims.add(unit);
         }
@@ -66,18 +65,31 @@ public class Spielfeld {
 
         for (int i = 1; i < players.length; i++) {
             players[i].AddElixir(elixir);
+            if (players[i] instanceof Bot){
+                ((Bot) players[i]).Update();
+                Entity newbies = ((Bot) players[i]).MakePlacementOrder();
+                if (newbies != null) NewTroop(newbies.card, (int) newbies.cords[0], (int) newbies.cords[1], newbies.affiliation);
+            }
         }
+
         if (selectedTroop == null) game.UpdateElixirBar(players[1].elixir,0);
         else game.UpdateElixirBar(players[1].elixir, selectedTroop.elixir);
 
+        for (Entity order : orders){
+            NewTroop(order.card, (int) order.cords[0], (int) order.cords[1], order.affiliation);
+        }
 
         for (Entity victim : victims){
             RemoveVictim(victim);
             victim.KickTheBucket();
         }
-            }catch (Exception e){
-                System.out.println("ConcurrentModificationException");
-            }
+//            }catch (Exception e){
+//                System.out.println("ConcurrentModificationException");
+//            }
+    }
+
+    void OrderTroopPlacement(Entity entity){
+        orders.add(entity);
     }
 
     void RemoveVictim(Entity victim){
@@ -108,9 +120,11 @@ public class Spielfeld {
 //        game.map.add(units.getLast().healthBar);
         selectedTroop = null;
         game.restrictHalf.setVisible(false);
-        players[1].ActualizeSelection(selectedButton);
+        playerAffiliation.ActualizeSelection(newTroop);
+        if (! (playerAffiliation instanceof Bot)){
         game.buttons[selectedButton].NewCard(players[1].cardSelection.get(selectedButton));
         selectedButton = -1;
+        }
     }
 
     int switcher;

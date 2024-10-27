@@ -17,11 +17,11 @@ public class Spieler {
         this.color = color;
     }
 
-    void ActualizeSelection(int place){
-        Card temp = cardSelection.get(place);
+    void ActualizeSelection(Card placedCard){
+        int place = cardSelection.indexOf(placedCard);
         cardSelection.set(place, cardSelection.get(4));
+        cardSelection.add(cardSelection.get(4));
         cardSelection.remove(4);
-        cardSelection.add(temp);
     }
 
     void AddElixir(double amount){
