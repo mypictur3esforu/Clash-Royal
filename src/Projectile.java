@@ -13,9 +13,10 @@ public class Projectile extends Entity {
         super(card, x + (double) caster.card.width / 2, y + (double) caster.card.width / 2, affiliation);
         this.caster = caster;
         this.target = target;
+        middleOfTarget = new double[]{target.cords[0] + (double) target.card.width / 2, target.cords[1] + (double) target.card.height / 2};
         damage = caster.card.damage;
         healthBar.setVisible(false);
-        label.setIcon(new ImageIcon( Rotate(MakeBufferedImage(card.icon), Math.toDegrees(GetAngle()))));
+        label.setIcon(new ImageIcon( Rotate(MakeBufferedImage(card.icon), GetAngle())));
     }
 
     void TargetHit(){
@@ -36,19 +37,24 @@ public class Projectile extends Entity {
         double yChange = Math.sin(a) * card.speed / 10;
         cords[0] += xChange;
         cords[1] += yChange;
-        if (DistanceTo(target.cords) <= (double) card.speed / 10) cords = middleOfTarget;
+        if (DistanceTo(middleOfTarget) <= (double) card.speed / 10){
+            cords[0] = middleOfTarget[0];
+            cords[1] = middleOfTarget[1];
+        }
     }
 
     void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
         middleOfTarget = new double[]{target.cords[0] + (double) target.card.width / 2, target.cords[1] + (double) target.card.height / 2};
         Move();
-        label.setBounds((int) cords[0] - card.width / 2, (int) cords[1] - card.width / 2, card.width, card.height);
         TargetHit();
+        label.setBounds((int) cords[0] - card.width / 2, (int) cords[1] - card.width / 2, card.width, card.height);
     }
 
     double GetAngle(){
-        double[] distances = DistanceInDirection(target.cords);
+        double[] distances = DistanceInDirection(middleOfTarget);
         double ergebnis = Math.atan(distances[1] / distances[0]) + 1.5 * Math.PI;
+        if (distances[0] > 0) ergebnis = Math.atan(distances[1] / distances[0]) + 0.5 * Math.PI;
+//        if (distances[0] > 0) ergebnis += Math.PI;
 //        ergebnis = Math.PI;
         return ergebnis;
     }

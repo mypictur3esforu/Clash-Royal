@@ -8,7 +8,7 @@ public class Spielfeld {
     ArrayList<Entity> bridges = new ArrayList<>();
     Card selectedTroop;
     int selectedButton;
-    double elixir = 0.5 / (double) (100/6);
+    double elixir = 1 / (double) (100/6);
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         @Override
@@ -127,7 +127,7 @@ public class Spielfeld {
                 switcher = 1;
             } else {
 //              normalerweise = 2
-                switcher = 1;
+                switcher = 2;
             }
             NewTroop(selectedTroop, x, y, players[switcher]);
         }catch (Exception e){
