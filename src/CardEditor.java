@@ -38,6 +38,7 @@ public class CardEditor extends JPanel {
         String[] stats = FileHandler.stats;
         ArrayList<String> categories = new ArrayList<>();
         Collections.addAll(categories, stats);
+        categories.add("Image");
         categories.add("Save:");
         ArrayList<Card> cardsInGame = ClashRoyal.staticCardCollection;
         overview = new JPanel(new GridLayout(cardsInGame.size() + 1, 1, 0, 5));
@@ -70,6 +71,7 @@ public class CardEditor extends JPanel {
      */
     void CardOverview(ArrayList<String> categories, ArrayList<Card> cardsInGame){
         categories.removeLast();
+        categories.remove(categories.size() - 2);
 //        Ich mag das enhanced for mehr als for i :)
         int i = 1;
         for (Card card : cardsInGame) {
@@ -92,10 +94,13 @@ public class CardEditor extends JPanel {
             }
             inputs.add(textFieldsOfRow);
 
+            ImageIcon tempIcon = Card.ImageResizer(new ImageIcon(card.imagePath), 50, 50);
+            JLabel image = new JLabel(tempIcon);
             JButton save = new JButton("Save Changes");
             int finalI = i;
             save.addActionListener(ev->{SaveChanges(finalI);});
 
+            row.add(image);
             row.add(save);
             row.setBorder(BorderFactory.createLineBorder(new Color(0x9C448E), 3));
             overview.add(row);

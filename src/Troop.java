@@ -33,7 +33,7 @@ public class Troop extends Entity{
 
         cords[0] += xChange;
         cords[1] += yChange;
-        label.setBounds((int) cords[0], (int) cords[1], card.width, card.height);
+        SetLabelToCords();
     }
 
     void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {

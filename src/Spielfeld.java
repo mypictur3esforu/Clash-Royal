@@ -6,10 +6,9 @@ public class Spielfeld {
     ArrayList<Tower> towers = new ArrayList<>();
     ArrayList<Entity> units = new ArrayList<>();
     ArrayList<Entity> bridges = new ArrayList<>();
-    ArrayList<Entity> orders = new ArrayList<>();
     Card selectedTroop;
     int selectedButton;
-    double elixir = 0.1 / (double) (100/6);
+    double elixir = 1 / (double) (100/6);
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         @Override
@@ -23,7 +22,7 @@ public class Spielfeld {
 
     Spielfeld(long cooldown, Spieler[] players){
         this.players = players;
-        game = new Game(700, 1080, players[1].cardSelection);
+        game = new Game(700, MainUI.screenHeight, players[1].cardSelection);
         MainUI.game = game;
         UIConnections();
         CreateBridges();
@@ -52,7 +51,7 @@ public class Spielfeld {
     void TimeShooter(){
         ArrayList<Entity> victims = new ArrayList<>();
         ArrayList<Entity> ready = new ArrayList<>();
-//            try {
+            try {
         for (Entity unit : units){
                 unit.Update(troops, towers, bridges);
                 if (unit.HasShot() && unit.TargetLocked() &&! (unit instanceof Projectile)) ready.add(unit);
@@ -66,30 +65,22 @@ public class Spielfeld {
         for (int i = 1; i < players.length; i++) {
             players[i].AddElixir(elixir);
             if (players[i] instanceof Bot){
-                ((Bot) players[i]).Update();
-                Entity newbies = ((Bot) players[i]).MakePlacementOrder();
-                if (newbies != null) NewTroop(newbies.card, (int) newbies.cords[0], (int) newbies.cords[1], newbies.affiliation);
+                //((Bot) players[i]).Update();
+                //Entity newbies = ((Bot) players[i]).MakePlacementOrder();
+                //if (newbies != null) NewTroop(newbies.card, (int) newbies.cords[0], (int) newbies.cords[1], newbies.affiliation);
             }
         }
 
         if (selectedTroop == null) game.UpdateElixirBar(players[1].elixir,0);
         else game.UpdateElixirBar(players[1].elixir, selectedTroop.elixir);
 
-        for (Entity order : orders){
-            NewTroop(order.card, (int) order.cords[0], (int) order.cords[1], order.affiliation);
-        }
-
         for (Entity victim : victims){
             RemoveVictim(victim);
             victim.KickTheBucket();
         }
-//            }catch (Exception e){
-//                System.out.println("ConcurrentModificationException");
-//            }
-    }
-
-    void OrderTroopPlacement(Entity entity){
-        orders.add(entity);
+            }catch (Exception e){
+                System.out.println("ConcurrentModificationException");
+            }
     }
 
     void RemoveVictim(Entity victim){
@@ -112,7 +103,8 @@ public class Spielfeld {
     void NewTroop(Card newTroop, int x, int y, Spieler playerAffiliation){
         if (newTroop == null || playerAffiliation.elixir < newTroop.elixir) return;
         playerAffiliation.SpendElixir(newTroop.elixir);
-        Troop temp = new Troop(newTroop, x - (double) newTroop.width /2, y - (double) newTroop.height / 2, playerAffiliation);
+        //Troop temp = new Troop(newTroop, x - (double) newTroop.width /2, y - (double) newTroop.height / 2, playerAffiliation);
+        Troop temp = new Troop(newTroop, x, y, playerAffiliation);
         troops.add(temp);
         units.add(temp);
 //        Klappt net → mies, weil sorgt für ungewollte Beziehung von MainUI und Game
@@ -141,7 +133,7 @@ public class Spielfeld {
                 switcher = 1;
             } else {
 //              normalerweise = 2
-                switcher = 2;
+                switcher = 1;
             }
             NewTroop(selectedTroop, x, y, players[switcher]);
         }catch (Exception e){
@@ -168,14 +160,17 @@ public class Spielfeld {
 
     void CreateTowers(){
         Spieler playerAffil = players[2];
-        double[][] towerCords = new double[][]{{75, 130}, {325, 80}, {575, 130}, {75, 930}, {325, 980}, {575, 930}};
-        for (int i = 0; i < towerCords.length; i++) {
-            double[] towerCord = towerCords[i];
-            if (towerCords.length / 2 <= i)playerAffil = players[1];
-//            while (towerCord[1] > 700){
-//                towerCord[1] -= 20;
-//            }
-            Tower tower = new Tower(ClashRoyal.GetCardByName("Tower"), towerCord[0], towerCord[1], playerAffil);
+        //double[][] towerCords = new double[][]{{75, 130}, {325, 80}, {575, 130}, {75, 930}, {325, 980}, {575, 930}};
+        double[] towerXCords = new double[]{game.width / 5, game.width / 2, 4 * game.width / 5};
+        int numberOfTowers = 6;
+        double tenPercentHeight = ((double) game.height / 100) * 10;
+        for (int i = 0; i < numberOfTowers; i++) {
+                double[] towerCords = new double[]{towerXCords[2 - (i % 3)], tenPercentHeight};
+            if (numberOfTowers / 2 <= i){
+                playerAffil = players[1];
+                towerCords[1] = game.height - tenPercentHeight;
+            }
+            Tower tower = new Tower(ClashRoyal.GetCardByName("Tower"), towerCords[0], towerCords[1], playerAffil);
             towers.add(tower);
             units.add(tower);
         }

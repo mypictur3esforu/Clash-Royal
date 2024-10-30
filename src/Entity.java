@@ -23,8 +23,7 @@ public class Entity {
 
     void PlaceEntity(){
         label = new JLabel(card.icon);
-        label.setBounds((int) cords[0], (int) cords[1], card.width, card.height);
-
+        SetLabelToCords();
 //        healthBar.setForeground(new Color(0xFF59F8C3, true));
         healthBar.setForeground(affiliation.color);
         healthBar.setBounds((int) (cords[0] + 0.25 * card.width), (int) (cords[1] - 0.05 * card.height), 50, 15);
@@ -266,7 +265,7 @@ public class Entity {
         healthBar.setValue((int) (100 / card.health * health));
 //        int width = (int)(card.health / 10);
 //        healthBar.setBounds((int) (cords[0] + card.width / 2 - width / 2), (int) (cords[1] + 5) - 30, width , 15);
-        healthBar.setBounds((int) (cords[0] + card.width / 2 - 25), (int) (cords[1] + 5) - 30, 50 , 15);
+        healthBar.setBounds((int) (cords[0] - 25), (int) (cords[1] - (card.height / 2) - 20), 50 , 15);
     }
 
     void KickTheBucket(){
@@ -276,6 +275,13 @@ public class Entity {
             hunter.target = null;
             hunter.attackState = 1;
         }
+    }
+
+    /**
+     * Zeichnet das Label an die richtige Farbe
+     */
+    void SetLabelToCords(){
+        label.setBounds((int) cords[0] - (card.width / 2), (int) cords[1] - (card.height / 2), card.width, card.height);
     }
 
 }

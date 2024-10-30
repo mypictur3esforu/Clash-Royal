@@ -35,7 +35,7 @@ public class Collection extends JPanel {
     }
 
     static JPanel CreateCardInfoPanel(Card card, String[] categories) {
-        JPanel infoPanel = new JPanel(new GridLayout(2, 1));
+        JPanel infoPanel = new JPanel(new GridLayout(1, 2));
         infoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         JPanel stats = new JPanel(new GridLayout(categories.length, 1));
         for (int i = 0; i < categories.length; i++) {
