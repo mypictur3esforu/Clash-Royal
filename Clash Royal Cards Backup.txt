@@ -1,8 +1,10 @@
 Cards:
-1. Name: Bavarian King; Speed: 3; Range: 50; Health: 4000; Damage: 200; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Projectile: Beer; Type: troop; Elixir: 0; Icon: images/BavarianKing.png;
-2. Name: Silvarro; Speed: 5; Range: 200; Health: 1800; Damage: 400; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Projectile: Leaf Arrow; Type: troop; Elixir: 0; Icon: images/silvarropixilart.png;
-3. Name: Beer; Speed: 20; Range: 10; Health: 1; Damage: 0; Attack Speed: 0; Sight Distance: 1000; Width: 25; Height: 25; Projectile: Beer; Type: projectile; Elixir: 0; Icon: images/projectiles/beer.png;
-4. Name: Leaf Arrow; Speed: 20; Range: 3; Health: 1; Damage: 0; Attack Speed: 1; Sight Distance: 0; Width: 50; Height: 50; Projectile:  ; Type:  projectile; Elixir: 0; Icon: images/projectiles/leafarrow.png;
-5. Name: DummyTarget; Speed: 0; Range: 0; Health: 0; Damage: 0; Attack Speed: 1; Sight Distance: 0; Width: 1; Height: 1; Projectile: 0; Type: 0; Elixir: 0; Icon: images/stift.jpg;
-6. Name: Tower; Speed: 0; Range: 350; Health: 4000; Damage: 30; Attack Speed: 50; Sight Distance: 400; Width: 50; Height: 50; Projectile: Leaf Arrow; Type: tower; Elixir: 0; Icon: images/tower.png;
-7. Name: Bridge; Speed: 1; Range: 0; Health: 0; Damage: 0; Attack Speed: 0; Sight Distance: 0; Width: 100; Height: 150; Projectile: null; Type: bridge; Elixir: 0; Icon: images/stift.jpg;
+1. Name: Bavarian King; Speed: 3; Range: 100; Health: 800; Damage: 100; Attack Speed: 50; Sight Distance: 400; Width: 100; Height: 100; Projectile: Beer; Type: troop; Elixir: 3; Icon: images/BavarianKing.png;
+2. Name: Silvarro; Speed: 5; Range: 200; Health: 1800; Damage: 200; Attack Speed: 80; Sight Distance: 400; Width: 100; Height: 100; Projectile: Leaf Arrow; Type: troop; Elixir: 5; Icon: images/silvarropixilart.png;
+3. Name: Beer; Speed: 20; Range: 20; Health: 1; Damage: 0; Attack Speed: 0; Sight Distance: 1000; Width: 25; Height: 25; Projectile: null; Type: projectile; Elixir: 0; Icon: images/projectiles/beer.png;
+4. Name: Leaf Arrow; Speed: 40; Range: 3; Health: 1; Damage: 0; Attack Speed: 1; Sight Distance: 0; Width: 50; Height: 50; Projectile: null; Type:  projectile; Elixir: 0; Icon: images/projectiles/leafarrow.png;
+5. Name: DummyTarget; Speed: 0; Range: 0; Health: 0; Damage: 0; Attack Speed: 1; Sight Distance: 0; Width: 1; Height: 1; Projectile: null; Type: dummy; Elixir: 0; Icon: images/stift.jpg;
+6. Name: Tower; Speed: 0; Range: 350; Health: 4000; Damage: 15; Attack Speed: 80; Sight Distance: 400; Width: 50; Height: 50; Projectile: Leaf Arrow; Type: tower; Elixir: 2; Icon: images/tower.png;
+7. Name: Bridge; Speed: 1; Range: 0; Health: 0; Damage: 0; Attack Speed: 0; Sight Distance: 0; Width: 100; Height: 150; Projectile: null; Type: bridge; Elixir: 0; Icon: null;
+8. Name: Kunai; Speed: 20; Range: 5; Health: 1; Damage: 0; Attack Speed: 0; Sight Distance: 0; Width: 25; Height: 25; Projectile: null; Type: projectile; Elixir: 0; Icon: images\projectiles\Kunai.png;
+9. Name: Gojo; Speed: 5; Range: 200; Health: 1000; Damage: 150; Attack Speed: 40; Sight Distance: 400; Width: 100; Height: 150; Projectile: Kunai; Type: troop; Elixir: 3; Icon: images/Gojo.png;

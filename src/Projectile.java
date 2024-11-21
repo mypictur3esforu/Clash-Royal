@@ -7,6 +7,7 @@ import java.util.Random;
 public class Projectile extends Entity {
     Entity caster;
     double damage;
+    double angle;
     //double[] middleOfTarget;
 
     Projectile(Card card, double x, double y, Spieler affiliation, Entity target, Entity caster){
@@ -32,6 +33,7 @@ public class Projectile extends Entity {
     void Move(){
         //a-tangens(GK / AK) = winkel, speed ist hypo → Strahlensatz :)
         double[] distance = DistanceInDirection(target.cords);
+
         double a = Math.toDegrees(Math.atan(distance[1] / distance[0]));
         double xChange = Math.cos(a) * card.speed / 10;
         double yChange = Math.sin(a) * card.speed / 10;
@@ -42,10 +44,10 @@ public class Projectile extends Entity {
             cords[0] = target.cords[0];
             cords[1] = target.cords[1];
         }
+
     }
 
     void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
-        //middleOfTarget = new double[]{target.cords[0] + (double) target.card.width / 2, target.cords[1] + (double) target.card.height / 2};
         Move();
         TargetHit();
         SetLabelToCords();

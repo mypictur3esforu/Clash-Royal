@@ -217,7 +217,8 @@ public class Entity {
      * @return Steht Truppe auf Entity?
      */
     boolean TroopOnEntity(Entity entity){
-        return (cords[0] <= entity.cords[0] && entity.cords[0] <= cords[0] + card.width) && (cords[1] <= entity.cords[1] && entity.cords[1] <= cords[1] + card.width);
+        double halfCWidth = (card.width / 2), halfCHeight = card.height / 2;
+        return (cords[0] - halfCWidth <= entity.cords[0] && entity.cords[0] <= cords[0] + halfCWidth && (cords[1] - halfCHeight <= entity.cords[1] && entity.cords[1] <= cords[1] + halfCHeight));
     }
 
     void TakeDamage(double damage) {

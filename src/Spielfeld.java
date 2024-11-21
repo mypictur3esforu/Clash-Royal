@@ -121,21 +121,18 @@ public class Spielfeld {
 
     int switcher;
     void ButtonClick(){
-//        System.out.println(GameUI.overlayButton.getMousePosition());
-
         /*Parsed Koordinaten und erzeugt eine neue Truppe an diesen*/
             System.out.println("Point: " + game.overlayButton.getMousePosition());
         try{
-            int x = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("x=")[1].split(",")[0]);
-            int y = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("y=")[1].split("]")[0]);
-//            ClashRoyal.spiel.feld.NewTroop(new Troop(/*100, 100,*/ (int)(Math.floor(Math.random()*10)), x, y, new ImageIcon("images/SilvarroPixilart.png"),));
+            //int x = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("x=")[1].split(",")[0]);
+            //int y = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("y=")[1].split("]")[0]);
             if (switcher == 2) {
                 switcher = 1;
             } else {
 //              normalerweise = 2
                 switcher = 1;
             }
-            NewTroop(selectedTroop, x, y, players[switcher]);
+            NewTroop(selectedTroop, game.overlayButton.getMousePosition().x, game.overlayButton.getMousePosition().y, players[switcher]);
         }catch (Exception e){
             System.out.println("Error parsing coordinates");
         }
