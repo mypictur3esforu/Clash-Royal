@@ -2,7 +2,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Bot extends Spieler{
-    Entity order;
 
     Bot(String name, ArrayList<Card> team, Color color){
         super(name,team, color);
@@ -30,7 +29,7 @@ public class Bot extends Spieler{
     ArrayList<Card> GetPlayableTroops(){
         ArrayList<Card> playableTroops = new ArrayList<>();
         for(int i = 0; i < 4; i++){
-            if (cardSelection.get(i).elixir <= elixir) playableTroops.add(cardSelection.get(i));
+            if (GetCardSelection().get(i).GetElixir() <= GetElixir()) playableTroops.add(GetCardSelection().get(i));
         }
         return playableTroops;
     }

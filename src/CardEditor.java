@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CardEditor extends JPanel {
-    ArrayList<String> cards;
-    JPanel overview;
-    ArrayList<ArrayList<JTextField>> inputs = new ArrayList<>();
-    JScrollPane overviewScroll;
+    private ArrayList<String> cards;
+    private JPanel overview;
+    private ArrayList<ArrayList<JTextField>> inputs = new ArrayList<>();
+    private JScrollPane overviewScroll;
 
     CardEditor(){
         setLayout(new GridLayout(1, 1));
@@ -35,7 +35,7 @@ public class CardEditor extends JPanel {
      */
     void CreateOverview(){
         //Ich mag JTable nicht :)
-        String[] stats = FileHandler.stats;
+        String[] stats = FileHandler.GetStats();
         ArrayList<String> categories = new ArrayList<>();
         Collections.addAll(categories, stats);
         categories.add("Image");

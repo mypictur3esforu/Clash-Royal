@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ClashRoyal {
-    static Spiel spiel;
-    static ArrayList<Card> staticCardCollection;
+    private static Spiel spiel;
+    private static ArrayList<Card> staticCardCollection;
 //    Card[] cardCollection;
-    ArrayList<Card> cardCollection;
-    static ClashRoyal clashRoyal;
+    private ArrayList<Card> cardCollection;
+    private static ClashRoyal clashRoyal;
 
     public static void main(String[] args) {
        clashRoyal = new ClashRoyal();
@@ -30,7 +30,7 @@ public class ClashRoyal {
      */
     static Card GetCardByName(String name){
         for (Card card: staticCardCollection){
-            if (Objects.equals(name, card.name)) return card;
+            if (Objects.equals(name, card.GetName())) return card;
         }
         return null;
     }

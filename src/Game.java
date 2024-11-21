@@ -3,11 +3,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Game extends JPanel {
-    JPanel selectButtons, game, map, restrictHalf, elixirBar;
-    JButton overlayButton;
-    CardSelector[] buttons = new CardSelector[4];
-    ImageIcon icon = new ImageIcon("images/crtestmap.png");
-    JProgressBar elixirPBar, troopCost;
+    private JPanel selectButtons, game, map, restrictHalf, elixirBar;
+    private JButton overlayButton;
+    private CardSelector[] buttons = new CardSelector[4];
+    private ImageIcon icon = new ImageIcon("images/crtestmap.png");
+    private JProgressBar elixirPBar, troopCost;
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 

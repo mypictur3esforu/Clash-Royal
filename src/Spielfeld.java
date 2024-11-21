@@ -2,23 +2,31 @@ import java.util.*;
 import java.util.Timer;
 
 public class Spielfeld {
-    ArrayList<Troop> troops = new ArrayList<>();
-    ArrayList<Tower> towers = new ArrayList<>();
-    ArrayList<Entity> units = new ArrayList<>();
-    ArrayList<Entity> bridges = new ArrayList<>();
-    Card selectedTroop;
-    int selectedButton;
-    double elixir = 1 / (double) (100/6);
-    Timer timer = new Timer();
-    TimerTask task = new TimerTask() {
+    private ArrayList<Troop> troops = new ArrayList<>();
+    private ArrayList<Tower> towers = new ArrayList<>();
+    private ArrayList<Entity> units = new ArrayList<>();
+    private ArrayList<Entity> bridges = new ArrayList<>();
+    private Card selectedTroop;
+    private int selectedButton;
+    private double elixir = 1 / (double) (100/6);
+    private Timer timer = new Timer();
+    private TimerTask task = new TimerTask() {
         @Override
         public void run() {
 //            System.out.println("Timer läuft");
             TimeShooter();
         }
     };
-    Spieler[] players;
-    Game game;
+    private Spieler[] players;
+    private Game game;
+
+    public double GetElixir(){
+        return elixir;
+    }
+
+    public double SetElixir(double elixir){
+        this.elixir = elixir;
+    }
 
     Spielfeld(long cooldown, Spieler[] players){
         this.players = players;

@@ -3,12 +3,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CardCreator extends JPanel {
-    JPanel image, statInput, save;
-    JLabel headline;
-    ArrayList<JTextField> values = new ArrayList<>();
-    String[] stats;
-    JTextField imageRef;
-    int numberOfTroops;
+    private JPanel image, statInput, save;
+    private JLabel headline;
+    private ArrayList<JTextField> values = new ArrayList<>();
+    private String[] stats;
+    private JTextField imageRef;
+    private int numberOfTroops;
 
     CardCreator(){
         stats = FileHandler.stats;

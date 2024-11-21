@@ -2,32 +2,40 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Entity {
-    Card card;
-    double[] cords, necCords;
-    int attackState = 1;
-    double health;
-    Entity target;
-    JLabel label;
-    Spieler affiliation;
-    ArrayList<Entity> targetedBy = new ArrayList<>();
-    JProgressBar healthBar = new JProgressBar(0, 100);
+    private Card card;
+    private double[] cords, necCords;
+    private int attackState = 1;
+    private double health;
+    private Entity target;
+    private JLabel label;
+    private Spieler affiliation;
+    private ArrayList<Entity> targetedBy = new ArrayList<>();
+    private JProgressBar healthBar = new JProgressBar(0, 100);
 
+
+    public double[] GetCords(){ return cords;}
+    public double[] GetNecCords(){return necCords;}
+    public double GetHealth(){return health;}
+    public Entity GetTarget(){return target;}
+    public JLabel GetLabel(){return label;}
+    public JProgressBar GetProgressBar(){return healthBar;}
+    public void SetLabel(JLabel label){this.label = label;}
 
     Entity(Card card, double x, double y, Spieler affiliation){
         this.card = card;
         cords = new double[]{x, y};
         this.affiliation = affiliation;
-        health = card.health;
+        health = card.GetHealth();
         PlaceEntity();
     }
 
     void PlaceEntity(){
-        label = new JLabel(card.icon);
+        label = new JLabel(card.GetIcon());
         SetLabelToCords();
 //        healthBar.setForeground(new Color(0xFF59F8C3, true));
         healthBar.setForeground(affiliation.color);
-        healthBar.setBounds((int) (cords[0] + 0.25 * card.width), (int) (cords[1] - 0.05 * card.height), 50, 15);
-        if (card.health <= 0) healthBar.setVisible(false);
+        healthBar.setBounds((int) (cords[0] + 0.25 * card.GetWidth()), (int) (cords[1] - 0.05 * card.GetHeight()), 50, 15);
+        if (card.GetHealth() <= 0) healthBar.setVisible(false);
 
         label.setVisible(true);
 //        GameUI.overlayButton.add(label);
@@ -114,7 +122,7 @@ public class Entity {
      */
     double[] GetNearestBridgeEnd(Entity bridge){
         double x = bridge.cords[0] , y = bridge.cords[1];
-        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) > target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.height})) y += bridge.card.height;
+        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) > target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
         return new double[]{x, y};
     }
 //    double[] GetBridgeEnd(Entity bridge, boolean nearest){
@@ -134,7 +142,7 @@ public class Entity {
 
     double[] GetFurthestBridgeEnd(Entity bridge){
         double x = bridge.cords[0], y = bridge.cords[1];
-        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) < target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.height})) y += bridge.card.height;
+        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) < target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
         return new double[]{x, y};
     }
 
@@ -155,7 +163,7 @@ public class Entity {
         for (Troop troop : fieldsTroops) {
             if (troop.affiliation == affiliation) continue;
             double distance = DistanceTo(troop.cords);
-            if (distance < card.sightDistance && distance < DistanceTo(target.cords)) {
+            if (distance < card.GetSightDistance() && distance < DistanceTo(target.cords)) {
                 NewTarget(troop);
             }
         }
@@ -200,7 +208,7 @@ public class Entity {
      */
     boolean TargetInRange() {
         if (target == null) return false;
-        return DistanceTo(target.cords) <= card.range;
+        return DistanceTo(target.cords) <= card.GetRange();
     }
 
     /**
@@ -217,7 +225,7 @@ public class Entity {
      * @return Steht Truppe auf Entity?
      */
     boolean TroopOnEntity(Entity entity){
-        double halfCWidth = (card.width / 2), halfCHeight = card.height / 2;
+        double halfCWidth = (card.GetWidth() / 2), halfCHeight = card.GetHeight() / 2;
         return (cords[0] - halfCWidth <= entity.cords[0] && entity.cords[0] <= cords[0] + halfCWidth && (cords[1] - halfCHeight <= entity.cords[1] && entity.cords[1] <= cords[1] + halfCHeight));
     }
 
@@ -239,7 +247,7 @@ public class Entity {
      * @return Neues Projektil
      */
     Projectile Shoot(){
-        return new Projectile(card.projectile, cords[0], cords[1], affiliation, target, this);
+        return new Projectile(card.GetProjectile(), cords[0], cords[1], affiliation, target, this);
     }
 
     /**
@@ -247,7 +255,7 @@ public class Entity {
      */
     void PrepareAttack(){
         attackState++;
-        if (attackState == card.attackSpeed) attackState = 0;
+        if (attackState == card.GetAttackSpeed()) attackState = 0;
     }
 
     /**
@@ -263,10 +271,10 @@ public class Entity {
     }
 
     void HealthBar() {
-        healthBar.setValue((int) (100 / card.health * health));
+        healthBar.setValue((int) (100 / card.GetHealth() * health));
 //        int width = (int)(card.health / 10);
 //        healthBar.setBounds((int) (cords[0] + card.width / 2 - width / 2), (int) (cords[1] + 5) - 30, width , 15);
-        healthBar.setBounds((int) (cords[0] - 25), (int) (cords[1] - (card.height / 2) - 20), 50 , 15);
+        healthBar.setBounds((int) (cords[0] - 25), (int) (cords[1] - (card.GetHeight() / 2) - 20), 50 , 15);
     }
 
     void KickTheBucket(){
@@ -282,7 +290,7 @@ public class Entity {
      * Zeichnet das Label an die richtige Farbe
      */
     void SetLabelToCords(){
-        label.setBounds((int) cords[0] - (card.width / 2), (int) cords[1] - (card.height / 2), card.width, card.height);
+        label.setBounds((int) cords[0] - (card.GetWidth() / 2), (int) cords[1] - (card.GetHeight() / 2), card.GetWidth(), card.GetHeight());
     }
 
 }

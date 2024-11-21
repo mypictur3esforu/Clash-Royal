@@ -6,5 +6,5 @@ Cards:
 5. Name: DummyTarget; Speed: 0; Range: 0; Health: 0; Damage: 0; Attack Speed: 1; Sight Distance: 0; Width: 1; Height: 1; Projectile: null; Type: dummy; Elixir: 0; Icon: images/stift.jpg;
 6. Name: Tower; Speed: 0; Range: 350; Health: 4000; Damage: 15; Attack Speed: 80; Sight Distance: 400; Width: 50; Height: 50; Projectile: Leaf Arrow; Type: tower; Elixir: 2; Icon: images/tower.png;
 7. Name: Bridge; Speed: 1; Range: 0; Health: 0; Damage: 0; Attack Speed: 0; Sight Distance: 0; Width: 100; Height: 150; Projectile: null; Type: bridge; Elixir: 0; Icon: null;
-8. Name: Kunai; Speed: 20; Range: 5; Health: 1; Damage: 0; Attack Speed: 0; Sight Distance: 0; Width: 25; Height: 25; Projectile: null; Type: projectile; Elixir: 0; Icon: images\projectiles\Kunai.png;
+8. Name: Kunai; Speed: 20; Range: 5; Health: 1; Damage: 0; Attack Speed: 0; Sight Distance: 0; Width: 22; Height: 35; Projectile: null; Type: projectile; Elixir: 0; Icon: images\projectiles\Kunai.png;
 9. Name: Gojo; Speed: 5; Range: 200; Health: 1000; Damage: 150; Attack Speed: 40; Sight Distance: 400; Width: 100; Height: 150; Projectile: Kunai; Type: troop; Elixir: 3; Icon: images/Gojo.png;

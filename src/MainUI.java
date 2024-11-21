@@ -3,13 +3,13 @@ import java.awt.*;
 import java.util.Objects;
 
 public class MainUI {
-    static JFrame frame = new JFrame();
-    static JPanel cardPanel = new JPanel(new CardLayout());
-    static JPanel menu = new JPanel(), shop = new JPanel();
-    static Game game;
-    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    static boolean devToolsEnabled = true;
-    static Color vibe = new Color(0x878787);
+    private static JFrame frame = new JFrame();
+    private static JPanel cardPanel = new JPanel(new CardLayout());
+    private static JPanel menu = new JPanel(), shop = new JPanel();
+    private static Game game;
+    private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static boolean devToolsEnabled = true;
+    private static Color vibe = new Color(0x878787);
 
     static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 

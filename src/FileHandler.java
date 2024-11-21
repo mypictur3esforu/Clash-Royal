@@ -14,8 +14,9 @@ import java.util.*;
 
 
 public class FileHandler {
-    static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:", "Icon:"};
+    private static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:", "Icon:"};
 
+    public static String[] GetStats(){return stats;}
     //    Source: StackOverflow, Coding with John
     static void WriteToFile(String message) {
         ArrayList<String> lines = ReadFile();

@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Team extends JPanel {
-    ArrayList<Card> team;
-    static ArrayList<Card> staticTeam;
-    JPanel teamPanel;
+    private ArrayList<Card> team;
+    private static ArrayList<Card> staticTeam;
+    private JPanel teamPanel;
+
+    public ArrayList<Card> GetStaticTema(){
+        return staticTeam;
+    }
 
     Team(ArrayList<Card> cards){
         team = cards;

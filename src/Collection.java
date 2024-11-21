@@ -3,9 +3,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Collection extends JPanel {
-    ArrayList<Card> cards;
-    JPanel cardView;
-    static String[] shownCategories = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Type:", "Elixir:"};
+    private ArrayList<Card> cards;
+    private JPanel cardView;
+    private static String[] shownCategories = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Type:", "Elixir:"};
 
     Collection(ArrayList<Card> cards) {
         this.cards = cards;
@@ -42,7 +42,7 @@ public class Collection extends JPanel {
             JLabel stat = new JLabel(categories[i] + " " + card.GetMultipleStats(categories).get(i), SwingConstants.CENTER);
             stats.add(stat);
         }
-        JLabel icon = new JLabel(card.icon);
+        JLabel icon = new JLabel(card.GetIcon());
         infoPanel.add(icon);
         infoPanel.add(stats);
         return infoPanel;

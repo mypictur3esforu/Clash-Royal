@@ -2,22 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Projectile extends Entity {
-    Entity caster;
-    double damage;
-    double angle;
-    //double[] middleOfTarget;
+    private Entity caster;
+    private double damage;
+    private double angle;
 
     Projectile(Card card, double x, double y, Spieler affiliation, Entity target, Entity caster){
         super(card, x, y, affiliation);
         this.caster = caster;
         this.target = target;
-        //middleOfTarget = new double[]{target.cords[0] + (double) target.card.width / 2, target.cords[1] + (double) target.card.height / 2};
         damage = caster.card.damage;
         healthBar.setVisible(false);
-        label.setIcon(new ImageIcon( Rotate(MakeBufferedImage(card.icon), GetAngle())));
+        label.setIcon(new ImageIcon( Rotate(MakeBufferedImage(card.GetIcon()), GetAngle())));
     }
 
     void TargetHit(){
@@ -35,8 +32,8 @@ public class Projectile extends Entity {
         double[] distance = DistanceInDirection(target.cords);
 
         double a = Math.toDegrees(Math.atan(distance[1] / distance[0]));
-        double xChange = Math.cos(a) * card.speed / 10;
-        double yChange = Math.sin(a) * card.speed / 10;
+        double xChange = Math.cos(a) * card.GetSpeed() / 10;
+        double yChange = Math.sin(a) * card.GetSpeed() / 10;
         cords[0] += xChange;
         cords[1] += yChange;
 //        if (DistanceTo(middleOfTarget) <= (double) (card.speed / 10) + card.range){

@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class CardSelector extends JButton {
-    Card inheritedCard;
+    private Card inheritedCard;
 
     CardSelector(Card inheritedCard){
         this.inheritedCard = inheritedCard;
@@ -14,6 +14,6 @@ public class CardSelector extends JButton {
     }
 
     void ActualizeImage(){
-        setIcon(inheritedCard.icon);
+        setIcon(inheritedCard.GetIcon());
     }
 }

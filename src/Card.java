@@ -3,12 +3,54 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Card {
-    String name, cardType, imagePath;
-    ImageIcon icon;
-    Card projectile;
-    int speed, range, attackSpeed, sightDistance, width, height, elixir;
-    double health, damage;
-    String[] values;
+    private String name, cardType, imagePath;
+    private ImageIcon icon;
+    private Card projectile;
+    private int speed, range, attackSpeed, sightDistance, width, height, elixir;
+    private double health, damage;
+    private String[] values;
+
+    public int GetSpeed(){
+        return speed;
+    }
+    public int GetRange (){
+        return range;
+    }
+    public int GetAttackSpeed (){
+        return attackSpeed;
+    }
+    public int GetSightDistance (){
+        return sightDistance;
+    }
+    public int GetWidth (){
+        return width;
+    }
+    public int GetHeight (){
+        return height;
+    }
+    public int GetElixir (){
+        return elixir;
+    }
+
+
+    public ImageIcon GetIcon(){
+        return icon;
+    }
+    public Card GetProjectile (){
+        return projectile;
+    }
+    public double GetHealth (){
+        return health;
+    }
+    public double GetDamage (){
+        return damage;
+    }
+    public String GetName (){
+        return name;
+    }
+    public String GetCardType (){
+        return cardType;
+    }
 
     Card(String name, String imagePath, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType, int elixir){
         this.name = name;
