@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CardEditor extends JPanel {
-    ArrayList<String> cards;
-    JPanel overview;
-    ArrayList<ArrayList<JTextField>> inputs = new ArrayList<>();
-    JScrollPane overviewScroll;
+    private ArrayList<String> cards;
+    private JPanel overview;
+    private ArrayList<ArrayList<JTextField>> inputs = new ArrayList<>();
+    private JScrollPane overviewScroll;
 
     CardEditor(){
         setLayout(new GridLayout(1, 1));
@@ -35,15 +35,16 @@ public class CardEditor extends JPanel {
      */
     void CreateOverview(){
         //Ich mag JTable nicht :)
-        String[] stats = FileHandler.stats;
+        String[] stats = FileHandler.GetStats();
         ArrayList<String> categories = new ArrayList<>();
         Collections.addAll(categories, stats);
-        categories.add("Icon:");
+        categories.add("Image");
         categories.add("Save:");
         ArrayList<Card> cardsInGame = ClashRoyal.staticCardCollection;
-        overview = new JPanel(new GridLayout(cardsInGame.size() + 5, 1, 0, 5));
+        overview = new JPanel(new GridLayout(cardsInGame.size() + 1, 1, 0, 5));
         HeadlineRow(categories);
         CardOverview(categories, cardsInGame);
+        overview.setBackground(MainUI.vibe);
     }
 
     /**
@@ -69,7 +70,9 @@ public class CardEditor extends JPanel {
      * @param cardsInGame Karten
      */
     void CardOverview(ArrayList<String> categories, ArrayList<Card> cardsInGame){
-        categories.removeLast();
+        for (int i = 0; i < 2; i++) {
+            categories.removeLast(); //Warum gibt es eigentlich kein doTwice oder so, wäre viel besser als so ne Schleife
+        }
 //        Ich mag das enhanced for mehr als for i :)
         int i = 1;
         for (Card card : cardsInGame) {
@@ -92,10 +95,13 @@ public class CardEditor extends JPanel {
             }
             inputs.add(textFieldsOfRow);
 
+            ImageIcon tempIcon = Card.ImageResizer(new ImageIcon(card.GetImagePath()), 50, 50);
+            JLabel image = new JLabel(tempIcon);
             JButton save = new JButton("Save Changes");
             int finalI = i;
             save.addActionListener(ev->{SaveChanges(finalI);});
 
+            row.add(image);
             row.add(save);
             row.setBorder(BorderFactory.createLineBorder(new Color(0x9C448E), 3));
             overview.add(row);
@@ -107,7 +113,7 @@ public class CardEditor extends JPanel {
     void SaveChanges(int row){
         ArrayList<JTextField> rowInput = inputs.get(row - 1);
         System.out.println(rowInput.getFirst().getText());
-        String line = FileHandler.CreateMainString(row, rowInput);
+        String line = FileHandler.CreateMainStringOfJTextField(row, rowInput);
         FileHandler.EditFile(row, line);
     }
 }

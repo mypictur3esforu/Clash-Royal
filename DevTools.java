@@ -2,15 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DevTools extends JPanel {
-    CardLayout cardLayout = new CardLayout();
-    CardEditor cardEditor;
-    CardCreator cardCreator;
-    JPanel viewPanel = new JPanel(cardLayout);
-    JButton up, down;
+    private CardLayout cardLayout = new CardLayout();
+    private CardEditor cardEditor;
+    private CardCreator cardCreator;
+    private JPanel viewPanel = new JPanel(cardLayout);
+    private JButton up, down;
 
 //    Ganz komisches Layout, deswegen geht das irgendwie nicht
     DevTools(){
         DevUI();
+        viewPanel.setBackground(MainUI.vibe);;
         cardEditor = new CardEditor();
         cardCreator = new CardCreator();
         Add();

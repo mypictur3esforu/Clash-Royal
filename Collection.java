@@ -2,36 +2,52 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Collection {
-    ArrayList<Card> cards;
+public class Collection extends JPanel {
+    private ArrayList<Card> cards;
+    private JPanel cardView;
+    private static String[] shownCategories = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Type:", "Elixir:"};
 
-    Collection(ArrayList<Card> cards){
+    static public String[] GetShownCategories(){return shownCategories;}
+
+    Collection(ArrayList<Card> cards) {
         this.cards = cards;
-//        MainUI.collection.setLayout(new GridLayout((int) (cards.length / 7), 7));
-        MainUI.collection.setLayout(new GridLayout(10, 7));
-        DrawCards();
+        setLayout(new GridLayout(2, 1));
+        PaintCards();
+
+        BackgroundColors();
+        Add();
     }
-    void DrawCards(){
+
+    void Add(){
+        add(new Team(Team.CreateRandomTeam(Team.SortPlayableCards(ClashRoyal.staticCardCollection))));
+        add(cardView);
+    }
+
+    void BackgroundColors(){
+        cardView.setBackground(MainUI.vibe);
+//        team.setBackground(MainUI.vibe);
+    }
+
+    void PaintCards() {
+        cardView = new JPanel(new GridLayout(3, 7));
         for (Card card : cards) {
-            JPanel panel = new JPanel(new GridLayout(1, 2));
-            JPanel stats = new JPanel(new GridLayout(6, 1));
-            JLabel icon = new JLabel(card.icon);
-
-            JLabel name = new JLabel("Name: " + card.name);
-            JLabel speed = new JLabel("Speed: " + card.speed);
-            JLabel range = new JLabel("Range: " + card.range);
-            JLabel health = new JLabel("Health Points: " + card.health);
-            JLabel damage = new JLabel("Damage: " + card.damage);
-            stats.add(name);
-            stats.add(speed);
-            stats.add(range);
-            stats.add(health);
-            stats.add(damage);
-
-            panel.add(icon);
-            panel.add(stats);
-
-            MainUI.collection.add(panel);
+            if (!card.GetCardType().equals("troop") && !card.GetCardType().equals("tower")) continue;
+            cardView.add(CreateCardInfoPanel(card, shownCategories));
         }
     }
+
+    static JPanel CreateCardInfoPanel(Card card, String[] categories) {
+        JPanel infoPanel = new JPanel(new GridLayout(1, 2));
+        infoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        JPanel stats = new JPanel(new GridLayout(categories.length, 1));
+        for (int i = 0; i < categories.length; i++) {
+            JLabel stat = new JLabel(categories[i] + " " + card.GetMultipleStats(categories).get(i), SwingConstants.CENTER);
+            stats.add(stat);
+        }
+        JLabel icon = new JLabel(card.GetIcon());
+        infoPanel.add(icon);
+        infoPanel.add(stats);
+        return infoPanel;
+    }
+
 }

@@ -2,10 +2,26 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Spieler {
-    String name;
-    ArrayList<Card> cardSelection = new ArrayList<>();
-    Color color;
-    double elixir = 0;
+    private String name;
+    private ArrayList<Card> cardSelection = new ArrayList<>();
+    private Color color;
+    private double elixir = 0;
+
+    public ArrayList<Card> GetCardSelection(){
+        return cardSelection;
+    }
+
+    public Color GetColor(){
+        return color;
+    }
+
+    public double GetElixir(){
+        return elixir;
+    }
+
+    public void SetElixir(double elixir){
+        this.elixir = elixir;
+    }
 
     Spieler(String name, ArrayList<Card> cardSelection, Color color){
         this.name = name;
@@ -17,18 +33,23 @@ public class Spieler {
         this.color = color;
     }
 
-    void ActualizeSelection(int place){
-        Card temp = cardSelection.get(place);
+    void ActualizeSelection(Card placedCard){
+        int place = cardSelection.indexOf(placedCard);
         cardSelection.set(place, cardSelection.get(4));
+        cardSelection.add(cardSelection.get(4));
         cardSelection.remove(4);
-        cardSelection.add(temp);
     }
 
     void AddElixir(double amount){
+        if (ElixirFull()) return;
         elixir += amount;
     }
 
     void SpendElixir(double amount){
         elixir -= amount;
+    }
+
+    boolean ElixirFull(){
+        return elixir >= 10;
     }
 }

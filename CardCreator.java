@@ -3,17 +3,17 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CardCreator extends JPanel {
-    JPanel image, statInput, save;
-    JLabel headline;
-    ArrayList<JTextField> values = new ArrayList<>();
-    String[] stats;
-    JTextField imageRef;
-    int numberOfTroops;
+    private JPanel image, statInput, save;
+    private JLabel headline;
+    private ArrayList<JTextField> values = new ArrayList<>();
+    private String[] stats;
+    private JTextField imageRef;
+    private int numberOfTroops;
 
     CardCreator(){
-        stats = FileHandler.stats;
+        stats = FileHandler.GetStats();
         numberOfTroops = FileHandler.ReadFile().size() - 1;
-        setBackground(new Color(0xFF777777, true));
+//        setBackground(new Color(0xFF777777, true));
 //        GridBagLayout vermutlich besser
     setLayout(new GridLayout(4, 1));
     Headline();
@@ -34,6 +34,7 @@ public class CardCreator extends JPanel {
         headline = new JLabel("Troop Creator",SwingConstants.CENTER);
         headline.setFont(new Font("Arial", Font.BOLD, 50));
         headline.setOpaque(true);
+        headline.setBackground(MainUI.vibe);
     }
 
     /**
@@ -82,6 +83,7 @@ public class CardCreator extends JPanel {
             SaveNewCard();});
         saveButton.setFont(new Font("Arial", Font.BOLD, 30));
         save.add(saveButton);
+        saveButton.setBackground(MainUI.vibe);
     }
 
     /**

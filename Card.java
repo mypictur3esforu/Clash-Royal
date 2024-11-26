@@ -1,13 +1,57 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Card {
-    String name, cardType, imagePath;
-    ImageIcon icon;
-    Card projectile;
-    int speed, range, attackSpeed, sightDistance, width, height, elixir;
-    double health, damage;
-    String[] values;
+    private String name, cardType, imagePath;
+    private ImageIcon icon;
+    private Card projectile;
+    private int speed, range, attackSpeed, sightDistance, width, height, elixir;
+    private double health, damage;
+    private String[] values;
+
+    public int GetSpeed(){
+        return speed;
+    }
+    public int GetRange (){
+        return range;
+    }
+    public int GetAttackSpeed (){
+        return attackSpeed;
+    }
+    public int GetSightDistance (){
+        return sightDistance;
+    }
+    public int GetWidth (){
+        return width;
+    }
+    public int GetHeight (){
+        return height;
+    }
+    public int GetElixir (){
+        return elixir;
+    }
+    public String GetImagePath(){return imagePath;}
+
+
+    public ImageIcon GetIcon(){
+        return icon;
+    }
+    public Card GetProjectile (){
+        return projectile;
+    }
+    public double GetHealth (){
+        return health;
+    }
+    public double GetDamage (){
+        return damage;
+    }
+    public String GetName (){
+        return name;
+    }
+    public String GetCardType (){
+        return cardType;
+    }
 
     Card(String name, String imagePath, int speed, int range, double health, double damage, int attackSpeed, int sightDistance, int width, int height, String projectileName, String cardType, int elixir){
         this.name = name;
@@ -29,7 +73,7 @@ public class Card {
 
     void SaveValuesAsString(){
 //        {"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile: ", "Type: "};
-        values = new String[]{name, speed+"", range+"", health+"", damage+"", attackSpeed+"", sightDistance+"", width+"", height+"", projectile+"", cardType, elixir+""};
+        values = new String[]{name, speed+"", range+"", health+"", damage+"", attackSpeed+"", sightDistance+"", width+"", height+"", projectile+"", cardType, elixir+"", imagePath};
 
     }
 
@@ -45,36 +89,39 @@ public class Card {
 
     private Card GetProjectile(String name){
         return FileHandler.GetCard(name, true);
+//        return ClashRoyal.GetCardByName(name);
     }
 
-//    Card GetProjectile(){
-//        if (projName == null) return null;
-//        ArrayList<Card> cards = ClashRoyal.staticCardCollection;
-//        for (Card card : cards) {
-//            if (card.name.equals(projName)) return card;
-//        }
-//        return null;
-//    }
-
     /**
-     * Findet den Wert der gegebenen Kategorie
+     * Findet den Wert der gegebenen Kategorie. FileHandler.stats und value müssen übereinstimmen
      * @param category Name des Stats
-     * @return Wert des stats als String
+     * @return Wert des stats als String.
      */
      String GetStat(String category){
             if (category.equals("Projectile:") && projectile != null) return projectile.name;
-            if (category.equals("Icon:")) return imagePath;
-        String[] stats = FileHandler.stats;
+        String[] stats = FileHandler.GetStats();
         for (int i = 0; i < stats.length; i++) {
-            if (stats[i].equals(category)) {
-                try {
+            if (!stats[i].equals(category)) continue;
+            try {
                     double number = Double.parseDouble(values[i]);
                     return Math.round(number) + "";
-                }catch (Exception e){
+            }catch (Exception e){
                 return values[i];
-                }
             }
         }
         return "Error";
+    }
+
+    /**
+     * Gibt die Werte der Karte in gegebenen Kategorien
+     * @param searchedStats Namen der gewünschten Stats
+     * @return Werte als String[]
+     */
+    ArrayList<String> GetMultipleStats(String[] searchedStats){
+        ArrayList<String> gathered = new ArrayList<>();
+        for (String searchedStat : searchedStats) {
+            gathered.add(GetStat(searchedStat));
+        }
+        return gathered;
     }
 }

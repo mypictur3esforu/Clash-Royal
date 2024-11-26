@@ -1,19 +1,21 @@
 import javax.swing.*;
-import javax.swing.tree.DefaultTreeCellEditor;
 import java.awt.*;
 import java.util.Objects;
 
 public class MainUI {
-    static JFrame frame = new JFrame();
-    static JPanel cardPanel = new JPanel(new CardLayout());
-    static JPanel menu = new JPanel(), collection = new JPanel(), shop = new JPanel();
+    private static JFrame frame = new JFrame();
+    private static JPanel cardPanel = new JPanel(new CardLayout());
+    private static JPanel menu = new JPanel(), shop = new JPanel();
     static Game game;
-    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    static boolean devToolsEnabled = true;
+    private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private static boolean devToolsEnabled = true;
+    static Color vibe = new Color(0x878787);
 
     static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 
     static void CreateMainUI() {
+        shop.setBackground(vibe);
+        menu.setBackground(MainUI.vibe);
         FrameDefinition();
         Menu();
         AddPanels();
@@ -25,7 +27,7 @@ public class MainUI {
 
     static void AddPanels(){
         cardPanel.add(shop, "Shop");
-        cardPanel.add(collection, "Collection");
+        cardPanel.add(new Collection(ClashRoyal.staticCardCollection), "Collection");
         cardPanel.add(menu, "Menu");
 //        cardPanel.add(new DevTools(), "DevCollection");
         if (devToolsEnabled){
@@ -84,4 +86,6 @@ public class MainUI {
             cLayout.show(cardPanel, name);
         }
     }
+
+    
 }
