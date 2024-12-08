@@ -70,8 +70,9 @@ public class CardEditor extends JPanel {
      * @param cardsInGame Karten
      */
     void CardOverview(ArrayList<String> categories, ArrayList<Card> cardsInGame){
-        categories.removeLast();
-        categories.remove(categories.size() - 2);
+        for (int i = 0; i < 2; i++) {
+            categories.removeLast(); //Warum gibt es eigentlich kein doTwice oder so, wäre viel besser als so ne Schleife
+        }
 //        Ich mag das enhanced for mehr als for i :)
         int i = 1;
         for (Card card : cardsInGame) {
@@ -94,7 +95,7 @@ public class CardEditor extends JPanel {
             }
             inputs.add(textFieldsOfRow);
 
-            ImageIcon tempIcon = Card.ImageResizer(new ImageIcon(card.imagePath), 50, 50);
+            ImageIcon tempIcon = Card.ImageResizer(new ImageIcon(card.GetImagePath()), 50, 50);
             JLabel image = new JLabel(tempIcon);
             JButton save = new JButton("Save Changes");
             int finalI = i;

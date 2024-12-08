@@ -31,6 +31,7 @@ public class Card {
     public int GetElixir (){
         return elixir;
     }
+    public String GetImagePath(){return imagePath;}
 
 
     public ImageIcon GetIcon(){
@@ -98,7 +99,7 @@ public class Card {
      */
      String GetStat(String category){
             if (category.equals("Projectile:") && projectile != null) return projectile.name;
-        String[] stats = FileHandler.stats;
+        String[] stats = FileHandler.GetStats();
         for (int i = 0; i < stats.length; i++) {
             if (!stats[i].equals(category)) continue;
             try {

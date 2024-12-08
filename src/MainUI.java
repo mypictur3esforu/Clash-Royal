@@ -6,10 +6,10 @@ public class MainUI {
     private static JFrame frame = new JFrame();
     private static JPanel cardPanel = new JPanel(new CardLayout());
     private static JPanel menu = new JPanel(), shop = new JPanel();
-    private static Game game;
+    static GameUI gameUI;
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static boolean devToolsEnabled = true;
-    private static Color vibe = new Color(0x878787);
+    static Color vibe = new Color(0x878787);
 
     static int screenWidth = screenSize.width, screenHeight = screenSize.height, gameWidth = 700, gameHeight = screenHeight;
 
@@ -49,7 +49,7 @@ public class MainUI {
         JButton startGame = new JButton("Start Game");
         startGame.addActionListener(ev -> {
             ClashRoyal.clashRoyal.NewGame();
-            cardPanel.add(game,  "GameUI");
+            cardPanel.add(gameUI,  "GameUI");
             SwapPanel("GameUI");
         });
         startGame.setBounds(screenWidth / 2 - 350, 0, 700, screenHeight);

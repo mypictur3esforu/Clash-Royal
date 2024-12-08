@@ -14,25 +14,27 @@ public class Troop extends Entity{
             return;
         }
         double[] targetedCords;
-        if (necCords != null){
-            targetedCords = necCords;
+        if (GetNecCords() != null){
+            targetedCords = GetNecCords();
         }else {
-            targetedCords = target.cords;
+            targetedCords = GetTarget().GetCords();
         }
         double[] distance = DistanceInDirection(targetedCords);
         double relation = Math.abs(distance[0] / distance[1]);
         //Änderung in x und y Richtung; Als Variable, weil wird sonst zu schnell
-        double xChange = (double) card.GetSpeed() / 20 * relation * (distance[0] / Math.abs(distance[0]));
-        double yChange = (double) card.GetSpeed() / 20 / relation * (distance[1] / Math.abs(distance[1]));
-        double normedSpeed = (double) card.GetSpeed() / 10;
+        double xChange = (double) GetCard().GetSpeed() / 20 * relation * (distance[0] / Math.abs(distance[0]));
+        double yChange = (double) GetCard().GetSpeed() / 20 / relation * (distance[1] / Math.abs(distance[1]));
+        double normedSpeed = (double) GetCard().GetSpeed() / 10;
 
         if (xChange > normedSpeed || xChange < -normedSpeed)
-            xChange = (double) card.GetSpeed() / 10 * (distance[0] / Math.abs(distance[0]) * 1.25);
+            xChange = (double) GetCard().GetSpeed() / 10 * (distance[0] / Math.abs(distance[0]) * 1.25);
         if (yChange > normedSpeed || yChange < -normedSpeed)
-            yChange = (double) card.GetSpeed() / 10 * (distance[1] / Math.abs(distance[1]) * 1.25);
+            yChange = (double) GetCard().GetSpeed() / 10 * (distance[1] / Math.abs(distance[1]) * 1.25);
 
+        double[] cords = new double[]{GetCords()[0], GetCords()[1]};
         cords[0] += xChange;
         cords[1] += yChange;
+        SetCords(cords);
         SetLabelToCords();
     }
 
@@ -43,7 +45,7 @@ public class Troop extends Entity{
 
     void KickTheBucket(){
         super.KickTheBucket();
-        System.out.println(card.GetName() + " kicked the bucket at " + cords[0] + " " + cords[1]);
+        System.out.println(GetCard().GetName() + " kicked the bucket at " + GetCords()[0] + " " + GetCords()[1]);
     }
 
 

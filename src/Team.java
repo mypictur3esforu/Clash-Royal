@@ -8,7 +8,7 @@ public class Team extends JPanel {
     private static ArrayList<Card> staticTeam;
     private JPanel teamPanel;
 
-    public ArrayList<Card> GetStaticTema(){
+    static public ArrayList<Card> GetStaticTeam(){
         return staticTeam;
     }
 
@@ -27,7 +27,7 @@ public class Team extends JPanel {
         JPanel cardsOfTeam = new JPanel(new GridLayout(2, 4));
         for (Card card : team){
             if (card == null ) continue;
-            cardsOfTeam.add(Collection.CreateCardInfoPanel(card, Collection.shownCategories));
+            cardsOfTeam.add(Collection.CreateCardInfoPanel(card, Collection.GetShownCategories()));
         }
         teamPanel.add(cardsOfTeam);
     }
@@ -54,7 +54,7 @@ public class Team extends JPanel {
     static ArrayList<Card> SortPlayableCards(ArrayList<Card> cards){
         ArrayList<Card> sorted = new ArrayList<>();
         for (Card card : cards){
-            if (Objects.equals(card.cardType, "troop") || Objects.equals(card.cardType, "tower")) sorted.add(card);
+            if (Objects.equals(card.GetCardType(), "troop") || Objects.equals(card.GetCardType(), "tower")) sorted.add(card);
         }
         return sorted;
     }

@@ -8,11 +8,11 @@ public class Tower extends  Entity{
 
     void KickTheBucket(){
         super.KickTheBucket();
-        System.out.println("Tower has fallen at: " + cords[0] + " " + cords[1]);
+        System.out.println("Tower has fallen at: " + GetCords()[0] + " " + GetCords()[1]);
     }
 
     void Targeting(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridge) {
-        if (target == null) DummyTarget();
+        if (GetTarget() == null) DummyTarget();
         if (TargetLocked()) return;
         super.GetTroopTarget(troops);
     }

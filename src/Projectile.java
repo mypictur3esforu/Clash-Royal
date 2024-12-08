@@ -11,17 +11,17 @@ public class Projectile extends Entity {
     Projectile(Card card, double x, double y, Spieler affiliation, Entity target, Entity caster){
         super(card, x, y, affiliation);
         this.caster = caster;
-        this.target = target;
-        damage = caster.card.damage;
-        healthBar.setVisible(false);
-        label.setIcon(new ImageIcon( Rotate(MakeBufferedImage(card.GetIcon()), GetAngle())));
+        this.SetTarget(target);
+        damage = caster.GetCard().GetDamage();
+        SetProgressVisibility(false);
+        SetLabelsIcon(new ImageIcon( Rotate(MakeBufferedImage(card.GetIcon()), GetAngle())));
     }
 
     void TargetHit(){
 //        Mitte des Targets, sonst fliegen die Projektile zur oberen Ecke des Targets
-        if (DistanceTo(target.cords) < card.range) {
+        if (DistanceTo(GetTarget().GetCords()) < GetCard().GetRange()) {
             MakeDamage();
-            health = 0;
+            SetHealth(0);
         }
     }
     /**
@@ -29,17 +29,18 @@ public class Projectile extends Entity {
      */
     void Move(){
         //a-tangens(GK / AK) = winkel, speed ist hypo → Strahlensatz :)
-        double[] distance = DistanceInDirection(target.cords);
+        double[] distance = DistanceInDirection(GetTarget().GetCords());
 
         double a = Math.toDegrees(Math.atan(distance[1] / distance[0]));
-        double xChange = Math.cos(a) * card.GetSpeed() / 10;
-        double yChange = Math.sin(a) * card.GetSpeed() / 10;
+        double xChange = Math.cos(a) * GetCard().GetSpeed() / 10;
+        double yChange = Math.sin(a) * GetCard().GetSpeed() / 10;
+        double[] cords = GetCords();
         cords[0] += xChange;
         cords[1] += yChange;
-//        if (DistanceTo(middleOfTarget) <= (double) (card.speed / 10) + card.range){
-        if (target.TroopOnEntity(this)){
-            cords[0] = target.cords[0];
-            cords[1] = target.cords[1];
+        if (caster instanceof Troop) System.out.println("X: " + xChange + ";" + "Y: " + yChange);
+        SetCords(cords);
+        if (GetTarget().TroopOnEntity(this)){
+            SetCords(GetTarget().GetCords());
         }
 
     }
@@ -51,7 +52,7 @@ public class Projectile extends Entity {
     }
 
     double GetAngle(){
-        double[] distances = DistanceInDirection(target.cords);
+        double[] distances = DistanceInDirection(GetTarget().GetCords());
         double ergebnis = Math.atan(distances[1] / distances[0]) + 1.5 * Math.PI;
         if (distances[0] > 0) ergebnis = Math.atan(distances[1] / distances[0]) + 0.5 * Math.PI;
 //        if (distances[0] > 0) ergebnis += Math.PI;
@@ -61,7 +62,7 @@ public class Projectile extends Entity {
 
     BufferedImage MakeBufferedImage(ImageIcon icon){
         Image image = icon.getImage();
-        BufferedImage buImg = new BufferedImage(card.width, card.height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage buImg = new BufferedImage(GetCard().GetWidth(), GetCard().GetWidth(), BufferedImage.TYPE_INT_ARGB);
         buImg.getGraphics().drawImage(image, 0, 0, null);
         return buImg;
     }
@@ -90,6 +91,7 @@ public class Projectile extends Entity {
     }
 
     void MakeDamage() {
-        target.TakeDamage(damage);
+//        könnte mir gut vorstellen, dass des hier net geht
+        GetTarget().TakeDamage(damage);
     }
 }

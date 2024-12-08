@@ -3,10 +3,10 @@ import java.util.Objects;
 
 public class ClashRoyal {
     private static Spiel spiel;
-    private static ArrayList<Card> staticCardCollection;
+    static ArrayList<Card> staticCardCollection;
 //    Card[] cardCollection;
     private ArrayList<Card> cardCollection;
-    private static ClashRoyal clashRoyal;
+    static ClashRoyal clashRoyal;
 
     public static void main(String[] args) {
        clashRoyal = new ClashRoyal();

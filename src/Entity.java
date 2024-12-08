@@ -13,13 +13,21 @@ public class Entity {
     private JProgressBar healthBar = new JProgressBar(0, 100);
 
 
+    public Card GetCard(){return card;}
     public double[] GetCords(){ return cords;}
     public double[] GetNecCords(){return necCords;}
     public double GetHealth(){return health;}
     public Entity GetTarget(){return target;}
     public JLabel GetLabel(){return label;}
     public JProgressBar GetProgressBar(){return healthBar;}
+    public Spieler GetAffiliation(){return affiliation;}
+
     public void SetLabel(JLabel label){this.label = label;}
+    public void SetTarget(Entity target){this.target = target;}
+    public void SetHealth(double health){this.health = health;}
+    public void SetProgressVisibility(boolean visibility){healthBar.setVisible(visibility);}
+    public void SetLabelsIcon(ImageIcon icon){label.setIcon(icon);}
+    public void SetCords(double[] cords){this.cords = cords;}
 
     Entity(Card card, double x, double y, Spieler affiliation){
         this.card = card;
@@ -33,15 +41,15 @@ public class Entity {
         label = new JLabel(card.GetIcon());
         SetLabelToCords();
 //        healthBar.setForeground(new Color(0xFF59F8C3, true));
-        healthBar.setForeground(affiliation.color);
+        healthBar.setForeground(affiliation.GetColor());
         healthBar.setBounds((int) (cords[0] + 0.25 * card.GetWidth()), (int) (cords[1] - 0.05 * card.GetHeight()), 50, 15);
         if (card.GetHealth() <= 0) healthBar.setVisible(false);
 
         label.setVisible(true);
 //        GameUI.overlayButton.add(label);
 //        GameUI.overlayButton.add(healthBar);
-        MainUI.game.overlayButton.add(label);
-        MainUI.game.overlayButton.add(healthBar);
+        MainUI.gameUI.overlayButton.add(label);
+        MainUI.gameUI.overlayButton.add(healthBar);
     }
 
     void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
@@ -161,8 +169,8 @@ public class Entity {
      */
     void GetTroopTarget(ArrayList<Troop> fieldsTroops) {
         for (Troop troop : fieldsTroops) {
-            if (troop.affiliation == affiliation) continue;
-            double distance = DistanceTo(troop.cords);
+            if (troop.GetAffiliation() == affiliation) continue;
+            double distance = DistanceTo(troop.GetCords());
             if (distance < card.GetSightDistance() && distance < DistanceTo(target.cords)) {
                 NewTarget(troop);
             }
@@ -171,8 +179,8 @@ public class Entity {
 
     void GetTowerTarget(ArrayList<Tower> towers){
         for (Tower tower : towers){
-            if (tower.affiliation == affiliation) continue;
-            if (DistanceTo(tower.cords) < DistanceTo(target.cords)){
+            if (tower.GetAffiliation() == affiliation) continue;
+            if (DistanceTo(tower.GetCords()) < DistanceTo(target.cords)){
                 NewTarget(tower);
             }
         }

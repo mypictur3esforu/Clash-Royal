@@ -11,7 +11,7 @@ public class CardCreator extends JPanel {
     private int numberOfTroops;
 
     CardCreator(){
-        stats = FileHandler.stats;
+        stats = FileHandler.GetStats();
         numberOfTroops = FileHandler.ReadFile().size() - 1;
 //        setBackground(new Color(0xFF777777, true));
 //        GridBagLayout vermutlich besser

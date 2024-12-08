@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Game extends JPanel {
+public class GameUI extends JPanel {
     private JPanel selectButtons, game, map, restrictHalf, elixirBar;
-    private JButton overlayButton;
-    private CardSelector[] buttons = new CardSelector[4];
+    JButton overlayButton;
+    CardSelector[] buttons = new CardSelector[4];
     private ImageIcon icon = new ImageIcon("images/crtestmap.png");
     private JProgressBar elixirPBar, troopCost;
 
@@ -13,13 +13,13 @@ public class Game extends JPanel {
 
     int width, height, screenWidth = screenSize.width, screenHeight = screenSize.height;
 
-    Game(int width, int height, ArrayList<Card> cards){
+    public void SetRestrictHalfVisible(boolean visible){restrictHalf.setVisible(visible);}
+    GameUI(int width, int height, ArrayList<Card> cards){
         this.width = width;
         this.height = height;
 //        this.height = 800;
         game = new JPanel();
         game.setLayout(null);
-//        game.setBounds(0, 0, screenWidth, screenHeight);
         game.setBounds(0, 0, screenWidth, screenHeight);
         game.setBackground(MainUI.vibe);
 

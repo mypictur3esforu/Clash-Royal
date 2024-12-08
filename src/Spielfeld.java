@@ -18,20 +18,12 @@ public class Spielfeld {
         }
     };
     private Spieler[] players;
-    private Game game;
-
-    public double GetElixir(){
-        return elixir;
-    }
-
-    public double SetElixir(double elixir){
-        this.elixir = elixir;
-    }
+    private GameUI gameUI;
 
     Spielfeld(long cooldown, Spieler[] players){
         this.players = players;
-        game = new Game(700, MainUI.screenHeight, players[1].cardSelection);
-        MainUI.game = game;
+        gameUI = new GameUI(700, MainUI.screenHeight, players[1].GetCardSelection());
+        MainUI.gameUI = gameUI;
         UIConnections();
         CreateBridges();
         CreateTowers();
@@ -39,11 +31,11 @@ public class Spielfeld {
     }
 
     void UIConnections(){
-        game.overlayButton.addActionListener(ev->{ButtonClick();});
-        for (int i = 0; i < game.buttons.length; i++) {
+        gameUI.overlayButton.addActionListener(ev->{ButtonClick();});
+        for (int i = 0; i < gameUI.buttons.length; i++) {
             int finalI = i;
-            game.buttons[i].addActionListener(ev -> {
-                SelectTroop(game.buttons[finalI].inheritedCard);
+            gameUI.buttons[i].addActionListener(ev -> {
+                SelectTroop(gameUI.buttons[finalI].GetInheritedCard());
 //                players[1].ActualizeSelection(finalI);
 //                game.buttons[finalI].NewCard(players[1].cardSelection.get(finalI));
                 selectedButton = finalI;
@@ -79,12 +71,13 @@ public class Spielfeld {
             }
         }
 
-        if (selectedTroop == null) game.UpdateElixirBar(players[1].elixir,0);
-        else game.UpdateElixirBar(players[1].elixir, selectedTroop.elixir);
+        if (selectedTroop == null) gameUI.UpdateElixirBar(players[1].GetElixir(),0);
+        else gameUI.UpdateElixirBar(players[1].GetElixir(), selectedTroop.GetElixir());
 
         for (Entity victim : victims){
             RemoveVictim(victim);
             victim.KickTheBucket();
+            gameUI.repaint();
         }
             }catch (Exception e){
                 System.out.println("ConcurrentModificationException");
@@ -98,8 +91,8 @@ public class Spielfeld {
         } else if (victim instanceof Tower) {
             towers.remove(victim);
         }
-        game.overlayButton.remove(victim.label);
-        game.overlayButton.remove(victim.healthBar);
+        gameUI.overlayButton.remove(victim.GetLabel()); //maybe klappt das hier net
+        gameUI.overlayButton.remove(victim.GetProgressBar());
     }
 
     /**
@@ -109,8 +102,8 @@ public class Spielfeld {
      * @param y Y Koordinate
      */
     void NewTroop(Card newTroop, int x, int y, Spieler playerAffiliation){
-        if (newTroop == null || playerAffiliation.elixir < newTroop.elixir) return;
-        playerAffiliation.SpendElixir(newTroop.elixir);
+        if (newTroop == null || playerAffiliation.GetElixir() < newTroop.GetElixir()) return;
+        playerAffiliation.SpendElixir(newTroop.GetElixir());
         //Troop temp = new Troop(newTroop, x - (double) newTroop.width /2, y - (double) newTroop.height / 2, playerAffiliation);
         Troop temp = new Troop(newTroop, x, y, playerAffiliation);
         troops.add(temp);
@@ -119,10 +112,10 @@ public class Spielfeld {
 //        game.map.add(units.getLast().label);
 //        game.map.add(units.getLast().healthBar);
         selectedTroop = null;
-        game.restrictHalf.setVisible(false);
+        gameUI.SetRestrictHalfVisible(false);
         playerAffiliation.ActualizeSelection(newTroop);
         if (! (playerAffiliation instanceof Bot)){
-        game.buttons[selectedButton].NewCard(players[1].cardSelection.get(selectedButton));
+        gameUI.buttons[selectedButton].NewCard(players[1].GetCardSelection().get(selectedButton)); //maybe klappt das hier auch nicht
         selectedButton = -1;
         }
     }
@@ -130,7 +123,7 @@ public class Spielfeld {
     int switcher;
     void ButtonClick(){
         /*Parsed Koordinaten und erzeugt eine neue Truppe an diesen*/
-            System.out.println("Point: " + game.overlayButton.getMousePosition());
+            System.out.println("Point: " + gameUI.overlayButton.getMousePosition());
         try{
             //int x = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("x=")[1].split(",")[0]);
             //int y = Integer.parseInt((game.overlayButton.getMousePosition()+"").split("y=")[1].split("]")[0]);
@@ -140,7 +133,7 @@ public class Spielfeld {
 //              normalerweise = 2
                 switcher = 1;
             }
-            NewTroop(selectedTroop, game.overlayButton.getMousePosition().x, game.overlayButton.getMousePosition().y, players[switcher]);
+            NewTroop(selectedTroop, gameUI.overlayButton.getMousePosition().x, gameUI.overlayButton.getMousePosition().y, players[switcher]);
         }catch (Exception e){
             System.out.println("Error parsing coordinates");
         }
@@ -149,7 +142,7 @@ public class Spielfeld {
 
     void SelectTroop(Card chosenTroop){
         selectedTroop = chosenTroop;
-        game.restrictHalf.setVisible(true);
+        gameUI.SetRestrictHalfVisible(true);
     }
 
     void CreateBridges(){
@@ -166,14 +159,14 @@ public class Spielfeld {
     void CreateTowers(){
         Spieler playerAffil = players[2];
         //double[][] towerCords = new double[][]{{75, 130}, {325, 80}, {575, 130}, {75, 930}, {325, 980}, {575, 930}};
-        double[] towerXCords = new double[]{game.width / 5, game.width / 2, 4 * game.width / 5};
+        double[] towerXCords = new double[]{gameUI.width / 5, gameUI.width / 2, 4 * gameUI.width / 5};
         int numberOfTowers = 6;
-        double tenPercentHeight = ((double) game.height / 100) * 10;
+        double tenPercentHeight = ((double) gameUI.height / 100) * 10;
         for (int i = 0; i < numberOfTowers; i++) {
                 double[] towerCords = new double[]{towerXCords[2 - (i % 3)], tenPercentHeight};
             if (numberOfTowers / 2 <= i){
                 playerAffil = players[1];
-                towerCords[1] = game.height - tenPercentHeight;
+                towerCords[1] = gameUI.height - tenPercentHeight;
             }
             Tower tower = new Tower(ClashRoyal.GetCardByName("Tower"), towerCords[0], towerCords[1], playerAffil);
             towers.add(tower);
