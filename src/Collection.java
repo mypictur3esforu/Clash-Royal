@@ -44,14 +44,12 @@ public class Collection extends JPanel {
             JLabel stat = new JLabel(categories[i] + " " + card.GetMultipleStats(categories).get(i), SwingConstants.CENTER);
             stats.add(stat);
         }
-        Color color = new Color(0xF8EC0D);
-        infoPanel.setBackground(color);
-        stats.setBackground(color);
+//        Color color = new Color(0xF8EC0D);
+//        infoPanel.setBackground(color);
+//        stats.setBackground(color);
         JLabel icon = new JLabel(card.GetIcon());
         infoPanel.add(icon);
         infoPanel.add(stats);
-        infoPanel.add(new Label("nah"));
-        infoPanel.add(new Label("nah"));
         return infoPanel;
     }
 

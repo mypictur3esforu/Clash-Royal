@@ -6,24 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6a17988a-2f05-46f8-b109-72d3e4a192cb" name="Changes" comment="Funktioniert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clash Royal Cards.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Clash Royal Cards.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/ClashRoyalUML.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/Testtt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CardCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CardCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CardEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CardEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CardSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CardSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClashRoyal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClashRoyal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Spiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Spielfeld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spielfeld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Team.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tower.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Troop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Troop.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -417,7 +400,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733433052216</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Funktioniert">
+      <option name="closed" value="true" />
+      <created>1733674049808</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1733674049809</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
