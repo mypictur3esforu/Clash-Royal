@@ -3,10 +3,10 @@ import java.util.Objects;
 
 public class ClashRoyal {
     private static Spiel spiel;
-    static ArrayList<Card> staticCardCollection;
+    public static ArrayList<Card> staticCardCollection;
 //    Card[] cardCollection;
     private ArrayList<Card> cardCollection;
-    static ClashRoyal clashRoyal;
+    public static ClashRoyal clashRoyal;
 
     public static void main(String[] args) {
        clashRoyal = new ClashRoyal();
@@ -19,7 +19,7 @@ public class ClashRoyal {
         MainUI.CreateMainUI();
     }
 
-    void NewGame(){
+    public void NewGame(){
         spiel = new Spiel("Casual", cardCollection);
     }
 
@@ -28,7 +28,7 @@ public class ClashRoyal {
      * @param name Name der gesuchten Karte
      * @return Die gesuchte Karte
      */
-    static Card GetCardByName(String name){
+    public static Card GetCardByName(String name){
         for (Card card: staticCardCollection){
             if (Objects.equals(name, card.GetName())) return card;
         }
