@@ -7,12 +7,17 @@ public class Bot extends Spieler{
         super(name,team, color);
     }
 
-    void Update(){
-        ShouldPlaceTroop();
+    /**
+     * Aktualisiert den Bot bzw. schaut, ob eine Truppe platziert werden soll
+     */
+    Entity Update(){
+        Card order = ShouldPlaceTroop();
+        if (order == null) return null;
+        return new Entity(order, Math.floor(Math.random() * 700), Math.floor(Math.random() * 400), this);
     }
 
     /**
-     * Lässt alle Truppen finden, die gerade setzbar sind (genug Elex und auswählbar) und lässt, wenn es welche gibt placen.
+     * Lässt alle Truppen finden, die gerade setzbar sind (genug Elixier und auswählbar) und lässt diese, wenn es welche gibt, platzieren.
      */
      Card ShouldPlaceTroop(){
         ArrayList<Card> playableTroops = GetPlayableTroops();
@@ -20,12 +25,10 @@ public class Bot extends Spieler{
         return ChooseTroop(GetPlayableTroops());
     }
 
-    Entity MakePlacementOrder(){
-         Card order = ShouldPlaceTroop();
-         if (order == null) return null;
-        return new Entity(order, 100, 100, this);
-    }
-
+    /**
+     * Findet alle spielbaren Karten
+     * @return Alle zur Zeit spielbaren Karten
+     */
     ArrayList<Card> GetPlayableTroops(){
         ArrayList<Card> playableTroops = new ArrayList<>();
         for(int i = 0; i < 4; i++){
@@ -34,10 +37,14 @@ public class Bot extends Spieler{
         return playableTroops;
     }
 
+    /**
+     * Sucht, aktuell noch zufällig, eine Truppe aus den spielbaren Truppen aus
+     * @param playableCards Aktuell spielbare Karten
+     * @return Die ausgewählte Karte
+     */
     Card ChooseTroop(ArrayList<Card> playableCards){
          if (playableCards.isEmpty()) return null;
         int random = (int) Math.round(Math.random() * playableCards.size());
-        if (random == playableCards.size()) random--;
         return playableCards.get(random);
     }
 }

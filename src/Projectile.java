@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Projectile extends Entity {
     private Entity caster;
     private double damage;
-    private double angle;
 
     Projectile(Card card, double x, double y, Spieler affiliation, Entity target, Entity caster){
         super(card, x, y, affiliation);
@@ -17,7 +16,7 @@ public class Projectile extends Entity {
         SetLabelsIcon(new ImageIcon( Rotate(MakeBufferedImage(card.GetIcon()), GetAngle())));
     }
 
-    void TargetHit(){
+    private void TargetHit(){
 //        Mitte des Targets, sonst fliegen die Projektile zur oberen Ecke des Targets
         if (DistanceTo(GetTarget().GetCords()) < GetCard().GetRange()) {
             MakeDamage();
@@ -27,7 +26,7 @@ public class Projectile extends Entity {
     /**
      * Bewegung des Targets pro Timer Schritt
      */
-    void Move(){
+    private void Move(){
         //a-tangens(GK / AK) = winkel, speed ist hypo → Strahlensatz :)
         double[] distance = DistanceInDirection(GetTarget().GetCords());
 
@@ -45,13 +44,13 @@ public class Projectile extends Entity {
 
     }
 
-    void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
+    public void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
         Move();
         TargetHit();
         SetLabelToCords();
     }
 
-    double GetAngle(){
+    private double GetAngle(){
         double[] distances = DistanceInDirection(GetTarget().GetCords());
         double ergebnis = Math.atan(distances[1] / distances[0]) + 1.5 * Math.PI;
         if (distances[0] > 0) ergebnis = Math.atan(distances[1] / distances[0]) + 0.5 * Math.PI;
@@ -60,7 +59,7 @@ public class Projectile extends Entity {
         return ergebnis;
     }
 
-    BufferedImage MakeBufferedImage(ImageIcon icon){
+    private BufferedImage MakeBufferedImage(ImageIcon icon){
         Image image = icon.getImage();
         BufferedImage buImg = new BufferedImage(GetCard().GetWidth(), GetCard().GetWidth(), BufferedImage.TYPE_INT_ARGB);
         buImg.getGraphics().drawImage(image, 0, 0, null);
@@ -70,7 +69,7 @@ public class Projectile extends Entity {
     /**
      * Soll das Projektil so drehen, dass es in die Richtung zeigt, in die es fliegt
      */
-    public static BufferedImage Rotate(BufferedImage image, double angle) {
+    private BufferedImage Rotate(BufferedImage image, double angle) {
         double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
         int w = image.getWidth(), h = image.getHeight();
         int neww = (int)Math.floor(w*cos+h*sin), newh = (int) Math.floor(h * cos + w * sin);
@@ -84,13 +83,17 @@ public class Projectile extends Entity {
         return result;
     }
 
-    private static GraphicsConfiguration getDefaultConfiguration() {
+    /**
+     * Code von StackOverflow
+     * @return
+     */
+    private GraphicsConfiguration getDefaultConfiguration() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         return gd.getDefaultConfiguration();
     }
 
-    void MakeDamage() {
+    private void MakeDamage() {
 //        könnte mir gut vorstellen, dass des hier net geht
         GetTarget().TakeDamage(damage);
     }

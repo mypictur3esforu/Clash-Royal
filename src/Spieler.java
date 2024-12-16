@@ -19,10 +19,6 @@ public class Spieler {
         return elixir;
     }
 
-    public void SetElixir(double elixir){
-        this.elixir = elixir;
-    }
-
     Spieler(String name, ArrayList<Card> cardSelection, Color color){
         this.name = name;
 //        this.cardSelection = cardSelection;
@@ -33,23 +29,22 @@ public class Spieler {
         this.color = color;
     }
 
-    void ActualizeSelection(Card placedCard){
+    public void ActualizeSelection(Card placedCard){
         int place = cardSelection.indexOf(placedCard);
         cardSelection.set(place, cardSelection.get(4));
         cardSelection.add(cardSelection.get(4));
         cardSelection.remove(4);
     }
 
-    void AddElixir(double amount){
-        if (ElixirFull()) return;
-        elixir += amount;
+    public void AddElixir(double amount){
+        if (!ElixirFull()) elixir += amount;
     }
 
-    void SpendElixir(double amount){
+    public void SpendElixir(double amount){
         elixir -= amount;
     }
 
-    boolean ElixirFull(){
+    private boolean ElixirFull(){
         return elixir >= 10;
     }
 }
