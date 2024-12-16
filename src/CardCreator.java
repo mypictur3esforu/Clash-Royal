@@ -2,14 +2,46 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Der CardCreator dient dazu neue Karten erstellen und Speichern zu können, ohne selbst auf die Formatierung achten zu müssen
+ */
 public class CardCreator extends JPanel {
-    private JPanel image, statInput, save;
+    /**
+     * Panel für in dem Bild eingefügt wird
+     */
+    private JPanel image;
+    /**
+     * Panel in dem Stats eingetragen werden
+     */
+    private JPanel statInput;
+    /**
+     * Panel in dem man die erstellte Karte speicher kann
+     */
+    private JPanel save;
+    /**
+     * Die Überschrift
+     */
     private JLabel headline;
+    /**
+     * Die Eingabefelder für die stats
+     */
     private ArrayList<JTextField> values = new ArrayList<>();
+    /**
+     * Die verschiedenen Stats
+     */
     private String[] stats;
+    /**
+     * Textfeld für Bild Adresse
+     */
     private JTextField imageRef;
+    /**
+     * Anzahl an erstellten Karten; Hauptsächlich um übersichtlicher zu Speichern
+     */
     private int numberOfTroops;
 
+    /**
+     * Erzeugt ein neues CardCreator Panel, in dem alle Komponenten hinzugefügt werden/nach beenden wurden
+     */
     CardCreator(){
         stats = FileHandler.GetStats();
         numberOfTroops = FileHandler.ReadFile().size() - 1;
@@ -23,6 +55,9 @@ public class CardCreator extends JPanel {
     Add();
     }
 
+    /**
+     * Fügt alle UI Komponenten dem CardCreator-Panel hinzu
+     */
     void Add(){
         add(headline);
         add(statInput);
@@ -90,25 +125,9 @@ public class CardCreator extends JPanel {
      * Erzeugt und speichert die neue Karte
      */
     void SaveNewCard(){
-        String string = CreateMainString();
+//        String string = CreateMainString();
+        String string = FileHandler.CreateMainStringOfJTextField(numberOfTroops++, values);
         FileHandler.WriteToFile(string);
         FileHandler.ReadFile();
     }
-
-    //Wäre besser, wenn man die Methode aus FileHandler nimmt damit keine Dopplung entsteht
-    String CreateMainString(){
-        StringBuilder string;
-        numberOfTroops++;
-        string = new StringBuilder(numberOfTroops + ". ");
-        for (int i = 0; i < stats.length; i++) {
-//            string += stats[i] + " " + values.get(i) + "; ";
-            string.append(stats[i]).append(" ").append(values.get(i).getText()).append("; ");
-        }
-        string.append("Icon: ").append(imageRef.getText()).append("; ");
-        System.out.println(string);
-        return string + "";
-    }
-
-
-
 }

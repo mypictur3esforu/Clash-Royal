@@ -109,8 +109,11 @@ public class Spielfeld {
                 units.add(shooter.Shoot());
             }
 
+            for (int i = 1; i < players.length; i++) {
+                players[i].AddElixir(elixir);
+            }
 
-            players[2].AddElixir(elixir);
+//            if nicht nötig; war vorher wichtig jetzt nicht mehr, aber ist ne kleine Absicherung
             if (players[2] instanceof Bot) {
                 Entity newbies = ((Bot) players[2]).Update();
                 if (newbies != null)

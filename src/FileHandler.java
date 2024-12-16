@@ -8,7 +8,7 @@ import java.util.*;
 
 //Neue Kategorie Anleitung:
 //1. stats erweitern
-//2. Card Parameter und Attribute erweitern (wenn nötig Attribut = Parameter nicht vergessen)
+//2. Card Parameter und Attribute erweitern (wenn nötig: this.Attribut = Parameter nicht vergessen)
 //3. Card SaveAsString erweitern
 //4. Alte Karten Updaten
 
@@ -17,7 +17,11 @@ public class FileHandler {
     private static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:", "Icon:"};
 
     public static String[] GetStats(){return stats;}
-    //    Source: StackOverflow, Coding with John
+
+    /**
+     * Ergänzt eine Zeile zu den bisher gespeicherten
+     * @param message Die Zeile, die ergänzt werden soll
+     */
     static void WriteToFile(String message) {
         ArrayList<String> lines = ReadFile();
         lines.add(message);
@@ -133,6 +137,10 @@ public class FileHandler {
         WriteFile(lines);
     }
 
+    /**
+     * Schreibt die gegebenen Zeilen als jeweils eine Zeile in die Speicher Datei
+     * @param lines Die Zeilen die gespeichert werden sollen
+     */
     static private void WriteFile(ArrayList<String> lines){
         try {
 //            List<String> lines = Arrays.asList("The first line", "The second line"); //Eine Methode wie man FileWriten kann
@@ -154,8 +162,8 @@ public class FileHandler {
 
 
     /**
-     * Erzeugt einen String zum Karten erstellen, bzw. eine Zeile die gespeichert werden kann.
-     * @param number Nummer der Zahl (Die Zahl am Anfang)
+     * Erzeugt aus JTextFields einen String zum Karten erstellen, bzw. eine Zeile die gespeichert werden kann.
+     * @param number Nummer der Zahl (Die Zahl am Anfang einer Zeile)
      * @param inputs JTexFields, in der die Informationen stehen. Müssen die gleiche Reihenfolge haben wie FilHandler.stats und das letzte TextField muss der ImagePath sein
      * @return Ein String den das Programm speichern kann
      */
@@ -167,6 +175,12 @@ public class FileHandler {
         return CreateMainString(number, values);
     }
 
+    /**
+     * Erzeugt einen String zum Karten erstellen, bzw. eine Zeile die gespeichert werden kann.
+     * @param number Nummer der Zahl (Die Zahl am Anfang einer Zeile)
+     * @param values Die einzelnen Kategorien, die gespeichert werden
+     * @return Ein String den das Programm speichern kann
+     */
     static String CreateMainString(int number, ArrayList<String> values){
         StringBuilder string;
         string = new StringBuilder(number + ". ");

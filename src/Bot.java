@@ -8,7 +8,8 @@ public class Bot extends Spieler{
     }
 
     /**
-     * Aktualisiert den Bot bzw. schaut, ob eine Truppe platziert werden soll
+     * Aktualisiert den Bot bzw. gibt eine Truppe zurück, wenn eine platziert werden soll
+     * @return Gibt die Truppe zurück, die platziert werden soll
      */
     Entity Update(){
         Card order = ShouldPlaceTroop();
