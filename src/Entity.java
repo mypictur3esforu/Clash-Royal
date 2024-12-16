@@ -1,15 +1,50 @@
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * Entities sind die "fertigen Bauwerke" die nach der "Blaupause" (Karte) gebaut wurden.
+ */
 public class Entity {
+    /**
+     * Stats des Entities
+     */
     private Card card;
-    private double[] cords, necCords;
+    /**
+     * Koordinaten der Truppe
+     */
+    private double[] cords;
+    /**
+     * Essenzielle Koordinaten zum Erreichen des Ziels;
+     * Koordinaten von Brücken
+     */
+    private double[] necCords;
+    /**
+     * Status der Attacke
+     */
     private int attackState = 1;
+    /**
+     * Trefferpunkte
+     */
     private double health;
+    /**
+     * Das Entity, welches angegriffen wird
+     */
     private Entity target;
+    /**
+     * Das Bild der Truppe
+     */
     private JLabel label;
+    /**
+     * Team Zugehörigkeit
+     */
     private Spieler affiliation;
+    /**
+     * Angreifer, die dieses Entity angreifen
+     */
     private ArrayList<Entity> targetedBy = new ArrayList<>();
+    /**
+     * Trefferpunkte Anzeige
+     */
     private JProgressBar healthBar = new JProgressBar(0, 100);
 
 
@@ -29,6 +64,13 @@ public class Entity {
     public void SetLabelsIcon(ImageIcon icon){label.setIcon(icon);}
     public void SetCords(double[] cords){this.cords = cords;}
 
+    /**
+     * Erzeugt ein neues Entity, welches in der Regel aktiv am Spiel geschehen teilnimmt (Brücken und Dummy Target bilden die Ausnahme)
+     * @param card Die Stats, die die Truppe besitz
+     * @param x X Koordinate
+     * @param y Y Koordinate
+     * @param affiliation Team Zugehörigkeit
+     */
     Entity(Card card, double x, double y, Spieler affiliation){
         this.card = card;
         cords = new double[]{x, y};
@@ -37,6 +79,9 @@ public class Entity {
         PlaceEntity();
     }
 
+    /**
+     * Fügt das Entity der UI hinzu
+     */
     void PlaceEntity(){
         label = new JLabel(card.GetIcon());
         SetLabelToCords();
@@ -52,6 +97,12 @@ public class Entity {
         MainUI.gameUI.overlayButton.add(healthBar);
     }
 
+    /**
+     * Aktualisiert das Entity. Sucht ggf. neue Ziele raus, erhöht Attack Status und aktualisiert Lebensanzeige
+     * @param troops
+     * @param towers
+     * @param bridges
+     */
     void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
         Targeting(troops, towers, bridges);
 //        if (TargetInRange()) MakeDamage();
@@ -60,10 +111,19 @@ public class Entity {
 //        if (!Alive()) KickTheBucket();
     }
 
+    /**
+     * Erzeugt ein Dummy Target, welches anvisiert wird, falls kein Ziel vorhanden ist, damit keine Null-Pointer Exceptions entstehen
+     */
     void DummyTarget(){
-        target =  new Entity(ClashRoyal.GetCardByName("DummyTarget"), 10000, 100000, new Spieler("Dummy", null, null));
+        target =  new Entity(ClashRoyal.GetCardByName("DummyTarget"), 10000000, 1000, new Spieler("Dummy", null, null));
     }
 
+    /**
+     * Sucht ein Ziel, welches anvisiert werden soll
+     * @param troops Alle Truppen auf dem Feld
+     * @param towers Türme der Spieler
+     * @param bridges Brücken des Spielfelds
+     */
     void Targeting(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges) {
         if (target == null) DummyTarget();
         if (TargetLocked()) return;
@@ -72,39 +132,10 @@ public class Entity {
         GetBridgeTarget(bridges);
     }
 
-//    void GetBridgeTarget(ArrayList<Entity> bridges){
-//        necCords = new double[]{10000, 100000};
-//        for (Entity bridge : bridges){
-//            if (DistanceTo(necCords) <= 20) {
-//                necCords[0] = 10000;
-//                break;
-//            }
-//            if (DistanceTo(bridge.cords) < DistanceTo(target.cords) && DistanceTo(bridge.cords) < DistanceTo(necCords)){
-//                if (DistanceInDirection(target.cords)[1] < 0) {
-//                necCords = new double[]{bridge.cords[0] + (double) bridge.card.width / 2, bridge.cords[1]};
-//                }else {
-//                necCords = new double[]{bridge.cords[0] + (double) bridge.card.width / 2, bridge.cords[1] + bridge.card.height};
-//                }
-//            }
-//        }
-//        if (necCords[0] == 10000) necCords = null;
-//    }
-
-//    erst schauen ob Brücke zwischen Truppe und Target
-//    dann ob Truppe schon auf Brücke, wenn ja dann ende der Brücke als neues Target
-//        void GetBridgeTarget(ArrayList<Entity> bridges){
-//        necCords = new double[]{10000, 10000};
-//        for (Entity bridge : bridges) {
-//            if (!BridgeBetween(bridge) || DistanceTo(necCords) < DistanceTo(bridge.cords)) continue;
-//            if (!TroopOnEntity(bridge)){
-//                necCords = GetNearestBridgeEnd(bridge);
-//             continue;
-//            }
-//
-//        }
-//        if (necCords[0] == 10000) necCords = null;
-//        }
-
+    /**
+     * Falls eine Brücke auf dem Weg zum Ziel liegt, wird diese anvisiert
+     * @param bridges Die Brücken auf dem Feld
+     */
     void GetBridgeTarget(ArrayList<Entity> bridges){
         double distance = 100000;
         Entity targetBridge = bridges.getFirst(); //Wert irrelevant
@@ -115,44 +146,45 @@ public class Entity {
                 targetBridge = bridge;
             }
         }
-        double[] nEnd = GetNearestBridgeEnd(targetBridge);
-        double[] fEnd = GetFurthestBridgeEnd(targetBridge);
+//        double[] nEnd = GetNearestBridgeEnd(targetBridge);
+//        double[] fEnd = GetFurthestBridgeEnd(targetBridge);
+        double[] nEnd = GetBridgeEnd(targetBridge, true);
+        double[] fEnd = GetBridgeEnd(targetBridge,false);
         if (YCordsBetween(fEnd)) necCords = fEnd;
         else if (YCordsBetween(nEnd)){
             necCords = nEnd;
         }else necCords = null;
     }
 
-    /**
-     * Findet das näher liegende Ende der einer Brücke
-     * @param bridge Brücke dessen Enden verglichen werden
-     * @return Koordinaten des näher liegenden Ende
-     */
-    double[] GetNearestBridgeEnd(Entity bridge){
-        double x = bridge.cords[0] , y = bridge.cords[1];
-        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) > target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
-        return new double[]{x, y};
-    }
-//    double[] GetBridgeEnd(Entity bridge, boolean nearest){
-//        double x = bridge.cords[0] + (double) bridge.card.width / 2, y = bridge.cords[1];
-//        boolean added = false;
-//
-//        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) > target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.height})) {
-//            y += bridge.card.height;
-//            added = true;
-//        }
-//
-//        if (nearest == false ||(!nearest && !added)) {
-//            return new double[]{x, y};
-//        }else //!nearest && added
-//            return new double[]{x, y - bridge.card.height};
-//        }
 
-    double[] GetFurthestBridgeEnd(Entity bridge){
+    /**
+     * Gibt die Koordinaten des näheren oder weiter entferntem Endes einer Brücke
+     * @param bridge Brücke deren Enden verglichen werden sollen
+     * @param nearest Näheres Ende? Bei false wird das weiter entfernte Ende genommen
+     * @return Koordinaten des gesuchten Endes
+     */
+    double[] GetBridgeEnd(Entity bridge, boolean nearest){
         double x = bridge.cords[0], y = bridge.cords[1];
-        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) < target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
+        if (nearest && target.DistanceTo(new double[]{x, bridge.cords[1]}) < target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
+        if (!nearest && target.DistanceTo(new double[]{x, bridge.cords[1]}) > target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
         return new double[]{x, y};
-    }
+        }
+
+//    /**
+//     * Findet das näher liegende Ende der einer Brücke
+//     * @param bridge Brücke dessen Enden verglichen werden
+//     * @return Koordinaten des näher liegenden Ende
+//     */
+//    double[] GetNearestBridgeEnd(Entity bridge){
+//        double x = bridge.cords[0] , y = bridge.cords[1];
+//        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) > target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
+//        return new double[]{x, y};
+//    }
+//    double[] GetFurthestBridgeEnd(Entity bridge){
+//        double x = bridge.cords[0], y = bridge.cords[1];
+//        if (target.DistanceTo(new double[]{x, bridge.cords[1]}) < target.DistanceTo(new double[]{x, bridge.cords[1] + bridge.card.GetHeight()})) y += bridge.card.GetHeight();
+//        return new double[]{x, y};
+//    }
 
     /**
      * Schaut, ob der gegebene Punkt zwischen der Höhe der Truppe und der Höhe des Targets ist
@@ -177,6 +209,10 @@ public class Entity {
         }
     }
 
+    /**
+     * Targeted den nächstgelegen Turm des Gegners
+     * @param towers Die Türme auf dem Feld
+     */
     void GetTowerTarget(ArrayList<Tower> towers){
         for (Tower tower : towers){
             if (tower.GetAffiliation() == affiliation) continue;
@@ -191,6 +227,11 @@ public class Entity {
         target.targetedBy.add(this);
     }
 
+    /**
+     * Distanz in die jeweilige Richtung
+     * @param coordinates Die Koordinate zu den die Entfernung ermittelt werden soll
+     * @return [Entfernung X Achse; Entfernung Y Achse]
+     */
     double[] DistanceInDirection(double[] coordinates) {
         double x = coordinates[0] - cords[0];
         double y = coordinates[1] - cords[1];
@@ -237,6 +278,10 @@ public class Entity {
         return (cords[0] - halfCWidth <= entity.cords[0] && entity.cords[0] <= cords[0] + halfCWidth && (cords[1] - halfCHeight <= entity.cords[1] && entity.cords[1] <= cords[1] + halfCHeight));
     }
 
+    /**
+     * Zieht erhaltenen Schaden von den Leben ab
+     * @param damage Menge an erhaltenem Schaden
+     */
     void TakeDamage(double damage) {
 //        System.out.println(card.name + " took Damage: " + health);
         health -= damage;
@@ -251,7 +296,7 @@ public class Entity {
 //    }
 
     /**
-     * Führt den Angriff aus, bzw erzeugt ein Projektil
+     * Führt den Angriff aus, bzw. erzeugt ein Projektil welche bei Erreichen des Ziels Schaden zufügt
      * @return Neues Projektil
      */
     Projectile Shoot(){
@@ -259,7 +304,7 @@ public class Entity {
     }
 
     /**
-     * Erhöht den Agriffsstatus
+     * Erhöht den Angriffsstatus
      */
     void PrepareAttack(){
         attackState++;
@@ -274,10 +319,17 @@ public class Entity {
         return attackState == 0;
     }
 
+    /**
+     * Gibt an, ob die Truppe noch am Leben ist
+     * @return Leben > 0?
+     */
     boolean Alive() {
         return health > 0;
     }
 
+    /**
+     * Aktualisiert die Lebensanzeige entsprechend der aktuellen Anzahl an Trefferpunkten
+     */
     void HealthBar() {
         healthBar.setValue((int) (100 / card.GetHealth() * health));
 //        int width = (int)(card.health / 10);
@@ -285,6 +337,9 @@ public class Entity {
         healthBar.setBounds((int) (cords[0] - 25), (int) (cords[1] - (card.GetHeight() / 2) - 20), 50 , 15);
     }
 
+    /**
+     * Wenn die Truppe krepiert ist, werden Bild und HealthBar entfernt und alle Angreifer dieser Truppen erhalten ein neues Ziel
+     */
     void KickTheBucket(){
         label.setVisible(false);
         healthBar.setVisible(false);
@@ -295,7 +350,7 @@ public class Entity {
     }
 
     /**
-     * Zeichnet das Label an die richtige Farbe
+     * Zeichnet das Label an die richtige Stelle
      */
     void SetLabelToCords(){
         label.setBounds((int) cords[0] - (card.GetWidth() / 2), (int) cords[1] - (card.GetHeight() / 2), card.GetWidth(), card.GetHeight());

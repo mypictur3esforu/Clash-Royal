@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Karten sind die spezifizierung der einzelnen Eigenschaften eines Entities, also wie gut ein Entity eine bestimmte Sache kann.
+ * Die Karte ist universell d.h. jedes Entity mit dem gleichen Typen hat den gleichen Namen, Schaden, usw.
+ * Im Laufe des Spiels können sich die einzelnen Entities unterscheiden, wenn sie z.B. Schaden nehmen sinken die Trefferpunkte des Entities.
+ * Ein anderes Entity mit gleichem Karten Typ würde davon nicht beeinflusst werden
+ */
 public class Card {
     /**
      * Name der Truppe
