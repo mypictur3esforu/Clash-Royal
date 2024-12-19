@@ -1,26 +1,35 @@
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Die Main Klasse. Sie erstellt das Menu und ermöglicht es ein Spiel zu starten. Zudem erstellt sie eine Kollektion mit allen Karten
+ */
 public class ClashRoyal {
     private static Spiel spiel;
     public static ArrayList<Card> staticCardCollection;
 //    Card[] cardCollection;
-    private ArrayList<Card> cardCollection;
+    //private ArrayList<Card> cardCollection;
     public static ClashRoyal clashRoyal;
 
     public static void main(String[] args) {
        clashRoyal = new ClashRoyal();
     }
 
+    /**
+     * Liest alle gespeicherten Karten aus erstellt das Menu
+     */
     ClashRoyal(){
-        cardCollection = FileHandler.GetCards();
-        ClashRoyal.staticCardCollection = cardCollection;
-        new Collection(cardCollection);
+        staticCardCollection = FileHandler.GetCards();
+        //ClashRoyal.staticCardCollection = cardCollection;
+//        new Collection(staticCardCollection);
         MainUI.CreateMainUI();
     }
 
+    /**
+     * Startet ein neues Spiel
+     */
     public void NewGame(){
-        spiel = new Spiel("Casual", cardCollection);
+        spiel = new Spiel("Casual", staticCardCollection);
     }
 
     /**

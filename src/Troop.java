@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Die Klasse Troop sind Entities, die sich zum Teil bewegen und Schaden machen
+ * Die Klasse Troop sind Entities, die sich zum Teil bewegen und ein Projektile casten können, welches bei Erreichen des Ziels diesem Schaden zufügt
  */
 public class Troop extends Entity{
 

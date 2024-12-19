@@ -3,12 +3,19 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Im CardEditor werden alle bisher erstellten und gespeicherten Karten angezeigt und können bearbeitet werden.
+ * Für jede Kategorie gibt es ein Feld, welches den Ursprungswert anzeigt und eins, in dem man einen neuen Wert zuweisen kann.
+ */
 public class CardEditor extends JPanel {
     private ArrayList<String> cards;
     private JPanel overview;
     private ArrayList<ArrayList<JTextField>> inputs = new ArrayList<>();
     private JScrollPane overviewScroll;
 
+    /**
+     * Erstellt ein CardEditor Menu, welches direkt als JPanel der UI hinzugefügt werden kann
+     */
     CardEditor(){
         setLayout(new GridLayout(1, 1));
         cards = FileHandler.ReadFile();
@@ -22,6 +29,9 @@ public class CardEditor extends JPanel {
         add(overview);
     }
 
+    /**
+     * Das optionale OverviewScrollPane wird hier erstellt und angepasst, so das UI Elemente hinzugefügt werden können.
+     */
     void OverviewScrollPane(){
         JScrollBar sB = new JScrollBar(Adjustable.HORIZONTAL);
         sB.setBackground(Color.lightGray);
@@ -109,7 +119,10 @@ public class CardEditor extends JPanel {
         }
     }
 
-//    es werden die ganze Zeit die gleichen TextFields geaddet
+    /**
+     * Speichert eine Reihe
+     * @param row Die Reihe, welche gespeichert werden soll.
+     */
     void SaveChanges(int row){
         ArrayList<JTextField> rowInput = inputs.get(row - 1);
         System.out.println(rowInput.getFirst().getText());

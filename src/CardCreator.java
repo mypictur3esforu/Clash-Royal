@@ -65,6 +65,9 @@ public class CardCreator extends JPanel {
         add(save);
     }
 
+    /**
+     * Erzeugt die erste Reihe bzw. die Überschriften der einzelnen Kategorien
+     */
     void Headline(){
         headline = new JLabel("Troop Creator",SwingConstants.CENTER);
         headline.setFont(new Font("Arial", Font.BOLD, 50));

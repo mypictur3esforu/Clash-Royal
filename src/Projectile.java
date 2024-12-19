@@ -3,8 +3,18 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * Projektile sind die Schadensübermittler einer Truppe.
+ * Eine Truppe erzeugt, um Schaden zu verüben ein Projektil, welches das Ziel verfolgt und bei Treffen Schaden zufügt
+ */
 public class Projectile extends Entity {
+    /**
+     * Der erzeuger des Projektils
+     */
     private Entity caster;
+    /**
+     * Die Menge an Schaden, die dem Ziel zugefügt wird
+     */
     private double damage;
 
     Projectile(Card card, double x, double y, Spieler affiliation, Entity target, Entity caster){
@@ -16,6 +26,9 @@ public class Projectile extends Entity {
         SetLabelsIcon(new ImageIcon( Rotate(MakeBufferedImage(card.GetIcon()), GetAngle())));
     }
 
+    /**
+     * Überprüft, ob das Ziel erreicht wurde
+     */
     private void TargetHit(){
 //        Mitte des Targets, sonst fliegen die Projektile zur oberen Ecke des Targets
         if (DistanceTo(GetTarget().GetCords()) < GetCard().GetRange()) {
@@ -44,12 +57,22 @@ public class Projectile extends Entity {
 
     }
 
+    /**
+     * Aktualisiert das Projektil. Lässt es bewegen und schaut, ob es das Ziel erreicht hat
+     * @param troops
+     * @param towers
+     * @param bridges
+     */
     public void Update(ArrayList<Troop> troops, ArrayList<Tower> towers, ArrayList<Entity> bridges){
         Move();
         TargetHit();
         SetLabelToCords();
     }
 
+    /**
+     * Rechnet den Winkel aus, in dem ein Projektil fliegt
+     * @return Winkel des Projektils
+     */
     private double GetAngle(){
         double[] distances = DistanceInDirection(GetTarget().GetCords());
         double ergebnis = Math.atan(distances[1] / distances[0]) + 1.5 * Math.PI;
@@ -59,6 +82,11 @@ public class Projectile extends Entity {
         return ergebnis;
     }
 
+    /**
+     * Macht aus einen ImageIcon ein BufferedImage (Code von StackOverflow)
+     * @param icon Das Bild, welches zu einem BufferedImage gemacht werden soll
+     * @return Das Bild als BufferedImage
+     */
     private BufferedImage MakeBufferedImage(ImageIcon icon){
         Image image = icon.getImage();
         BufferedImage buImg = new BufferedImage(GetCard().GetWidth(), GetCard().GetWidth(), BufferedImage.TYPE_INT_ARGB);
@@ -93,6 +121,9 @@ public class Projectile extends Entity {
         return gd.getDefaultConfiguration();
     }
 
+    /**
+     * Fügt dem Target Damage hinzu
+     */
     private void MakeDamage() {
 //        könnte mir gut vorstellen, dass des hier net geht
         GetTarget().TakeDamage(damage);

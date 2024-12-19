@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * DevTools ist ein JPanel in dem alle für Developer bestimmten Features zu finden sind.
+ * Die Formatierung (kann auch was anderes sein) passt nur irgendwie nicht, deshalb wird es zu Zeit nicht genutzt
+ */
 public class DevTools extends JPanel {
     private CardLayout cardLayout = new CardLayout();
     private CardEditor cardEditor;

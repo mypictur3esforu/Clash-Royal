@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * Die UI des Menus, also alles was nicht das Spielfeld ist
+ */
 public class MainUI {
     private static JFrame frame = new JFrame();
     private static JPanel cardPanel = new JPanel(new CardLayout());

@@ -33,7 +33,7 @@ public class Spielfeld {
     /**
      * Menge an Elixir, die ein Spieler bei jedem Timer Durchlauf erhält
      */
-    private double elixir = 1 / (double) (100 / 6);
+    private double elixir;
     /**
      * Der Timer, der das Spiel aktualisiert
      */
@@ -59,11 +59,13 @@ public class Spielfeld {
 
     /**
      * Erzeugt ein Spielfeld
+     *
      * @param cooldown Die Zeit zwischen Timer Durchläufen
-     * @param players Die Spieler in diesem Spiel + der System-Spieler
+     * @param players  Die Spieler in diesem Spiel + der System-Spieler
      */
     Spielfeld(int cooldown, Spieler[] players) {
         this.players = players;
+        elixir = (double) 1 / cooldown;
         gameUI = new GameUI(700, MainUI.screenHeight, players[1].GetCardSelection());
         MainUI.gameUI = gameUI;
         UIConnections();
@@ -111,13 +113,11 @@ public class Spielfeld {
 
             for (int i = 1; i < players.length; i++) {
                 players[i].AddElixir(elixir);
-            }
-
-//            if nicht nötig; war vorher wichtig jetzt nicht mehr, aber ist ne kleine Absicherung
-            if (players[2] instanceof Bot) {
-                Entity newbies = ((Bot) players[2]).Update();
-                if (newbies != null)
-                    NewTroop(newbies.GetCard(), (int) newbies.GetCords()[0], (int) newbies.GetCords()[1], newbies.GetAffiliation());
+                if (players[i] instanceof Bot) {
+                    Entity newbies = ((Bot) players[i]).Update();
+                    if (newbies != null)
+                        NewTroop(newbies.GetCard(), (int) newbies.GetCords()[0], (int) newbies.GetCords()[1], newbies.GetAffiliation());
+                }
             }
 
             if (selectedTroop == null) gameUI.UpdateElixirBar(players[1].GetElixir(), 0);
@@ -166,11 +166,11 @@ public class Spielfeld {
 //        Klappt net → mies, weil sorgt für ungewollte Beziehung von MainUI und Game
 //        game.map.add(units.getLast().label);
 //        game.map.add(units.getLast().healthBar);
-        selectedTroop = null;
-        gameUI.SetRestrictHalfVisible(false);
         playerAffiliation.ActualizeSelection(newTroop);
         if (!(playerAffiliation instanceof Bot)) {
+            selectedTroop = null;
             gameUI.buttons[selectedButton].NewCard(players[1].GetCardSelection().get(selectedButton)); //maybe klappt das hier auch nicht
+            gameUI.SetRestrictHalfVisible(false);
             selectedButton = -1;
         }
     }

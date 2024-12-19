@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Die UI des Spielfelds
+ */
 public class GameUI extends JPanel {
     private JPanel selectButtons, game, map, restrictHalf, elixirBar;
     JButton overlayButton;

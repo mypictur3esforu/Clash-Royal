@@ -19,7 +19,7 @@ public class Collection extends JPanel {
     }
 
     void Add(){
-        add(new Team(Team.CreateRandomTeam(Team.SortPlayableCards(ClashRoyal.staticCardCollection))));
+        add(new TeamPanel(TeamPanel.CreateRandomTeam(TeamPanel.SortPlayableCards(ClashRoyal.staticCardCollection))));
         add(cardView);
     }
 

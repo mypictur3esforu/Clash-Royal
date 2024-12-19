@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Team extends JPanel {
+public class TeamPanel extends JPanel {
     private ArrayList<Card> team;
     private static ArrayList<Card> staticTeam;
     private JPanel teamPanel;
@@ -12,7 +12,7 @@ public class Team extends JPanel {
         return staticTeam;
     }
 
-    Team(ArrayList<Card> cards){
+    TeamPanel(ArrayList<Card> cards){
         team = cards;
         staticTeam = cards;
         setLayout(new GridLayout(1, 1));
