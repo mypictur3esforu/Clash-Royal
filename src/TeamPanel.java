@@ -3,15 +3,31 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Erstellt eine Übersicht von einem gegebenem Team
+ */
 public class TeamPanel extends JPanel {
+    /**
+     * Karten im Team
+     */
     private ArrayList<Card> team;
+    /**
+     * Karten im Team
+     */
     private static ArrayList<Card> staticTeam;
+    /**
+     * Anzeige Panel
+     */
     private JPanel teamPanel;
 
     static public ArrayList<Card> GetStaticTeam(){
         return staticTeam;
     }
 
+    /**
+     * Erstellt eine Team-Übersicht
+     * @param cards Karten im Team
+     */
     TeamPanel(ArrayList<Card> cards){
         team = cards;
         staticTeam = cards;
@@ -21,6 +37,9 @@ public class TeamPanel extends JPanel {
         add(teamPanel);
     }
 
+    /**
+     * Fügt die Bilder und Stats hinzu
+     */
     void CreateTeam(){
         teamPanel = new JPanel(new GridLayout());
         setBackground(MainUI.vibe);
@@ -32,6 +51,11 @@ public class TeamPanel extends JPanel {
         teamPanel.add(cardsOfTeam);
     }
 
+    /**
+     * Erstellt ein zufälliges Team (ziemlich Fehl am Platz, habe die Klasse vorher für etwas anderes benutzt)
+     * @param potCards Kartensammlung
+     * @return Ein zufälliges Team
+     */
     static ArrayList<Card> CreateRandomTeam(ArrayList<Card> potCards){
         while (potCards.size() <= 8){
             potCards.addAll(potCards);
@@ -51,6 +75,11 @@ public class TeamPanel extends JPanel {
         return randomTeam;
     }
 
+    /**
+     * Sortiert nicht spielbare Karten aus
+     * @param cards Kartensammlung
+     * @return Kartensammlung ausschließlich mit spielbaren Karten
+     */
     static ArrayList<Card> SortPlayableCards(ArrayList<Card> cards){
         ArrayList<Card> sorted = new ArrayList<>();
         for (Card card : cards){

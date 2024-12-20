@@ -1,8 +1,18 @@
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Bots sind autonome Spieler. Sie treten gegen einen Spieler an und versuchen gegen diesen zu gewinnen.
+ * Prinzipiell können sie alles, was ein Spieler kann, nur platzieren sie ihre Truppen automatisch
+ */
 public class Bot extends Spieler{
 
+    /**
+     * Erstellt den Bot der gegen den Spieler spielt
+     * @param name Name des Bots
+     * @param team Karten, die im Spiel verfügbar sind
+     * @param color Teamfarbe des Bots
+     */
     Bot(String name, ArrayList<Card> team, Color color){
         super(name,team, color);
     }

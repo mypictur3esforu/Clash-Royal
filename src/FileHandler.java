@@ -12,8 +12,13 @@ import java.util.*;
 //3. Card SaveAsString erweitern
 //4. Alte Karten Updaten
 
-
+/**
+ * Liest Speicherdatei aus und speichert Informationen in ihr
+ */
 public class FileHandler {
+    /**
+     * Alle Attribute einer Karte als String[]
+     */
     private static String[] stats = new String[]{"Name:", "Speed:", "Range:", "Health:", "Damage:", "Attack Speed:", "Sight Distance:", "Width:", "Height:", "Projectile:", "Type:", "Elixir:", "Icon:"};
 
     public static String[] GetStats(){return stats;}

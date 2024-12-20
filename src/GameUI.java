@@ -6,17 +6,64 @@ import java.util.ArrayList;
  * Die UI des Spielfelds
  */
 public class GameUI extends JPanel {
-    private JPanel selectButtons, game, map, restrictHalf, elixirBar;
+    /**
+     * Sammlung der Buttons für Karten Auswahl
+     */
+    private JPanel selectButtons;
+    /**
+     * Das Spiel Panel
+     */
+    private JPanel game;
+    /**
+     * JPanel für den Hintergrund
+     */
+    private JPanel map;
+    /**
+     * JPanel für den Hälften Sperrer
+     */
+    private JPanel restrictHalf;
+    /**
+     * Das Panel der Elixier Anzeige
+     */
+    private JPanel elixirBar;
+    /**
+     * Button der Position des Klicks bestimmt
+     */
     JButton overlayButton;
+    /**
+     * Buttons zum Auswählen der Karten
+     */
     CardSelector[] buttons = new CardSelector[4];
+    /**
+     * Bild des Hintergrunds
+     */
     private ImageIcon icon = new ImageIcon("images/crtestmap.png");
-    private JProgressBar elixirPBar, troopCost;
+    /**
+     * Die Elixier Anzeige
+     */
+    private JProgressBar elixirPBar;
+    /**
+     * Die Elixier Kosten Anzeige
+     */
+    private JProgressBar troopCost;
 
+    //s. MainUI
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+    //s.MainUi
     int width, height, screenWidth = screenSize.width, screenHeight = screenSize.height;
 
+    /**
+     * Sperrt oder entsperrt die Hälfte des Gegners
+     * @param visible Sperren?
+     */
     public void SetRestrictHalfVisible(boolean visible){restrictHalf.setVisible(visible);}
+
+    /**
+     * Erstellt die UI des Spiels
+     * @param width Breite des Spiels
+     * @param height Höhe des Spiels
+     * @param cards Karten im Spiel
+     */
     GameUI(int width, int height, ArrayList<Card> cards){
         this.width = width;
         this.height = height;
@@ -37,6 +84,9 @@ public class GameUI extends JPanel {
         Add();
     }
 
+    /**
+     * Fügt alle Komponenten ein
+     */
     void Add(){
         //game.add(restrictHalf);
         game.add(overlayButton);
@@ -47,6 +97,9 @@ public class GameUI extends JPanel {
         add(game);
     }
 
+    /**
+     * Erstellt den Hintergrund des Spiels
+     */
     void CreateMap(){
         map = new JPanel();
         map.setBackground(Color.white);
@@ -56,6 +109,9 @@ public class GameUI extends JPanel {
         map.setVisible(true);
     }
 
+    /**
+     * Erstellt den Button der für Truppen Platzierung verantwortlich ist
+     */
     void CreateOverlayButton(){
         overlayButton = new JButton();
 //        overlayButton.setBounds(screenWidth / 2 - width / 2, 0, width, height);
@@ -67,6 +123,10 @@ public class GameUI extends JPanel {
         overlayButton.setContentAreaFilled(false);
     }
 
+    /**
+     * Erstellt die Buttons für die Karten Auswahl
+     * @param cards Die Karten, die der Spieler in diesem Spiel hat
+     */
     void CreateSelectButtons(ArrayList<Card> cards){
         selectButtons = new JPanel(new GridLayout(4, 1));
         for (int i = 0; i < 4; i++) {
@@ -77,6 +137,9 @@ public class GameUI extends JPanel {
         selectButtons.setBounds(0, 0, screenWidth / 2 - width / 2, screenHeight);
     }
 
+    /**
+     * Erstellt die Hälfte Sperrung
+     */
     void CreateRestrict(){
         restrictHalf = new JPanel(new GridLayout(1, 1));
         JLabel label = new JLabel();
@@ -87,6 +150,9 @@ public class GameUI extends JPanel {
         restrictHalf.setVisible(false);
     }
 
+    /**
+     * Erstellt die Elixier Anzeige
+     */
     void CreateElixirBar(){
         elixirBar = new JPanel(null);
         elixirPBar = new JProgressBar(JProgressBar.VERTICAL);
@@ -106,6 +172,11 @@ public class GameUI extends JPanel {
 //        elixirBar.setBounds(1000, 0, 1000, 1000);
     }
 
+    /**
+     * Aktualisiert die Elixier Anzeige
+     * @param amountOfElixir Menge an Elixier
+     * @param selectedTroopCost Menge an Elixier Kosten
+     */
     void UpdateElixirBar(double amountOfElixir, double selectedTroopCost){
         elixirPBar.setValue((int) (100 / 10 * amountOfElixir));
         troopCost.setValue((int) (100 / 10 * selectedTroopCost));
