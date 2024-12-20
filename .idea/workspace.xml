@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a17988a-2f05-46f8-b109-72d3e4a192cb" name="Changes" comment="Funktioniert">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Spiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TeamPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeamPanel.java" afterDir="false" />
-    </list>
+    <list default="true" id="6a17988a-2f05-46f8-b109-72d3e4a192cb" name="Changes" comment="Funktioniert" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -468,7 +456,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734623167888</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Funktioniert">
+      <option name="closed" value="true" />
+      <created>1734734678394</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1734734678394</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Funktioniert">
+      <option name="closed" value="true" />
+      <created>1734734742777</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1734734742777</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
